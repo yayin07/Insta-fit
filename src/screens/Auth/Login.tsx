@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import { auth } from "../../../Firebase.config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import ToastManager, { Toast } from "toastify-react-native";
 
 const Login = ({ navigation }: any) => {
   const [loading, setLoading] = useState(false);
@@ -16,18 +15,19 @@ const Login = ({ navigation }: any) => {
 
   const handleSignin = () => {
     navigation.navigate("Fitness", {});
+    // Toast.success("Login success");
   };
 
   const handleForgot = () => {
     navigation.navigate("ForgotPassword");
   };
 
-  const showToast = () => {
-    Toast.success("Login success");
-    <>
-      <ToastManager />
-    </>;
-  };
+  // const showToast = () => {
+  //   Toast.success("Login success");
+  //   <>
+  //     <ToastManager />
+  //   </>;
+  // };
   return (
     <View style={tw`flex-1 bg-black`}>
       {/* Background Image */}
