@@ -3,18 +3,27 @@ import React, { useState, createRef } from "react";
 import tw from "twrnc";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import ToastManager, { Toast } from "toastify-react-native";
-
+import { auth } from "../../../Firebase.config";
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [errorText, setErrorText] = useState("");
 
-  // const emailInputRef = createRef();
-  // const passwordInputRef = createRef();
-
   const handleLogin = () => {
     navigation.navigate("Login", {});
+  };
+
+  const handleSignup = () => {
+    setErrorText("");
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        console.log(res.user);
+        navigation.navigate("Start");
+      })
+      .catch((err) => setErrorText(err.message));
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -43,7 +52,7 @@ const Login = ({ navigation }: any) => {
               <TextInput
                 style={tw`text-[#ffffff]`}
                 keyboardType="email-address"
-                value={email}
+                onChangeText={(text) => setEmail(text)}
               />
             </View>
             {/* Password Input */}
@@ -53,6 +62,7 @@ const Login = ({ navigation }: any) => {
                 style={tw`text-[#ffffff] `}
                 secureTextEntry={true}
                 value={password}
+                onChangeText={(text) => setPassword(text)}
               />
             </View>
             {/* FirstName */}

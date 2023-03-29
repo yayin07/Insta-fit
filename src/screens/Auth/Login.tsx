@@ -99,7 +99,7 @@ const Login = ({ navigation }: any) => {
             {/* Button */}
             <View style={tw`py-3`}>
               <TouchableOpacity
-                onPress={showToast}
+                onPress={handleSignin}
                 style={tw`bg-black w-[340px] rounded-[40px] py-2 px-2`}
               >
                 <Text
