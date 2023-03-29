@@ -21,10 +21,9 @@ const Login = ({ navigation }: any) => {
       .then((res) => {
         console.log(res.user);
         navigation.navigate("Start");
+        Toast.success("Account created successfully");
       })
-      .catch((err) => setErrorText(err.message));
-    setEmail("");
-    setPassword("");
+      .catch((err) => Toast.Error("Invalid"));
   };
 
   return (
@@ -107,7 +106,7 @@ const Login = ({ navigation }: any) => {
             {/* Button */}
             <View style={tw`py-10`}>
               <TouchableOpacity
-                // onPress={handleSignup}
+                onPress={handleSignup}
                 style={tw`bg-black w-[340px] rounded-[40px] py-3 px-2`}
               >
                 <Text
