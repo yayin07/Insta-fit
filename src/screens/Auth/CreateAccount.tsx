@@ -7,6 +7,7 @@ import { auth } from "../../../Firebase.config";
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [errorText, setErrorText] = useState("");
 
