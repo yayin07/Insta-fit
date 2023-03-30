@@ -3,32 +3,28 @@ import React, { useState, createRef } from "react";
 import tw from "twrnc";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import ToastManager, { Toast } from "toastify-react-native";
+
 import { auth } from "../../../Firebase.config";
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
-  const [errorText, setErrorText] = useState("");
 
   const handleLogin = () => {
     navigation.navigate("Login", {});
   };
 
   const handleSignup = () => {
-    setErrorText("");
     createUserWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        console.log(res.user);
-        navigation.navigate("Start");
-        Toast.success("Account created successfully");
+      .then(() => {
+        navigation.navigate("Goal");
       })
-      .catch((err) => Toast.Error("Invalid"));
+      .catch((err) => alert("Please fill up the form"));
   };
 
   return (
     <View style={tw`flex-1 bg-black`}>
-      <ToastManager />
       {/* Background Image */}
       <View style={tw`flex items-center absolute -bottom-3 right-0 left-0 `}>
         <Image

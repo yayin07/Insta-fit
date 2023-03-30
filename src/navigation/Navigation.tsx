@@ -3,6 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ROUTE_NAME } from "./constants/constants";
 import { SCREENS } from "./constants/routeComponents";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import FitnessPlan from "../screens/Plan/FitnessPlan";
 
 const Stack = createStackNavigator();
 

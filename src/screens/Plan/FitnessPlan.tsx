@@ -7,6 +7,7 @@ import Advanced from "../Plan/Level/Advanced";
 
 import { db } from "../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
+import { getAuth, signOut } from "firebase/auth";
 
 const FitnessPlan = ({ navigation }: any) => {
   const handlePress = () => {
@@ -17,10 +18,21 @@ const FitnessPlan = ({ navigation }: any) => {
     navigation.navigate("Subscription");
   };
 
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        alert("Try again");
+      });
+  };
+
   return (
     <View style={tw`flex justify-start items-start flex-1 bg-[#FF1D38]`}>
       <View style={tw`flex justify-start`}>
-        <View style={tw`h-20`}>
+        <View style={tw`h-20 flex flex-row items-center justify-between`}>
           {/* Logo */}
           <View style={tw`flex flex-row justify-start items-center py-2 px-4`}>
             <View style={tw``}>
@@ -41,6 +53,11 @@ const FitnessPlan = ({ navigation }: any) => {
 
               <Text style={tw`text-[#000000] text-[10px]`}>BE MORE FIT</Text>
             </View>
+          </View>
+          <View style={tw`px-5`}>
+            <TouchableOpacity onPress={handleLogout}>
+              <Text style={tw`text-[20px]`}>Logout</Text>
+            </TouchableOpacity>
           </View>
         </View>
         {/*  */}

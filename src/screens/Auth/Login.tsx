@@ -5,7 +5,6 @@ import { auth } from "../../../Firebase.config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = ({ navigation }: any) => {
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,22 +13,26 @@ const Login = ({ navigation }: any) => {
   };
 
   const handleSignin = () => {
-    navigation.navigate("Fitness", {});
-    // Toast.success("Login success");
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        navigation.navigate("Fitness");
+      })
+      .catch((err) => {
+        if (email === "") {
+          alert("Please enter your Email");
+        }
+        if (password === "") {
+          alert("Please enter your password");
+        }
+      });
   };
 
   const handleForgot = () => {
     navigation.navigate("ForgotPassword");
   };
 
-  // const showToast = () => {
-  //   Toast.success("Login success");
-  //   <>
-  //     <ToastManager />
-  //   </>;
-  // };
   return (
-    <View style={tw`flex-1 bg-black`}>
+    <View style={tw`flex-1 bg-black py-1`}>
       {/* Background Image */}
       <View style={tw`flex items-center absolute -bottom-3 right-0 left-0 `}>
         <Image
@@ -40,7 +43,7 @@ const Login = ({ navigation }: any) => {
       </View>
       <View style={tw`flex  `}>
         {/* Logo */}
-        <View style={tw`flex flex-row justify-center items-center py-15 px-3`}>
+        <View style={tw`flex flex-row justify-center items-center py-10 px-3`}>
           <View>
             <Image source={require("../../../assets/Image1.png")} />
           </View>
@@ -57,7 +60,7 @@ const Login = ({ navigation }: any) => {
             <Text style={tw`text-[#FFFFFF] text-[16px]`}>BE MORE FIT</Text>
           </View>
         </View>
-        <View style={tw`px-3 flex py-14 `}>
+        <View style={tw`px-3 flex `}>
           <View style={tw`py-1 px-1`}>
             <Text style={tw`text-[#FFFFFF] text-[28px] font-extrabold px-3`}>
               SIGN IN
@@ -71,7 +74,7 @@ const Login = ({ navigation }: any) => {
               <TextInput
                 style={tw`text-[#ffffff]`}
                 keyboardType="email-address"
-                value={email}
+                onChangeText={(text) => setEmail(text)}
               />
             </View>
             {/* Password Input */}
@@ -80,7 +83,7 @@ const Login = ({ navigation }: any) => {
               <TextInput
                 style={tw`text-[#ffffff] `}
                 secureTextEntry={true}
-                value={password}
+                onChangeText={(text) => setPassword(text)}
               />
             </View>
             {/* Forgot Password */}
