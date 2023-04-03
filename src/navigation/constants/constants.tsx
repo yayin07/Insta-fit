@@ -1,7 +1,7 @@
 export enum ROUTE_NAME {
   BOTTOM_TAB = "Bottomtab",
-  PLAN_STACK = "Planstack",
-  MEAL_STACK = "Mealstack",
+  WORKOUT = "Workout",
+  MEALPLAN = "Meal Plan",
   PLAN = "Plan",
   MEAL = "Meal",
   LOGIN = "../screens/Auth/Login",

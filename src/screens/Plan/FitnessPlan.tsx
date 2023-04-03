@@ -26,7 +26,7 @@ const FitnessPlan = ({ navigation }: any) => {
     navigation.navigate("Subscription");
   };
 
-  const handleLogout = ({ navigation }: any) => {
+  const handleLogout = () => {
     const auth = getAuth();
     signOut(auth)
       .then(() => {

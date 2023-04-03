@@ -8,16 +8,16 @@ import {
 import React from "react";
 import tw from "twrnc";
 import { getAuth, signOut } from "firebase/auth";
-const Logout = () => {
-  const handleLogout = ({ navigation }: any) => {
+const Logout = ({ navigation }: any) => {
+  const handleLogout = async () => {
     const auth = getAuth();
-    signOut(auth)
+    await signOut(auth)
       .then(() => {
         navigation.navigate("Login");
         ToastAndroid.show("Logout Successfully", ToastAndroid.SHORT);
       })
       .catch((error) => {
-        ToastAndroid.show("Try again", ToastAndroid.SHORT);
+        console.log(error);
       });
   };
   return (

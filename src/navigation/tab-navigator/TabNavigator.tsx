@@ -48,7 +48,7 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={ROUTE_NAME.PLAN_STACK}
+        name={ROUTE_NAME.WORKOUT}
         component={FitnessPlanStackNavigator}
         options={{
           headerShown: false,
@@ -58,7 +58,7 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={ROUTE_NAME.MEAL_STACK}
+        name={ROUTE_NAME.MEALPLAN}
         component={MealPlanStackNavigator}
         options={{
           headerShown: false,

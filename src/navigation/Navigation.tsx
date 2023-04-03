@@ -47,6 +47,11 @@ const Navigation: React.FC = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.BEGINNERPLAN}
           />
+          <Stack.Screen
+            name="Breakfast"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.BREAKFAST}
+          />
         </>
       </Stack.Navigator>
     </NavigationContainer>
