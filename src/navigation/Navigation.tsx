@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { ROUTE_NAME } from "./constants/constants";
 import { SCREENS } from "./constants/routeComponents";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import FitnessPlan from "../screens/Plan/FitnessPlan";
 
 const Stack = createStackNavigator();
 
@@ -19,74 +18,34 @@ const Navigation: React.FC = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Create"
-            component={SCREENS.CREATEACCOUNT}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ForgotPassword"
-            component={SCREENS.FORGOTPASSWORD}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Email"
-            component={SCREENS.EMAILVERIFICATION}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="About"
-            component={SCREENS.ABOUTYOU}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Goal"
-            component={SCREENS.WHATSYOURGOAL}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Work"
-            component={SCREENS.WORKOUTTIME}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Start"
-            component={SCREENS.GETSTARTED}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
             name="Fitness"
-            component={SCREENS.FITNESSPLAN}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="BeginnerPlan"
-            component={SCREENS.BEGINNERPLAN}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name={ROUTE_NAME.BOTTOM_TAB}
             component={SCREENS.BOTTOM_TAB}
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Video"
-            component={SCREENS.VIDEOLINK}
-            options={{ headerShown: false }}
+            name="Create"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.CREATEACCOUNT}
           />
           <Stack.Screen
-            name="Timer"
-            component={SCREENS.PLANTIMER}
-            options={{ headerShown: false }}
+            name="Goal"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.GOAL}
           />
           <Stack.Screen
-            name="Subscription"
-            component={SCREENS.SUBSCRIPTION}
-            options={{ headerShown: false }}
+            name="Work"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.WORKOUTTIME}
           />
           <Stack.Screen
-            name="Breakfast"
-            component={SCREENS.BREAKFAST}
-            options={{ headerShown: false }}
+            name="Start"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.GETSTARTED}
+          />
+          <Stack.Screen
+            name="BeginnerPlan"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.BEGINNERPLAN}
           />
         </>
       </Stack.Navigator>

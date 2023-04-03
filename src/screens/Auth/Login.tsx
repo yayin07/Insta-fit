@@ -1,8 +1,19 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import { auth } from "../../../Firebase.config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
@@ -16,14 +27,37 @@ const Login = ({ navigation }: any) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         navigation.navigate("Fitness");
+        ToastAndroid.show("Login successfully", ToastAndroid.SHORT);
       })
       .catch((err) => {
         if (email === "") {
-          alert("Please enter your Email");
+          ToastAndroid.show("Please enter your Email", ToastAndroid.SHORT);
         }
         if (password === "") {
-          alert("Please enter your password");
+          ToastAndroid.show("Please enter your password", ToastAndroid.SHORT);
         }
+      });
+  };
+
+  const provider = new GoogleAuthProvider();
+
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential?.accessToken;
+        const user = result.user;
+        navigation.navigate("Fitness");
+
+        alert(user.displayName);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
       });
   };
 
@@ -124,14 +158,17 @@ const Login = ({ navigation }: any) => {
                 <View
                   style={tw`bg-black w-[340px] rounded-[40px] py-2 px-2 flex flex-row justify-between items-center`}
                 >
-                  <View style={tw`flex flex-row items-center`}>
+                  <TouchableOpacity
+                    onPress={handleGoogleLogin}
+                    style={tw`flex flex-row items-center`}
+                  >
                     <Image source={require("../../../assets/google.png")} />
                     <Text
                       style={tw`text-[#ffffff] px-2 font-semibold text-[16px]`}
                     >
                       Sign in with Google
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                   <View>
                     <Image source={require("../../../assets/Vector1.png")} />
                   </View>
@@ -142,14 +179,14 @@ const Login = ({ navigation }: any) => {
                 <View
                   style={tw`bg-black w-[340px] rounded-[40px] py-2 px-2 flex flex-row justify-between items-center`}
                 >
-                  <View style={tw`flex flex-row items-center`}>
+                  <TouchableOpacity style={tw`flex flex-row items-center`}>
                     <Image source={require("../../../assets/facebook.png")} />
                     <Text
                       style={tw`text-[#ffffff] px-2 font-semibold text-[16px]`}
                     >
                       Sign in with Facebook
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                   <View>
                     <Image source={require("../../../assets/Vector1.png")} />
                   </View>

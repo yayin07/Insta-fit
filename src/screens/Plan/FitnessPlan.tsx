@@ -1,4 +1,10 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ToastAndroid,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import Beginner from "../Plan/Level/Beginner";
@@ -7,25 +13,28 @@ import Advanced from "../Plan/Level/Advanced";
 
 import { db } from "../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
+// import { auth } from "../../../Firebase.config";
+
+// import Logout from "../../component/Logout";
 import { getAuth, signOut } from "firebase/auth";
 
 const FitnessPlan = ({ navigation }: any) => {
   const handlePress = () => {
     navigation.navigate("BeginnerPlan");
-    console.log("handlePress");
   };
   const handleSubscription = () => {
     navigation.navigate("Subscription");
   };
 
-  const handleLogout = () => {
+  const handleLogout = ({ navigation }: any) => {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
         navigation.navigate("Login");
+        ToastAndroid.show("Logout Successfully", ToastAndroid.SHORT);
       })
       .catch((error) => {
-        alert("Try again");
+        ToastAndroid.show("Try again", ToastAndroid.SHORT);
       });
   };
 
@@ -56,9 +65,14 @@ const FitnessPlan = ({ navigation }: any) => {
           </View>
           <View style={tw`px-5`}>
             <TouchableOpacity onPress={handleLogout}>
-              <Text style={tw`text-[20px]`}>Logout</Text>
+              <Image
+                source={require("../../../assets/logout.png")}
+                style={tw`w-[30px] h-[30px]`}
+              />
+              {/* <Text style={tw`text-[20px]`}>Logout</Text> */}
             </TouchableOpacity>
           </View>
+          {/* <Logout /> */}
         </View>
         {/*  */}
         <View style={tw`h-[50px] `}>

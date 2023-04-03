@@ -5,7 +5,7 @@ import tw from "twrnc";
 import { db } from "../../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
 
-const Breakfast = () => {
+const Breakfast = ({ navigation }: any) => {
   const [mealPlan, setMealPlan] = useState([]);
 
   useEffect(() => {

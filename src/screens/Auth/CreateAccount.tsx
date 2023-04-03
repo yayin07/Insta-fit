@@ -1,8 +1,15 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid,
+} from "react-native";
 import React, { useState, createRef } from "react";
 import tw from "twrnc";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import ToastManager, { Toast } from "toastify-react-native";
+// import ToastManager, { Toast } from "toastify-react-native";
 
 import { auth } from "../../../Firebase.config";
 const Login = ({ navigation }: any) => {
@@ -19,8 +26,17 @@ const Login = ({ navigation }: any) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         navigation.navigate("Goal");
+        ToastAndroid.show("Registered Sucessfully", ToastAndroid.SHORT);
       })
-      .catch((err) => alert("Please fill up the form"));
+      .catch((err) => {
+        ToastAndroid.show("Please fill up the form", ToastAndroid.SHORT);
+        if (email === "") {
+          ToastAndroid.show("Email should not be empty", ToastAndroid.SHORT);
+        }
+        if (email === "") {
+          ToastAndroid.show("Password should not be empty", ToastAndroid.SHORT);
+        }
+      });
   };
 
   return (

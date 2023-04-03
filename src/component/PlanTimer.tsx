@@ -1,12 +1,14 @@
-import { View, Text } from "react-native";
-import React, { useState, useEffect } from "react";
+import { View, Text, ToastAndroid, Button } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import tw from "twrnc";
 import { db } from "../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
-import { Video, AVPlaybackStatus } from "expo-av";
+import YoutubePlayer from "react-native-youtube-iframe";
+
 const PlanTimer = ({ navigation }: any) => {
   const [trainings, setTrainings] = useState([]);
-  const video = React.useRef(null);
-  const [status, setStatus] = React.useState({});
+  const [isPlaying, setIsPlaying] = useState(false);
+
   useEffect(() => {
     const trainingRef = collection(db, "trainings");
     const getRef = query(trainingRef);
@@ -18,11 +20,38 @@ const PlanTimer = ({ navigation }: any) => {
       setTrainings(fetchPlan);
     });
   }, []);
+
+  const onStateChange = useCallback(({ state }: any) => {
+    if (state === "Ended") {
+      setIsPlaying(false);
+      ToastAndroid.show("Video has ended", ToastAndroid.SHORT);
+    }
+  }, []);
+
+  const togglePlaying = useCallback(() => {
+    setIsPlaying((prev) => !prev);
+  }, []);
+
   return (
-    <View>
-      {trainings.map((url) => (
-        <View></View>
-      ))}
+    <View style={tw`flex p-3 h-full`}>
+      <View style={tw`flex-1`}>
+        <View style={tw`flex-1`}>
+          <YoutubePlayer
+            height={300}
+            play={isPlaying}
+            videoId={"iee2TATGMyI"}
+            onChangeState={onStateChange}
+            key="fullscreenVideo"
+          />
+        </View>
+
+        <View style={tw`absolute bottom-0 left-0 right-0 `}>
+          <Button
+            title={isPlaying ? "pause" : "play"}
+            onPress={togglePlaying}
+          />
+        </View>
+      </View>
     </View>
   );
 };
