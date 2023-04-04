@@ -52,6 +52,11 @@ const Navigation: React.FC = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.BREAKFAST}
           />
+          <Stack.Screen
+            name="Lunch"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.LUNCH}
+          />
         </>
       </Stack.Navigator>
     </NavigationContainer>

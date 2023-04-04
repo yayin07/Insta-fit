@@ -20,6 +20,7 @@ const Logout = ({ navigation }: any) => {
         console.log(error);
       });
   };
+
   return (
     <View style={tw`px-5`}>
       <TouchableOpacity onPress={handleLogout}>

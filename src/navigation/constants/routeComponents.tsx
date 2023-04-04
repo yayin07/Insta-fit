@@ -8,6 +8,7 @@ import WORKOUTTIME from "../../screens/Auth/WorkoutTime";
 import GETSTARTED from "../../screens/Auth/GetStarted";
 import BEGINNERPLAN from "../../screens/Plan/BeginnerPlan";
 import BREAKFAST from "../../screens/Plan/MealPlan/Breakfast";
+import LUNCH from "../../screens/Plan/MealPlan/Lunch";
 
 export const SCREENS = {
   BOTTOM_TAB,
@@ -20,4 +21,5 @@ export const SCREENS = {
   GETSTARTED,
   BEGINNERPLAN,
   BREAKFAST,
+  LUNCH,
 };

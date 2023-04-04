@@ -6,6 +6,9 @@ const Meals = ({ navigation }: any) => {
   const handleBreakfast = () => {
     navigation.navigate("Breakfast");
   };
+  const handleLunch = () => {
+    navigation.navigate("Lunch");
+  };
   return (
     <View style={tw`flex-1 `}>
       <View
@@ -18,7 +21,7 @@ const Meals = ({ navigation }: any) => {
           <TouchableOpacity onPress={handleBreakfast}>
             <Image source={require("../../../../assets/Frame9.png")} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleLunch}>
             <Image source={require("../../../../assets/Frame10.png")} />
           </TouchableOpacity>
         </View>
