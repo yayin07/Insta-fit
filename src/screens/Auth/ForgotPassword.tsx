@@ -1,63 +1,72 @@
-import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid,
+} from "react-native";
+import React, { useState } from "react";
 import tw from "twrnc";
+import { db } from "../../../Firebase.config";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 const ForgotPassword = ({ navigation }: any) => {
-  const handleLogin = () => {
+  const handleBack = () => {
     navigation.navigate("Login", {});
   };
+  const [email, setEmail] = useState("");
+  const changePassword = () => {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        ToastAndroid.show("Password reset email sent", ToastAndroid.SHORT);
+      })
+      .catch((error) => {
+        ToastAndroid.show("Try again", ToastAndroid.SHORT);
+      });
+  };
+
   return (
-    <View style={tw`flex-1 bg-black`}>
-      {/* Background Image */}
-      <View style={tw`flex items-center absolute -bottom-3 right-0 left-0 `}>
-        <Image
-          source={require("../../../assets/unsplash.png")}
-          alt="/"
-          style={tw`h-[850px] opacity-30`}
-        />
-      </View>
-      <View style={tw`flex-1 flex justify-center items-center `}>
-        <View style={tw`px-3 flex py-10 `}>
-          <View style={tw`py-1 px-1`}>
-            <Text style={tw`text-[#FFFFFF] text-[28px] font-extrabold px-3`}>
-              FORGOT PASSWORD
-            </Text>
-          </View>
-          {/* Inputs */}
-          <View style={tw`p-4 `}>
-            {/* Email Input */}
-            <View style={tw`border-b-[2px] border-[#ffffff] opacity-70 `}>
-              <Text style={tw`text-[#ffffff] py-2`}>Email</Text>
-              <TextInput
-                style={tw`text-[#ffffff]`}
-                keyboardType="email-address"
-              />
-            </View>
-
-            {/* Button */}
-            <View style={tw`py-10`}>
-              <TouchableOpacity
-                style={tw`bg-black w-[340px] rounded-[40px] py-3 px-2`}
-              >
-                <Text
-                  style={tw`text-[#ffffff] text-center font-bold text-[18px]`}
-                >
-                  Submit
-                </Text>
-              </TouchableOpacity>
-
-              {/* To Login */}
-              <TouchableOpacity
-                onPress={handleLogin}
-                style={tw`flex items-center py-20`}
-              >
-                <Text style={tw`text-[#ffffff] opacity-50`}>
-                  Already have an account? Login.
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+    <View style={tw`flex-1 p-3 flex items-center`}>
+      <View
+        style={tw`flex flex-col justify-evenly items-center w-full h-[200px] `}
+      >
+        <TouchableOpacity
+          style={tw`flex justify-start w-full p-5`}
+          onPress={handleBack}
+        >
+          <Image source={require("../../../assets/Vector8.png")} />
+        </TouchableOpacity>
+        <View style={tw`flex items-center`}>
+          <Image source={require("../../../assets/Icon4.png")} />
+          <Text style={tw`text-[23px] font-bold`}>Forgot Password?</Text>
         </View>
+      </View>
+      <View>
+        <View>
+          <Text style={tw`text-center px-5`}>
+            Please enter your email to receive a confirmation code to set a new
+            password.
+          </Text>
+        </View>
+        <View style={tw`border-b-[2px] mt-5`}>
+          <Text style={tw`px-3 text-[18px]`}>Email</Text>
+          <TextInput
+            style={tw`px-3`}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+        </View>
+      </View>
+      <View style={tw`absolute bottom-3 bg-black w-full rounded-[30px]`}>
+        <TouchableOpacity style={tw``} onPress={changePassword}>
+          <Text
+            style={tw`text-[#ffffff] text-center p-3 text-[15px] font-semibold`}
+          >
+            Confirm
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

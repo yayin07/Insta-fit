@@ -1,4 +1,5 @@
 import {
+  SafeAreaView,
   View,
   Text,
   Image,
@@ -9,9 +10,9 @@ import {
 import React, { useState, createRef } from "react";
 import tw from "twrnc";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-// import ToastManager, { Toast } from "toastify-react-native";
 
 import { auth } from "../../../Firebase.config";
+
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +20,7 @@ const Login = ({ navigation }: any) => {
   const [name, setName] = useState("");
 
   const handleLogin = () => {
-    navigation.navigate("Login", {});
+    navigation.navigate("Login");
   };
 
   const handleSignup = () => {
@@ -33,7 +34,7 @@ const Login = ({ navigation }: any) => {
         if (email === "") {
           ToastAndroid.show("Email should not be empty", ToastAndroid.SHORT);
         }
-        if (email === "") {
+        if (password === "") {
           ToastAndroid.show("Password should not be empty", ToastAndroid.SHORT);
         }
       });
@@ -57,7 +58,7 @@ const Login = ({ navigation }: any) => {
             </Text>
           </View>
           {/* Inputs */}
-          <View style={tw`p-4 `}>
+          <SafeAreaView style={tw`p-4 `}>
             {/* Email Input */}
             <View style={tw`border-b-[2px] border-[#ffffff] opacity-70 `}>
               <Text style={tw`text-[#ffffff] py-2`}>Email</Text>
@@ -75,6 +76,17 @@ const Login = ({ navigation }: any) => {
                 secureTextEntry={true}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
+              />
+              <View></View>
+            </View>
+            {/*Confirm Password Input */}
+            <View style={tw`border-b-[2px] border-[#ffffff] opacity-70 `}>
+              <Text style={tw`text-[#ffffff] py-2`}>Confirm Password</Text>
+              <TextInput
+                style={tw`text-[#ffffff] `}
+                secureTextEntry={true}
+                value={confirmPassword}
+                onChangeText={(text) => setConfirmPassword(text)}
               />
             </View>
             {/* FirstName */}
@@ -128,7 +140,7 @@ const Login = ({ navigation }: any) => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </SafeAreaView>
           {/* Privacy agreement */}
           <View style={tw``}>
             <View style={tw`flex items-center py-5`}>
@@ -140,7 +152,7 @@ const Login = ({ navigation }: any) => {
             {/* To Login */}
             <TouchableOpacity
               onPress={handleLogin}
-              style={tw`flex items-center py-20`}
+              style={tw`flex items-center py-5`}
             >
               <Text style={tw`text-[#ffffff] opacity-50`}>
                 Already have an account? Login.

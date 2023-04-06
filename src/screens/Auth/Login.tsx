@@ -15,7 +15,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 
-const Login = ({ navigation }: any) => {
+const Login = ({ navigation }: any): JSX.Element => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

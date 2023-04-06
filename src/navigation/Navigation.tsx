@@ -18,6 +18,11 @@ const Navigation: React.FC = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="Splash"
+            component={SCREENS.SPLASHSCREEN}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Fitness"
             component={SCREENS.BOTTOM_TAB}
             options={{ headerShown: false }}
@@ -26,6 +31,11 @@ const Navigation: React.FC = () => {
             name="Create"
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.CREATEACCOUNT}
+          />
+          <Stack.Screen
+            name="ForgotPassword"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.FORGOTPASSWORD}
           />
           <Stack.Screen
             name="Goal"
