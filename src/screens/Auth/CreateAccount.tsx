@@ -10,34 +10,95 @@ import {
 import React, { useState, createRef } from "react";
 import tw from "twrnc";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { query, collection, setDoc, doc, addDoc } from "firebase/firestore";
 
 import { auth } from "../../../Firebase.config";
+import { db } from "../../../Firebase.config";
+
+import { Feather } from "@expo/vector-icons";
 
 const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
+  const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
+
+  const userCollectionRef = collection(db, "users");
 
   const handleLogin = () => {
     navigation.navigate("Login");
   };
 
-  const handleSignup = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigation.navigate("Goal");
-        ToastAndroid.show("Registered Sucessfully", ToastAndroid.SHORT);
-      })
-      .catch((err) => {
-        ToastAndroid.show("Please fill up the form", ToastAndroid.SHORT);
-        if (email === "") {
-          ToastAndroid.show("Email should not be empty", ToastAndroid.SHORT);
-        }
-        if (password === "") {
-          ToastAndroid.show("Password should not be empty", ToastAndroid.SHORT);
-        }
+  const togglePasswordVisibility = () => {
+    setHidePassword(!hidePassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setHideConfirmPassword(!hideConfirmPassword);
+  };
+
+  const handleSignup = async () => {
+    if (
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !firstname ||
+      !lastname ||
+      !phoneNumber
+    ) {
+      await addDoc(userCollectionRef, {
+        first_name: firstname,
+        last_name: lastname,
+        email,
+        password,
+        confirmPassword: password,
+        role: "null",
+        phone: phoneNumber,
       });
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          navigation.navigate("Goal");
+          ToastAndroid.show("Registered Sucessfully", ToastAndroid.SHORT);
+        })
+        .catch((err) => {
+          ToastAndroid.show("Please fill up the form", ToastAndroid.SHORT);
+          if (email === "") {
+            ToastAndroid.show("Email should not be empty", ToastAndroid.SHORT);
+          }
+          if (password === "") {
+            ToastAndroid.show(
+              "Password should not be empty",
+              ToastAndroid.SHORT
+            );
+          }
+          if (firstname === "") {
+            ToastAndroid.show(
+              "Firstname should not be empty",
+              ToastAndroid.SHORT
+            );
+          }
+          if (lastname === "") {
+            ToastAndroid.show(
+              "Lastname should not be empty",
+              ToastAndroid.SHORT
+            );
+          }
+          if (phoneNumber === "") {
+            ToastAndroid.show(
+              "Phone number should not be empty",
+              ToastAndroid.SHORT
+            );
+          }
+          if (confirmPassword !== password) {
+            ToastAndroid.show("Password does not match", ToastAndroid.SHORT);
+          }
+        });
+    }
   };
 
   return (
@@ -73,21 +134,40 @@ const Login = ({ navigation }: any) => {
               <Text style={tw`text-[#ffffff] py-2`}>Password</Text>
               <TextInput
                 style={tw`text-[#ffffff] `}
-                secureTextEntry={true}
+                secureTextEntry={hidePassword}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
               />
-              <View></View>
+              <TouchableOpacity
+                style={tw`absolute right-3 top-7`}
+                onPress={togglePasswordVisibility}
+              >
+                <Feather
+                  name={hidePassword ? "eye" : "eye-off"}
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
             </View>
             {/*Confirm Password Input */}
             <View style={tw`border-b-[2px] border-[#ffffff] opacity-70 `}>
               <Text style={tw`text-[#ffffff] py-2`}>Confirm Password</Text>
               <TextInput
                 style={tw`text-[#ffffff] `}
-                secureTextEntry={true}
+                secureTextEntry={hideConfirmPassword}
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}
               />
+              <TouchableOpacity
+                style={tw`absolute right-3 top-7`}
+                onPress={toggleConfirmPasswordVisibility}
+              >
+                <Feather
+                  name={hideConfirmPassword ? "eye" : "eye-off"}
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
             </View>
             {/* FirstName */}
             <View style={tw`border-b-[2px] border-[#ffffff] opacity-70 `}>
@@ -96,7 +176,9 @@ const Login = ({ navigation }: any) => {
               </Text>
               <TextInput
                 style={tw`text-[#ffffff]`}
-                keyboardType="email-address"
+                keyboardType="default"
+                onChangeText={(text) => setFirstname(text)}
+                value={firstname}
               />
             </View>
             {/* LastName */}
@@ -106,7 +188,9 @@ const Login = ({ navigation }: any) => {
               </Text>
               <TextInput
                 style={tw`text-[#ffffff]`}
-                keyboardType="email-address"
+                keyboardType="default"
+                onChangeText={(text) => setLastname(text)}
+                value={lastname}
               />
             </View>
             {/* number */}
@@ -123,12 +207,14 @@ const Login = ({ navigation }: any) => {
                 <TextInput
                   style={tw`text-[#ffffff] px-2`}
                   keyboardType="number-pad"
+                  value={phoneNumber}
+                  onChangeText={(text) => setPhoneNumber(text)}
                 />
               </View>
             </View>
 
             {/* Button */}
-            <View style={tw`py-10`}>
+            <View style={tw`py-10 flex items-center`}>
               <TouchableOpacity
                 onPress={handleSignup}
                 style={tw`bg-black w-[340px] rounded-[40px] py-3 px-2`}

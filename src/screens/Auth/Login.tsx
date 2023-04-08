@@ -24,20 +24,24 @@ const Login = ({ navigation }: any): JSX.Element => {
   };
 
   const handleSignin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigation.navigate("Fitness");
-        ToastAndroid.show("Login successfully", ToastAndroid.SHORT);
-      })
-      .catch((err) => {
-        if (email === "") {
-          ToastAndroid.show("Please enter your Email", ToastAndroid.SHORT);
-        }
-        if (password === "") {
-          ToastAndroid.show("Please enter your password", ToastAndroid.SHORT);
-        }
-      });
+    navigation.navigate("Fitness");
   };
+
+  // const handleSignin = () => {
+  //   signInWithEmailAndPassword(auth, email, password)
+  //     .then(() => {
+  //       navigation.navigate("Fitness");
+  //       ToastAndroid.show("Login successfully", ToastAndroid.SHORT);
+  //     })
+  //     .catch((err) => {
+  //       if (email === "") {
+  //         ToastAndroid.show("Please enter your Email", ToastAndroid.SHORT);
+  //       }
+  //       if (password === "") {
+  //         ToastAndroid.show("Please enter your password", ToastAndroid.SHORT);
+  //       }
+  //     });
+  // };
 
   const provider = new GoogleAuthProvider();
 
@@ -134,7 +138,7 @@ const Login = ({ navigation }: any): JSX.Element => {
               </TouchableOpacity>
             </View>
             {/* Button */}
-            <View style={tw`py-3`}>
+            <View style={tw`py-3 flex items-center `}>
               <TouchableOpacity
                 onPress={handleSignin}
                 style={tw`bg-black w-[340px] rounded-[40px] py-2 px-2`}

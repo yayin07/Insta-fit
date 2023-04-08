@@ -42,6 +42,18 @@ const LoginStackNavigator = () => {
   );
 };
 
+const SocialStackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={ROUTE_NAME.SOCIAL}
+        options={{ headerShown: false, gestureEnabled: false }}
+        component={SCREENS.SOCIAL}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
@@ -64,6 +76,16 @@ const BottomTabNavigator = () => {
           headerShown: false,
           tabBarIcon: () => (
             <Image source={require("../../../assets/Vector7.png")} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Social"
+        component={SocialStackNavigator}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image source={require("../../../assets/Vector9.png")} />
           ),
         }}
       />

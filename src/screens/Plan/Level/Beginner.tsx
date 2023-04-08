@@ -6,7 +6,10 @@ const Beginner = () => {
   return (
     <View style={tw``}>
       <View>
-        <Image source={require("../../../../assets/Frame1.png")} />
+        <Image
+          source={require("../../../../assets/Frame1.png")}
+          style={tw`w-330px`}
+        />
       </View>
     </View>
   );

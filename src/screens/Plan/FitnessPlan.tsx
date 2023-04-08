@@ -103,15 +103,21 @@ const FitnessPlan = ({ navigation }: any) => {
       <View
         style={tw`flex items-center w-full h-full bg-[#ffffff] rounded-[30px]`}
       >
-        <TouchableOpacity onPress={handlePress} style={tw`py-4`}>
-          <Beginner />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleSubscription} style={tw`py-4`}>
-          <Intermidiate />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleSubscription} style={tw`py-4`}>
-          <Advanced />
-        </TouchableOpacity>
+        <View style={tw``}>
+          <TouchableOpacity onPress={handlePress} style={tw`py-4 w-full`}>
+            <Beginner />
+          </TouchableOpacity>
+        </View>
+        <View style={tw``}>
+          <TouchableOpacity onPress={handleSubscription} style={tw`py-4`}>
+            <Intermidiate />
+          </TouchableOpacity>
+        </View>
+        <View style={tw``}>
+          <TouchableOpacity onPress={handleSubscription} style={tw`py-4`}>
+            <Advanced />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

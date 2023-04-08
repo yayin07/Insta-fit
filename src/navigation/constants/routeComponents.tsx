@@ -11,6 +11,7 @@ import BREAKFAST from "../../screens/Plan/MealPlan/Breakfast";
 import LUNCH from "../../screens/Plan/MealPlan/Lunch";
 import SPLASHSCREEN from "../../component/SplashScreen";
 import FORGOTPASSWORD from "../../screens/Auth/ForgotPassword";
+import SOCIAL from "../../screens/Social/Newsfeed";
 
 export const SCREENS = {
   BOTTOM_TAB,
@@ -26,4 +27,5 @@ export const SCREENS = {
   LUNCH,
   SPLASHSCREEN,
   FORGOTPASSWORD,
+  SOCIAL,
 };

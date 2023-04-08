@@ -16,7 +16,7 @@ const Meals = ({ navigation }: any) => {
       >
         <Text style={tw`font-bold text-[15px] `}>MEALS</Text>
       </View>
-      <View style={tw`px-3 py-4`}>
+      <View style={tw`px-4 py-4 flex items-center`}>
         <View style={tw`flex flex-row`}>
           <TouchableOpacity onPress={handleBreakfast}>
             <Image source={require("../../../../assets/Frame9.png")} />
