@@ -12,7 +12,7 @@ const Lunch = ({ navigation }: any) => {
     const getMealPlanRef = collection(db, "meal-plan");
     const getRef = query(getMealPlanRef);
     const unsubcribe = onSnapshot(getRef, (snapshot) => {
-      const fetchPlan = snapshot.docs.map((doc) => ({
+      const { fetchPlan }: any = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));

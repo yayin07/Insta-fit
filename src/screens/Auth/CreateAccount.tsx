@@ -43,12 +43,12 @@ const Login = ({ navigation }: any) => {
 
   const handleSignup = async () => {
     if (
-      !email ||
-      !password ||
-      !confirmPassword ||
-      !firstname ||
-      !lastname ||
-      !phoneNumber
+      email ||
+      password ||
+      confirmPassword ||
+      firstname ||
+      lastname ||
+      phoneNumber
     ) {
       await addDoc(userCollectionRef, {
         first_name: firstname,

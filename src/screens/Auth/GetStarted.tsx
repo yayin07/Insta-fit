@@ -47,7 +47,7 @@ const GetStarted = ({ navigation }: any) => {
         {/* Button */}
         <TouchableOpacity
           onPress={handleStarted}
-          style={tw`bg-[#FF1D38] w-[350px] py-3 px-3 rounded-[30px] absolute bottom-6`}
+          style={tw`bg-[#FF1D38] w-[350px] py-3 px-3 rounded-[30px] absolute bottom-10`}
         >
           <Text
             style={tw`text-center text-[#ffffff] text-[16px] font-semibold`}

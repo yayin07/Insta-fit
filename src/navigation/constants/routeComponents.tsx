@@ -12,7 +12,13 @@ import LUNCH from "../../screens/Plan/MealPlan/Lunch";
 import SPLASHSCREEN from "../../component/SplashScreen";
 import FORGOTPASSWORD from "../../screens/Auth/ForgotPassword";
 import SOCIAL from "../../screens/Social/Newsfeed";
-
+import DINNER from "../../screens/Plan/MealPlan/Dinner";
+import MAINCOURSE from "../../screens/Plan/MealPlan/MainCourse";
+import DRINKS from "../../screens/Plan/MealPlan/Drinks";
+import SALAD from "../../screens/Plan/MealPlan/Salad";
+import VIDEO from "../../component/VideoLink";
+import TIMER from "../../component/PlanTimer";
+import UPLOAD from "../../component/Upload";
 export const SCREENS = {
   BOTTOM_TAB,
   PLAN,
@@ -28,4 +34,11 @@ export const SCREENS = {
   SPLASHSCREEN,
   FORGOTPASSWORD,
   SOCIAL,
+  DINNER,
+  MAINCOURSE,
+  DRINKS,
+  SALAD,
+  VIDEO,
+  TIMER,
+  UPLOAD,
 };

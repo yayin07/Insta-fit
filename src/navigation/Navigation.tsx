@@ -67,6 +67,41 @@ const Navigation: React.FC = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.LUNCH}
           />
+          <Stack.Screen
+            name="Dinner"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.DINNER}
+          />
+          <Stack.Screen
+            name="MainCourse"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.MAINCOURSE}
+          />
+          <Stack.Screen
+            name="Drinks"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.DRINKS}
+          />
+          <Stack.Screen
+            name="Salad"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.SALAD}
+          />
+          <Stack.Screen
+            name="Video"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.VIDEO}
+          />
+          <Stack.Screen
+            name="Timer"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.TIMER}
+          />
+          <Stack.Screen
+            name="Upload"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.UPLOAD}
+          />
         </>
       </Stack.Navigator>
     </NavigationContainer>

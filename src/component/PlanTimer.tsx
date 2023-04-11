@@ -34,24 +34,27 @@ const PlanTimer = ({ navigation }: any) => {
 
   return (
     <View style={tw`flex p-3 h-full`}>
-      <View style={tw`flex-1`}>
+      {trainings.map(({ data, url }) => (
         <View style={tw`flex-1`}>
-          <YoutubePlayer
-            height={300}
-            play={isPlaying}
-            videoId={"iee2TATGMyI"}
-            onChangeState={onStateChange}
-            key="fullscreenVideo"
-          />
-        </View>
+          <View style={tw``} key={data}>
+            <YoutubePlayer
+              height={300}
+              play={isPlaying}
+              videoId={url}
+              onChangeState={onStateChange}
+              key="fullscreenVideo"
+            />
+          </View>
 
-        <View style={tw`absolute bottom-0 left-0 right-0 `}>
-          <Button
-            title={isPlaying ? "pause" : "play"}
-            onPress={togglePlaying}
-          />
+          <View style={tw`absolute bottom-0 left-0 right-0 `}>
+            <Button
+              title={isPlaying ? "pause" : "play"}
+              onPress={togglePlaying}
+              color="black"
+            />
+          </View>
         </View>
-      </View>
+      ))}
     </View>
   );
 };

@@ -6,11 +6,17 @@ import { getAuth } from "firebase/auth";
 import { collection, doc, onSnapshot, query, setDoc } from "firebase/firestore";
 import { db } from "../../../Firebase.config";
 import Post from "../../component/Post";
+
+import { Feather } from "@expo/vector-icons";
 import Upload from "../../component/Upload";
 
 const Newsfeed = () => {
   const [post, setPost] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
   useEffect(() => {
     const postRef = collection(db, "social");
@@ -43,7 +49,7 @@ const Newsfeed = () => {
         </View>
       </View>
       {/*  */}
-      <View style={tw`flex items-center px-5 py-3 relative`}>
+      <View style={tw`flex items-center px-5 py-3 relative h-full`}>
         <View style={tw`border-t-[2px] w-full flex items-center py-3`}>
           <Text style={tw`text-[25px] font-bold`}>Newsfeed</Text>
         </View>
@@ -79,7 +85,11 @@ const Newsfeed = () => {
             }
           )}
         </View>
+        <Upload />
         {/*  */}
+      </View>
+      <View>
+        <Upload setIsOpen={setIsOpen} />
       </View>
 
       {/* <View style={tw`w-full absolute bottom-3 ml-3`}>
@@ -87,8 +97,15 @@ const Newsfeed = () => {
           <Text style={tw`text-center font-bold text-[15px] `}>Post</Text>
         </TouchableOpacity>
       </View> */}
+
       <View style={tw`flex items-center`}>
-        <Upload />
+        <TouchableOpacity
+          style={tw`absolute right-3 bottom-20 flex items-center`}
+          onPress={openModal}
+        >
+          <Feather name="plus" size={44} color="black" />
+          <Text>Click to open modal</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

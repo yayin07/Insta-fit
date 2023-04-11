@@ -5,7 +5,7 @@ import tw from "twrnc";
 import { db } from "../../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
 
-const Breakfast = ({ navigation }: any) => {
+const Dinner = ({ navigation }: any) => {
   const [mealPlan, setMealPlan] = useState([]);
 
   useEffect(() => {
@@ -23,11 +23,11 @@ const Breakfast = ({ navigation }: any) => {
   return (
     <View style={tw`flex-1 bg-[#ffffff]`}>
       <View style={tw`p-4 bg-[#ffffff] shadow-xl shadow-black`}>
-        <Text style={tw`text-[18px] font-bold`}>Breakfast</Text>
+        <Text style={tw`text-[18px] font-bold`}>Dinner</Text>
       </View>
       <View style={tw`py-5 flex items-center`}>
         {mealPlan
-          .filter(({ meal_time }) => meal_time === "breakfast")
+          .filter(({ meal_time }) => meal_time === "dinner")
           .map(({ description, meal_plan, meal_time, i }) => (
             <View key={i} style={tw`h-[180px] w-[370px] bg-white `}>
               <View
@@ -52,4 +52,4 @@ const Breakfast = ({ navigation }: any) => {
   );
 };
 
-export default Breakfast;
+export default Dinner;
