@@ -14,6 +14,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { Feather } from "@expo/vector-icons";
 
 const Login = ({ navigation }: any): JSX.Element => {
   const [email, setEmail] = useState("");

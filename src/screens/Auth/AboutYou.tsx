@@ -15,7 +15,7 @@ const AboutYou = ({ navigation }: any) => {
   };
 
   return (
-    <View style={tw`bg-[#FF1D38] flex-1`}>
+    <View style={tw`bg-[#FAA0A0] flex-1`}>
       <View style={tw`px-4 py-4 `}>
         {/* Logo */}
         <View style={tw`flex flex-row justify-center items-center  px-3`}>
@@ -57,9 +57,9 @@ const AboutYou = ({ navigation }: any) => {
           <View style={tw`p-3 rounded-[100px]`}>
             <Text style={tw`px-5 text-[#000000]`}>Male</Text>
           </View>
-          <View style={tw`p-3 rounded-[100px]`}>
+          {/* <View style={tw`p-3 rounded-[100px]`}>
             <Text style={tw`px-5 text-[#000000]`}>Other</Text>
-          </View>
+          </View> */}
         </View>
         {/*  */}
         <View>

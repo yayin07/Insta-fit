@@ -102,6 +102,11 @@ const Navigation: React.FC = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.UPLOAD}
           />
+          <Stack.Screen
+            name="About"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.ABOUT}
+          />
         </>
       </Stack.Navigator>
     </NavigationContainer>

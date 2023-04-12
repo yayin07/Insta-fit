@@ -40,7 +40,7 @@ const FitnessPlan = ({ navigation }: any) => {
 
   return (
     <View style={tw`flex justify-start items-start flex-1 bg-[#FF1D38]`}>
-      <View style={tw`flex justify-start`}>
+      <View style={tw`flex flex-row justify-between items-center w-full`}>
         <View style={tw`h-20 flex flex-row items-center justify-between`}>
           {/* Logo */}
           <View style={tw`flex flex-row justify-start items-center py-2 px-4`}>
@@ -63,40 +63,16 @@ const FitnessPlan = ({ navigation }: any) => {
               <Text style={tw`text-[#000000] text-[10px]`}>BE MORE FIT</Text>
             </View>
           </View>
-          <View style={tw`px-5`}>
-            <TouchableOpacity onPress={handleLogout}>
-              <Image
-                source={require("../../../assets/logout.png")}
-                style={tw`w-[30px] h-[30px]`}
-              />
-              {/* <Text style={tw`text-[20px]`}>Logout</Text> */}
-            </TouchableOpacity>
-          </View>
-          {/* <Logout /> */}
         </View>
-        {/*  */}
-        <View style={tw`h-[50px] `}>
-          <View style={tw`flex flex-row justify-evenly items-center w-full `}>
-            <View style={tw`flex items-center`}>
-              <Text style={tw`text-[#ffffff]`}>0</Text>
-              <Text style={tw`text-[#ffffff]`}>GOAL</Text>
-            </View>
-            <Text style={tw`text-[#ffffff]`}>-</Text>
-            <View style={tw`flex items-center`}>
-              <Text style={tw`text-[#ffffff]`}>0</Text>
-              <Text style={tw`text-[#ffffff]`}>FOOD</Text>
-            </View>
-            <Text style={tw`text-[#ffffff]`}>+</Text>
-            <View style={tw`flex items-center`}>
-              <Text style={tw`text-[#ffffff]`}>0</Text>
-              <Text style={tw`text-[#ffffff]`}>WORKOUT</Text>
-            </View>
-            <Text style={tw`text-[#ffffff]`}>=</Text>
-            <View style={tw`flex items-center`}>
-              <Text style={tw`text-[#ffffff]`}>0</Text>
-              <Text style={tw`text-[#ffffff]`}>REMAINING</Text>
-            </View>
-          </View>
+        {/* <Logout /> */}
+        <View style={tw`px-5`}>
+          <TouchableOpacity onPress={handleLogout}>
+            <Image
+              source={require("../../../assets/logout.png")}
+              style={tw`w-[30px] h-[30px]`}
+            />
+            {/* <Text style={tw`text-[20px]`}>Logout</Text> */}
+          </TouchableOpacity>
         </View>
       </View>
       {/*  */}

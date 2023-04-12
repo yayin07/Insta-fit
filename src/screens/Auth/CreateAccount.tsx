@@ -58,11 +58,11 @@ const Login = ({ navigation }: any) => {
         confirmPassword: password,
         role: "null",
         phone: phoneNumber,
+        subscriptions: "no",
       });
-
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
-          navigation.navigate("Goal");
+          navigation.navigate("About");
           ToastAndroid.show("Registered Sucessfully", ToastAndroid.SHORT);
         })
         .catch((err) => {
@@ -100,6 +100,10 @@ const Login = ({ navigation }: any) => {
         });
     }
   };
+
+  // const handleSignup = () => {
+  //   navigation.navigate("About");
+  // };
 
   return (
     <View style={tw`flex-1 bg-black`}>

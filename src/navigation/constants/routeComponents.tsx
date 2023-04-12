@@ -19,6 +19,7 @@ import SALAD from "../../screens/Plan/MealPlan/Salad";
 import VIDEO from "../../component/VideoLink";
 import TIMER from "../../component/PlanTimer";
 import UPLOAD from "../../component/Upload";
+import ABOUT from "../../screens/Auth/AboutYou";
 export const SCREENS = {
   BOTTOM_TAB,
   PLAN,
@@ -41,4 +42,5 @@ export const SCREENS = {
   VIDEO,
   TIMER,
   UPLOAD,
+  ABOUT,
 };

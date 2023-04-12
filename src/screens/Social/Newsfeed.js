@@ -13,9 +13,14 @@ import Upload from "../../component/Upload";
 const Newsfeed = () => {
   const [post, setPost] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [hidePassword, setHidePassword] = useState(true);
+  const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
 
   const openModal = () => {
     setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -85,11 +90,7 @@ const Newsfeed = () => {
             }
           )}
         </View>
-        <Upload />
-        {/*  */}
-      </View>
-      <View>
-        <Upload setIsOpen={setIsOpen} />
+        {/* <Upload /> */}
       </View>
 
       {/* <View style={tw`w-full absolute bottom-3 ml-3`}>
@@ -100,11 +101,9 @@ const Newsfeed = () => {
 
       <View style={tw`flex items-center`}>
         <TouchableOpacity
-          style={tw`absolute right-3 bottom-20 flex items-center`}
-          onPress={openModal}
+          style={tw`absolute right-3 bottom-17 flex items-center`}
         >
-          <Feather name="plus" size={44} color="black" />
-          <Text>Click to open modal</Text>
+          <Image source={require("../../../assets/Group2.png")} />
         </TouchableOpacity>
       </View>
     </View>

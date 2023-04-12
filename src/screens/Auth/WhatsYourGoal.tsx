@@ -7,7 +7,7 @@ const WhatsYourGoal = ({ navigation }: any) => {
     navigation.navigate("Work", {});
   };
   return (
-    <View style={tw`bg-[#FF1D38] flex-1`}>
+    <View style={tw`bg-[#FAA0A0] flex-1`}>
       <View style={tw`px-4 py-4 `}>
         {/* Logo */}
         <View style={tw`flex flex-row justify-center items-center  px-3`}>
@@ -30,7 +30,7 @@ const WhatsYourGoal = ({ navigation }: any) => {
       </View>
 
       <View
-        style={tw`h-[689px] bg-[#ffffff] absolute bottom-0 left-0 right-0 p-3 flex items-center rounded-t-[32px]`}
+        style={tw`h-[659px] bg-[#ffffff] absolute bottom-0 left-0 right-0 p-3 flex items-center rounded-t-[32px]`}
       >
         {/* About */}
         <View style={tw`py-10`}>
