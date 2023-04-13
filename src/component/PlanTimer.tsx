@@ -40,7 +40,7 @@ const PlanTimer = ({ navigation }: any) => {
             <YoutubePlayer
               height={300}
               play={isPlaying}
-              videoId={url}
+              videoId={"2TDN50OzZNk"}
               onChangeState={onStateChange}
               key="fullscreenVideo"
             />

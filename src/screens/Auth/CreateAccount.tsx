@@ -41,69 +41,69 @@ const Login = ({ navigation }: any) => {
     setHideConfirmPassword(!hideConfirmPassword);
   };
 
-  const handleSignup = async () => {
-    if (
-      email ||
-      password ||
-      confirmPassword ||
-      firstname ||
-      lastname ||
-      phoneNumber
-    ) {
-      await addDoc(userCollectionRef, {
-        first_name: firstname,
-        last_name: lastname,
-        email,
-        password,
-        confirmPassword: password,
-        role: "null",
-        phone: phoneNumber,
-        subscriptions: "no",
-      });
-      createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          navigation.navigate("About");
-          ToastAndroid.show("Registered Sucessfully", ToastAndroid.SHORT);
-        })
-        .catch((err) => {
-          ToastAndroid.show("Please fill up the form", ToastAndroid.SHORT);
-          if (email === "") {
-            ToastAndroid.show("Email should not be empty", ToastAndroid.SHORT);
-          }
-          if (password === "") {
-            ToastAndroid.show(
-              "Password should not be empty",
-              ToastAndroid.SHORT
-            );
-          }
-          if (firstname === "") {
-            ToastAndroid.show(
-              "Firstname should not be empty",
-              ToastAndroid.SHORT
-            );
-          }
-          if (lastname === "") {
-            ToastAndroid.show(
-              "Lastname should not be empty",
-              ToastAndroid.SHORT
-            );
-          }
-          if (phoneNumber === "") {
-            ToastAndroid.show(
-              "Phone number should not be empty",
-              ToastAndroid.SHORT
-            );
-          }
-          if (confirmPassword !== password) {
-            ToastAndroid.show("Password does not match", ToastAndroid.SHORT);
-          }
-        });
-    }
-  };
-
-  // const handleSignup = () => {
-  //   navigation.navigate("About");
+  // const handleSignup = async () => {
+  //   if (
+  //     email ||
+  //     password ||
+  //     confirmPassword ||
+  //     firstname ||
+  //     lastname ||
+  //     phoneNumber
+  //   ) {
+  //     await addDoc(userCollectionRef, {
+  //       first_name: firstname,
+  //       last_name: lastname,
+  //       email,
+  //       password,
+  //       confirmPassword: password,
+  //       role: "null",
+  //       phone: phoneNumber,
+  //       subscriptions: "no",
+  //     });
+  //     createUserWithEmailAndPassword(auth, email, password)
+  //       .then(() => {
+  //         navigation.navigate("About");
+  //         ToastAndroid.show("Registered Sucessfully", ToastAndroid.SHORT);
+  //       })
+  //       .catch((err) => {
+  //         ToastAndroid.show("Please fill up the form", ToastAndroid.SHORT);
+  //         if (email === "") {
+  //           ToastAndroid.show("Email should not be empty", ToastAndroid.SHORT);
+  //         }
+  //         if (password === "") {
+  //           ToastAndroid.show(
+  //             "Password should not be empty",
+  //             ToastAndroid.SHORT
+  //           );
+  //         }
+  //         if (firstname === "") {
+  //           ToastAndroid.show(
+  //             "Firstname should not be empty",
+  //             ToastAndroid.SHORT
+  //           );
+  //         }
+  //         if (lastname === "") {
+  //           ToastAndroid.show(
+  //             "Lastname should not be empty",
+  //             ToastAndroid.SHORT
+  //           );
+  //         }
+  //         if (phoneNumber === "") {
+  //           ToastAndroid.show(
+  //             "Phone number should not be empty",
+  //             ToastAndroid.SHORT
+  //           );
+  //         }
+  //         if (confirmPassword !== password) {
+  //           ToastAndroid.show("Password does not match", ToastAndroid.SHORT);
+  //         }
+  //       });
+  //   }
   // };
+
+  const handleSignup = () => {
+    navigation.navigate("About");
+  };
 
   return (
     <View style={tw`flex-1 bg-black`}>

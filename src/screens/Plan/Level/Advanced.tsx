@@ -5,7 +5,7 @@ const Advanced = () => {
   return (
     <View>
       <Image
-        source={require("../../../../assets/Frame3.png")}
+        source={require("../../../../assets/Frame18.png")}
         style={tw`w-330px`}
       />
     </View>

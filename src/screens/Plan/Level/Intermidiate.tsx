@@ -6,7 +6,7 @@ const Intermidiate = () => {
   return (
     <View>
       <Image
-        source={require("../../../../assets/Frame2.png")}
+        source={require("../../../../assets/Frame17.png")}
         style={tw`w-330px`}
       />
     </View>

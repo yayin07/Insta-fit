@@ -90,7 +90,7 @@ const WhatsYourGoal = ({ navigation }: any) => {
               style={tw`border-[2px] border-black p-3 rounded-[32px]`}
             >
               <Text style={tw`text-center text-[16px] font-semibold`}>
-                Prenatal fit
+                Get Healthier
               </Text>
             </TouchableOpacity>
           </View>

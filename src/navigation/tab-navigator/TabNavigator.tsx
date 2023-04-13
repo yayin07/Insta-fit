@@ -42,6 +42,18 @@ const LoginStackNavigator = () => {
   );
 };
 
+const UserProfileStackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={ROUTE_NAME.PROFILE}
+        options={{ headerShown: false, gestureEnabled: false }}
+        component={SCREENS.USERPROFILE}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const SocialStackNavigator = () => {
   return (
     <Stack.Navigator>
@@ -86,6 +98,16 @@ const BottomTabNavigator = () => {
           headerShown: false,
           tabBarIcon: () => (
             <Image source={require("../../../assets/Vector9.png")} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={UserProfileStackNavigator}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image source={require("../../../assets/Vector10.png")} />
           ),
         }}
       />

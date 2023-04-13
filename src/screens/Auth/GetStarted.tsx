@@ -9,6 +9,7 @@ const GetStarted = ({ navigation }: any) => {
 
   return (
     <View style={tw`flex-1 `}>
+      <View></View>
       <View
         style={tw`h-[779px] bg-[#ffffff] p-3 flex items-center rounded-t-[32px]`}
       >

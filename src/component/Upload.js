@@ -17,10 +17,10 @@ import tw from "twrnc";
 
 import { storage } from "../../Firebase.config";
 import { saveItem } from "../utils/FirebaseFunction";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, query, serverTimestamp } from "firebase/firestore";
 import { db } from "../../Firebase.config";
 
-const Upload = () => {
+const Upload = ({ setModalVisible, modalVisible }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [title, setTitle] = useState("");
@@ -75,13 +75,12 @@ const Upload = () => {
   };
 
   console.log(saveDetails);
-  const postCollectionRef = collection(db, "social");
+  const postCollectionRef = query(db, "social");
 
   const saveDetails = async () => {
     if (!title || !description || !imageUrl) {
       ToastAndroid.show("Required fields cannot be empty", ToastAndroid.SHORT);
-    }
-    {
+    } else {
       await addDoc(postCollectionRef, {
         id: `${Date.now()}`,
         post_title: title,
@@ -96,16 +95,16 @@ const Upload = () => {
 
   return (
     <View
-      style={tw`absolute flex justify-start w-full h-550px bg-white rounded-[10px] `}
+      style={tw`absolute flex justify-start rounded-[10px] w-full h-full opacity-100 bg-[#ffc0cb] rounded-[10px] `}
     >
       <View style={tw`flex flex-row justify-between items-center`}>
         <Text style={tw`px-5 py-5 font-bold text-[13px]`}>Fill up to post</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
           <Text style={tw`px-5 py-5 font-bold text-[15px]`}>X</Text>
         </TouchableOpacity>
       </View>
 
-      <View>
+      <View style={tw`flex justify-center`}>
         <View style={tw`flex gap-3 px-4 py-4 justify-evenly`}>
           <View style={tw` border-[2px] border-black px-2 py-2`}>
             <TextInput
@@ -127,7 +126,7 @@ const Upload = () => {
         </View>
       </View>
 
-      <View style={tw`px-3 `}>
+      <View style={tw`px-3 flex items-center `}>
         <Button title="Pick an image" onPress={pickImage} />
         <View style={tw`flex items-center`}>
           {imageUrl && (
@@ -136,7 +135,7 @@ const Upload = () => {
         </View>
       </View>
       <View
-        style={tw`absolute bottom-3 left-0 right-0 flex items-center px-3 `}
+        style={tw`absolute bottom-3 left-0 right-3 flex items-center px-3 `}
       >
         <TouchableOpacity style={tw`bg-blue-500 w-full `} onPress={saveDetails}>
           <Text style={tw`text-center text-[#ffffff] p-2`}>Submit</Text>

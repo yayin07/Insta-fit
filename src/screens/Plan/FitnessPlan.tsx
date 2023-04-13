@@ -39,7 +39,7 @@ const FitnessPlan = ({ navigation }: any) => {
   };
 
   return (
-    <View style={tw`flex justify-start items-start flex-1 bg-[#FF1D38]`}>
+    <View style={tw`flex justify-start items-start flex-1 bg-[#FAA0A0]`}>
       <View style={tw`flex flex-row justify-between items-center w-full`}>
         <View style={tw`h-20 flex flex-row items-center justify-between`}>
           {/* Logo */}
