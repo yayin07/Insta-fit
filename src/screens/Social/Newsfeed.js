@@ -71,7 +71,7 @@ const Newsfeed = () => {
               return (
                 <View
                   key={id}
-                  style={tw`bg-[#ffffff] w-[300px] h-[300px] rounded-lg px-5 py-1`}
+                  style={tw`bg-[#ffffff] w-[300px] h-[300px] px-5 py-1`}
                 >
                   <View style={tw`px-1`}>
                     <Text style={tw`text-[20px] py-1 font-bold`}>

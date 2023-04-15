@@ -21,6 +21,11 @@ import TIMER from "../../component/PlanTimer";
 import UPLOAD from "../../component/Upload";
 import ABOUT from "../../screens/Auth/AboutYou";
 import USERPROFILE from "../../screens/Social/UserProfile";
+import SUBSCRIPTION from "../../component/Subscription";
+import FITNESS from "../../screens/Plan/FitnessPlan";
+import INTERMIDIATEPLAN from "../../screens/Plan/IntermidiatePlan";
+import ADVANCEDPLAN from "../../screens/Plan/AdvancedPlan";
+
 export const SCREENS = {
   BOTTOM_TAB,
   PLAN,
@@ -45,4 +50,8 @@ export const SCREENS = {
   UPLOAD,
   ABOUT,
   USERPROFILE,
+  SUBSCRIPTION,
+  FITNESS,
+  INTERMIDIATEPLAN,
+  ADVANCEDPLAN,
 };

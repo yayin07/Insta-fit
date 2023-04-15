@@ -24,11 +24,11 @@ const Logout = ({ navigation }: any) => {
   return (
     <View style={tw`px-5`}>
       <TouchableOpacity onPress={handleLogout}>
-        <Image
+        {/* <Image
           source={require("../../assets/logout.png")}
           style={tw`w-[30px] h-[30px]`}
-        />
-        {/* <Text style={tw`text-[20px]`}>Logout</Text> */}
+        /> */}
+        <Text style={tw`text-[15px]`}>Logout</Text>
       </TouchableOpacity>
     </View>
   );

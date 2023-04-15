@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
-import Beginner from "../Plan/Level/Beginner";
-import Intermidiate from "../Plan/Level/Intermidiate";
-import Advanced from "../Plan/Level/Advanced";
+import Beginner from "./Level/Beginner";
+import Intermidiate from "./Level/Intermidiate";
+import Advanced from "./Level/Advanced";
 
 import { db } from "../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
@@ -17,8 +17,11 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 
 // import Logout from "../../component/Logout";
 import { getAuth, signOut } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 
-const FitnessPlan = ({ navigation }: any) => {
+const FitnessPlan = () => {
+  const navigation = useNavigation();
+
   const handlePress = () => {
     navigation.navigate("BeginnerPlan");
   };
@@ -85,12 +88,12 @@ const FitnessPlan = ({ navigation }: any) => {
           </TouchableOpacity>
         </View>
         <View style={tw``}>
-          <TouchableOpacity onPress={handleSubscription} style={tw`py-4`}>
+          <TouchableOpacity style={tw`py-4`}>
             <Intermidiate />
           </TouchableOpacity>
         </View>
         <View style={tw``}>
-          <TouchableOpacity onPress={handleSubscription} style={tw`py-4`}>
+          <TouchableOpacity style={tw`py-4`}>
             <Advanced />
           </TouchableOpacity>
         </View>

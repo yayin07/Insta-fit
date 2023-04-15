@@ -1,18 +1,18 @@
 import { View, Text, Image } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
-
+import { useNavigation } from "@react-navigation/native";
 import { db } from "../../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
 
-const Salad = ({ navigation }: any) => {
+const Salad = () => {
   const [mealPlan, setMealPlan] = useState([]);
 
   useEffect(() => {
     const getMealPlanRef = collection(db, "meal-plan");
     const getRef = query(getMealPlanRef);
     const unsubcribe = onSnapshot(getRef, (snapshot) => {
-      const { fetchPlan }: any = snapshot.docs.map((doc) => ({
+      const fetchPlan = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));

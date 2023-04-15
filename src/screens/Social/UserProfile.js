@@ -1,10 +1,11 @@
 import { View, Text, Image, ScrollView } from "react-native";
 import React from "react";
 import tw from "twrnc";
+import Logout from "../../component/Logout";
 
 const UserProfile = () => {
   return (
-    <View style={tw`flex-1 `}>
+    <View style={tw`flex-1 flex items-center `}>
       <View style={tw`h-20 flex flex-row items-center justify-between`}>
         {/* Logo */}
         <View style={tw`flex flex-row justify-start items-center py-1 px-4`}>
@@ -41,6 +42,7 @@ const UserProfile = () => {
           <Text style={tw`text-10px`}>Fitness Plan</Text>
         </View>
       </View>
+
       <ScrollView>
         <View style={tw`px-6 py-2`}>
           <Text style={tw`px-1 py-2 text-17px font-bold`}>About Me</Text>
@@ -68,6 +70,9 @@ const UserProfile = () => {
           <View>
             <Image source={require("../../../assets/Component8.png")} />
           </View>
+        </View>
+        <View>
+          <Logout />
         </View>
       </ScrollView>
     </View>

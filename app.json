@@ -4,12 +4,11 @@
     "slug": "insta-fit",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Image2.png",
+    "icon": "./assets/LOGO1.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Frame12.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#FFC1CC"
+      "image": "./assets/Frame26.png",
+      "resizeMode": "cover"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {

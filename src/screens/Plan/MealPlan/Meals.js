@@ -1,8 +1,11 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import tw from "twrnc";
+import { useNavigation } from "@react-navigation/native";
 
-const Meals = ({ navigation }: any) => {
+const Meals = () => {
+  const navigation = useNavigation();
+
   const handleBreakfast = () => {
     navigation.navigate("Breakfast");
   };

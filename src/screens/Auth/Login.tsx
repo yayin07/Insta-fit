@@ -19,9 +19,14 @@ import { Feather } from "@expo/vector-icons";
 const Login = ({ navigation }: any): JSX.Element => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
 
   const handleRegister = () => {
     navigation.navigate("Create", {});
+  };
+
+  const togglePasswordVisibility = () => {
+    setHidePassword(!hidePassword);
   };
 
   const handleSignin = () => {
@@ -29,42 +34,28 @@ const Login = ({ navigation }: any): JSX.Element => {
   };
 
   // const handleSignin = () => {
+  //   if (!email || !password) {
+  //     ToastAndroid.show(
+  //       "Please enter your email and password",
+  //       ToastAndroid.SHORT
+  //     );
+  //     return;
+  //   }
   //   signInWithEmailAndPassword(auth, email, password)
   //     .then(() => {
   //       navigation.navigate("Fitness");
-  //       ToastAndroid.show("Login successfully", ToastAndroid.SHORT);
+  //       ToastAndroid.show("Login successful", ToastAndroid.SHORT);
   //     })
-  //     .catch((err) => {
-  //       if (email === "") {
-  //         ToastAndroid.show("Please enter your Email", ToastAndroid.SHORT);
-  //       }
-  //       if (password === "") {
-  //         ToastAndroid.show("Please enter your password", ToastAndroid.SHORT);
-  //       }
+  //     .catch((error) => {
+  //       console.error(error);
+  //       ToastAndroid.show(
+  //         "Error signing in. Please try again.",
+  //         ToastAndroid.SHORT
+  //       );
   //     });
   // };
 
-  const provider = new GoogleAuthProvider();
-
-  const handleGoogleLogin = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential?.accessToken;
-        const user = result.user;
-        navigation.navigate("Fitness");
-
-        alert(user.displayName);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-      });
-  };
+  console.log(handleSignin);
 
   const handleForgot = () => {
     navigation.navigate("ForgotPassword");
@@ -121,9 +112,20 @@ const Login = ({ navigation }: any): JSX.Element => {
               <Text style={tw`text-[#ffffff] py-2`}>Password</Text>
               <TextInput
                 style={tw`text-[#ffffff] `}
-                secureTextEntry={true}
+                secureTextEntry={hidePassword}
                 onChangeText={(text) => setPassword(text)}
+                value={password}
               />
+              <TouchableOpacity
+                style={tw`absolute right-3 top-7`}
+                onPress={togglePasswordVisibility}
+              >
+                <Feather
+                  name={hidePassword ? "eye" : "eye-off"}
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
             </View>
             {/* Forgot Password */}
             <View style={tw`py-3`}>
@@ -152,53 +154,7 @@ const Login = ({ navigation }: any): JSX.Element => {
               </TouchableOpacity>
             </View>
           </View>
-          {/* Connect with google or facebook */}
-          <View style={tw`flex items-center justify-between`}>
-            <View style={tw``}>
-              <Text style={tw`text-[#FFFFFF] opacity-60`}>OR CONNECT WITH</Text>
-            </View>
-            <View style={tw`py-3`}>
-              {/* Google */}
-              <View style={tw`py-1`}>
-                <View
-                  style={tw`bg-black w-[340px] rounded-[40px] py-2 px-2 flex flex-row justify-between items-center`}
-                >
-                  <TouchableOpacity
-                    onPress={handleGoogleLogin}
-                    style={tw`flex flex-row items-center`}
-                  >
-                    <Image source={require("../../../assets/google.png")} />
-                    <Text
-                      style={tw`text-[#ffffff] px-2 font-semibold text-[16px]`}
-                    >
-                      Sign in with Google
-                    </Text>
-                  </TouchableOpacity>
-                  <View>
-                    <Image source={require("../../../assets/Vector1.png")} />
-                  </View>
-                </View>
-              </View>
-              {/* Facebook */}
-              <View style={tw`py-1`}>
-                <View
-                  style={tw`bg-black w-[340px] rounded-[40px] py-2 px-2 flex flex-row justify-between items-center`}
-                >
-                  <TouchableOpacity style={tw`flex flex-row items-center`}>
-                    <Image source={require("../../../assets/facebook.png")} />
-                    <Text
-                      style={tw`text-[#ffffff] px-2 font-semibold text-[16px]`}
-                    >
-                      Sign in with Facebook
-                    </Text>
-                  </TouchableOpacity>
-                  <View>
-                    <Image source={require("../../../assets/Vector1.png")} />
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
+
           {/* Register */}
           <TouchableOpacity
             onPress={handleRegister}

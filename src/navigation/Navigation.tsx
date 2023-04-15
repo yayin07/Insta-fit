@@ -18,6 +18,11 @@ const Navigation: React.FC = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="Subscription"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.SUBSCRIPTION}
+          />
+          <Stack.Screen
             name="Splash"
             component={SCREENS.SPLASHSCREEN}
             options={{ headerShown: false }}
@@ -25,12 +30,17 @@ const Navigation: React.FC = () => {
           <Stack.Screen
             name="Fitness"
             component={SCREENS.BOTTOM_TAB}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, gestureEnabled: false }}
           />
           <Stack.Screen
             name="Create"
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.CREATEACCOUNT}
+          />
+          <Stack.Screen
+            name="Start"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.GETSTARTED}
           />
           <Stack.Screen
             name="ForgotPassword"
@@ -47,11 +57,7 @@ const Navigation: React.FC = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.WORKOUTTIME}
           />
-          <Stack.Screen
-            name="Start"
-            options={{ headerShown: false, gestureEnabled: false }}
-            component={SCREENS.GETSTARTED}
-          />
+
           <Stack.Screen
             name="BeginnerPlan"
             options={{ headerShown: false, gestureEnabled: false }}
@@ -106,6 +112,16 @@ const Navigation: React.FC = () => {
             name="About"
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.ABOUT}
+          />
+          <Stack.Screen
+            name="IntermidiatePlan"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.INTERMIDIATEPLAN}
+          />
+          <Stack.Screen
+            name="AdvancedPlan"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.ADVANCEDPLAN}
           />
         </>
       </Stack.Navigator>

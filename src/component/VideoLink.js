@@ -1,11 +1,11 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import tw from "twrnc";
+import { useRoute } from "@react-navigation/native";
 
-const VideoLink = ({ navigation }: any) => {
-  const handleStart = () => {
-    navigation.navigate("Timer");
-  };
+const VideoLink = () => {
+  const route = useRoute();
+  const { trainings } = route.params;
   return (
     <View style={tw`flex-1`}>
       <View>
@@ -42,13 +42,7 @@ const VideoLink = ({ navigation }: any) => {
       {/* Description */}
       <View style={tw`p-3`}>
         <Text style={tw`text-[17px] font-bold px-3 `}>Description</Text>
-        <Text style={tw`px-3`}>
-          A new 20 min Sweaty All Standing HIIT! It's a quick & effective home
-          workout with light weights. Short on time? This workout will make you
-          burn calories and get the heart rate up! Imagine how good you'll feel
-          after just 20 mins of moving your body? It's a GOOD DAY to push it to
-          your limit
-        </Text>
+        <Text style={tw`px-3`}>{trainings.description}</Text>
       </View>
       {/*  */}
       <View>
@@ -104,7 +98,7 @@ const VideoLink = ({ navigation }: any) => {
         </View>
       </View>
       {/*  */}
-      <View style={tw`flex items-center `}>
+      {/* <View style={tw`flex items-center `}>
         <TouchableOpacity
           onPress={handleStart}
           style={tw`bg-[#FF1D38] w-[350px] py-3 px-3 rounded-[30px] `}
@@ -115,7 +109,7 @@ const VideoLink = ({ navigation }: any) => {
             START
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };

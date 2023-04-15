@@ -8,7 +8,7 @@ const Beginner = () => {
       <View>
         <Image
           source={require("../../../../assets/Frame1.png")}
-          style={tw`w-330px`}
+          style={tw`w-330px rounded-[10px]`}
         />
       </View>
     </View>

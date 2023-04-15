@@ -4,10 +4,14 @@ import React, { useState } from "react";
 import tw from "twrnc";
 
 const Subscription = () => {
-  const [current, setCurrent] = useState("");
+  const subscription = [
+    { value: "Basic" },
+    { value: "Intermidiate" },
+    { value: "Advance" },
+  ];
 
   return (
-    <View style={tw`flex justify-start items-center flex-1 bg-[#FF1D38]`}>
+    <View style={tw`flex justify-start items-center flex-1 bg-[#FAA0A0]`}>
       <View style={tw`flex justify-start`}>
         <View style={tw`h-20`}>
           {/* Logo */}
@@ -33,7 +37,27 @@ const Subscription = () => {
           </View>
         </View>
       </View>
-      <View style={tw`h-[720px] w-full bg-[#ffffff] rounded-[32px] p-5`}>
+      <View
+        style={tw`h-[720px] w-full bg-[#ffffff] rounded-[32px] p-5 gap-5 flex`}
+      >
+        {/* Basic */}
+        <View
+          style={tw`p-4 shadow-xl shadow-black bg-[#ffffff] h-[150px] flex justify-center rounded-[8px]`}
+        >
+          <View style={tw`flex flex-row justify-between`}>
+            <View>
+              <View>
+                <Text>Basic</Text>
+              </View>
+              <View>
+                <Text>Free Workout</Text>
+              </View>
+            </View>
+            <View>
+              <Image source={require("../../assets/Frame7.png")} />
+            </View>
+          </View>
+        </View>
         {/* Intermediate */}
         <View
           style={tw`p-4 shadow-xl shadow-black bg-[#ffffff] h-[150px] flex justify-center rounded-[8px]`}
@@ -76,7 +100,7 @@ const Subscription = () => {
           </View>
         </View>
         {/* Button */}
-        <View style={tw`py-3 flex justify-center absolute bottom-6 left-6`}>
+        <View style={tw`py-3 flex justify-center absolute bottom-4 left-6`}>
           <TouchableOpacity
             // onPress={handleSignin}
             style={tw`bg-[#FF1D38] w-[340px] rounded-[40px] py-2 px-2`}

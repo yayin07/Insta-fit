@@ -4,7 +4,7 @@ import tw from "twrnc";
 
 const WorkoutTime = ({ navigation }: any) => {
   const handleNext = () => {
-    navigation.navigate("Start");
+    navigation.navigate("Subscription");
   };
   return (
     <View style={tw`bg-[#FAA0A0] flex-1`}>

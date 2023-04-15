@@ -101,9 +101,47 @@ const Login = ({ navigation }: any) => {
   //   }
   // };
 
-  const handleSignup = () => {
-    navigation.navigate("About");
+  const handleSignup = async () => {
+    if (
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !firstname ||
+      !lastname ||
+      !phoneNumber ||
+      !/^\d{10}$/.test(phoneNumber) ||
+      password !== confirmPassword
+    ) {
+      ToastAndroid.show(
+        "Please fill up the form correctly",
+        ToastAndroid.SHORT
+      );
+      return;
+    }
+    await addDoc(userCollectionRef, {
+      first_name: firstname,
+      last_name: lastname,
+      email,
+      password,
+      confirmPassword,
+      role: "null",
+      phone: phoneNumber,
+      subscriptions: "no",
+    });
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        navigation.navigate("About");
+        ToastAndroid.show("Registered Successfully", ToastAndroid.SHORT);
+      })
+      .catch((err) => {
+        console.error(err);
+        ToastAndroid.show("Error registering user", ToastAndroid.SHORT);
+      });
   };
+
+  // const handleSignup = () => {
+  //   navigation.navigate("About");
+  // };
 
   return (
     <View style={tw`flex-1 bg-black`}>
@@ -198,23 +236,24 @@ const Login = ({ navigation }: any) => {
               />
             </View>
             {/* number */}
-            <View style={tw`flex flex-row justify-between w-full`}>
-              <View
-                style={tw`border-b-[2px] border-[#ffffff] opacity-70 w-[30px]`}
-              >
-                <Text style={tw`text-[#ffffff] py-2`}>+63</Text>
-              </View>
-              <View
-                style={tw`border-b-[2px] border-[#ffffff] opacity-70 w-[285px]`}
-              >
-                <Text style={tw`text-[#ffffff] py-2`}>Phone Number</Text>
+            <View
+              style={tw`flex flex-row justify-between opacity-70 w-full border-b-[2px] border-[#ffffff]`}
+            >
+              <View style={tw`w-[285px]`}>
+                <Text style={tw`text-[#ffffff] opacity-70 py-2`}>
+                  Phone Number
+                </Text>
                 <TextInput
-                  style={tw`text-[#ffffff] px-2`}
+                  style={tw`text-[#ffffff] px-10`}
                   keyboardType="number-pad"
                   value={phoneNumber}
                   onChangeText={(text) => setPhoneNumber(text)}
+                  maxLength={10}
                 />
               </View>
+              <Text style={tw`text-[#ffffff] opacity-70 absolute bottom-2`}>
+                +63
+              </Text>
             </View>
 
             {/* Button */}
@@ -242,7 +281,7 @@ const Login = ({ navigation }: any) => {
             {/* To Login */}
             <TouchableOpacity
               onPress={handleLogin}
-              style={tw`flex items-center py-5`}
+              style={tw`flex items-center py-2`}
             >
               <Text style={tw`text-[#ffffff] opacity-50`}>
                 Already have an account? Login.

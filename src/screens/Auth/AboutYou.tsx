@@ -4,6 +4,7 @@ import tw from "twrnc";
 import PickDate from "../../component/PickDate";
 import Height from "../../component/Height";
 import Weight from "../../component/Weight";
+import Gender from "../../component/Gender";
 
 const AboutYou = ({ navigation }: any) => {
   const [birthday, setBirthday] = useState("");
@@ -38,41 +39,38 @@ const AboutYou = ({ navigation }: any) => {
       </View>
 
       <View
-        style={tw`h-[699px] bg-[#ffffff] absolute -bottom-3 left-0 right-0 p-3 flex items-center rounded-t-[32px]`}
+        style={tw`h-full bg-[#ffffff] relative bottom-0 left-0 right-0 p-3 flex items-center rounded-t-[32px]`}
       >
         {/* About */}
         <View style={tw`py-7`}>
           <Text style={tw`py-1 text-[26px] text-center font-bold`}>
             About you
           </Text>
-          <Text style={tw`py-1 text-[13px] font-semibold`}>
+          <Text style={tw`text-[13px] font-semibold`}>
             tell us about yourself
           </Text>
         </View>
-        {/* Gender Tab */}
-        <View style={tw`flex flex-row justify-between w-full px-3`}>
-          <View style={tw`bg-[#FF1D38] p-3 rounded-[100px]`}>
-            <Text style={tw`px-5 text-[#ffffff]`}>Female</Text>
+        {/*  */}
+        <View style={tw`w-full h-full gap-3`}>
+          {/* Gender Tab */}
+          <View style={tw`flex items-center`}>
+            <Image source={require("../../../assets/Frame24.png")} />
+            <Gender />
           </View>
-          <View style={tw`p-3 rounded-[100px]`}>
-            <Text style={tw`px-5 text-[#000000]`}>Male</Text>
+          {/*  */}
+          <View style={tw`w-full `}>
+            <PickDate />
           </View>
-          {/* <View style={tw`p-3 rounded-[100px]`}>
-            <Text style={tw`px-5 text-[#000000]`}>Other</Text>
-          </View> */}
+          {/*  */}
+          <View style={tw`w-full `}>
+            <Height />
+          </View>
+          {/*  */}
+          <View>
+            <Weight />
+          </View>
         </View>
-        {/*  */}
-        <View>
-          <PickDate />
-        </View>
-        {/*  */}
-        <View>
-          <Height />
-        </View>
-        {/*  */}
-        <View>
-          <Weight />
-        </View>
+
         {/* Button */}
         <TouchableOpacity
           onPress={handleNext}
