@@ -5,8 +5,9 @@ import PickDate from "../../component/PickDate";
 import Height from "../../component/Height";
 import Weight from "../../component/Weight";
 import Gender from "../../component/Gender";
-
-const AboutYou = ({ navigation }: any) => {
+import { useNavigation } from "@react-navigation/native";
+const AboutYou = () => {
+  const navigation = useNavigation();
   const [birthday, setBirthday] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
@@ -51,7 +52,7 @@ const AboutYou = ({ navigation }: any) => {
           </Text>
         </View>
         {/*  */}
-        <View style={tw`w-full h-full gap-3`}>
+        <View style={tw`w-full h-full gap-6`}>
           {/* Gender Tab */}
           <View style={tw`flex items-center`}>
             <Image source={require("../../../assets/Frame24.png")} />
@@ -69,19 +70,18 @@ const AboutYou = ({ navigation }: any) => {
           <View>
             <Weight />
           </View>
-        </View>
-
-        {/* Button */}
-        <TouchableOpacity
-          onPress={handleNext}
-          style={tw`bg-[#FF1D38] w-[350px] py-3 px-3 rounded-[30px] absolute bottom-6`}
-        >
-          <Text
-            style={tw`text-center text-[#ffffff] text-[16px] font-semibold`}
+          {/* Button */}
+          <TouchableOpacity
+            onPress={handleNext}
+            style={tw`bg-[#FAA0A0] w-full py-3 px-3 rounded-[30px] flex items-center `}
           >
-            NEXT
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={tw`text-center text-[#ffffff] text-[16px] font-semibold`}
+            >
+              NEXT
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

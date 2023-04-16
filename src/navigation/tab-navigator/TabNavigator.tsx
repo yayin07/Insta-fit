@@ -60,7 +60,7 @@ const SocialStackNavigator = () => {
       <Stack.Screen
         name={ROUTE_NAME.SOCIAL}
         options={{ headerShown: false, gestureEnabled: false }}
-        component={SCREENS.SOCIAL}
+        component={SCREENS.NEWSFEED}
       />
     </Stack.Navigator>
   );

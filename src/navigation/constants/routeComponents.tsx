@@ -11,7 +11,7 @@ import BREAKFAST from "../../screens/Plan/MealPlan/Breakfast";
 import LUNCH from "../../screens/Plan/MealPlan/Lunch";
 import SPLASHSCREEN from "../../component/SplashScreen";
 import FORGOTPASSWORD from "../../screens/Auth/ForgotPassword";
-import SOCIAL from "../../screens/Social/Newsfeed";
+import NEWSFEED from "../../screens/Social/Newsfeed";
 import DINNER from "../../screens/Plan/MealPlan/Dinner";
 import MAINCOURSE from "../../screens/Plan/MealPlan/MainCourse";
 import DRINKS from "../../screens/Plan/MealPlan/Drinks";
@@ -40,7 +40,7 @@ export const SCREENS = {
   LUNCH,
   SPLASHSCREEN,
   FORGOTPASSWORD,
-  SOCIAL,
+  NEWSFEED,
   DINNER,
   MAINCOURSE,
   DRINKS,

@@ -29,25 +29,7 @@ const Upload = ({ setModalVisible, modalVisible }) => {
   const [imageRef, setImageRef] = useState(null);
   const [username, setUsername] = useState(user);
 
-  const pickImage = async () => {
-    let permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-    if (permissionResult.granted === false) {
-      alert("Permission to access the media library is required.");
-      return;
-    }
-
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.canceled === true) {
-      return;
-    }
-
-    uploadFileToFirebase(pickerResult.uri);
-    setImageUrl(pickerResult.uri);
-  };
-
-  const uploadFileToFirebase = async () => {
+  const uploadFileToFirebase = async (uri) => {
     const fileExtension = uri.split(".").pop();
     const fileName = `${Date.now()}.${fileExtension}`;
     const storageRef = ref(storage, `images/${fileName}`); // Customize your path and filename
@@ -74,6 +56,45 @@ const Upload = ({ setModalVisible, modalVisible }) => {
     );
   };
 
+  // const pickImage = async () => {
+  //   let permissionResult =
+  //     await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+  //   if (permissionResult.granted === false) {
+  //     alert("Permission to access the media library is required.");
+  //     return;
+  //   }
+
+  //   let pickerResult = await ImagePicker.launchImageLibraryAsync();
+  //   if (pickerResult.canceled === true) {
+  //     return;
+  //   }
+
+  //   uploadFileToFirebase(pickerResult.uri);
+  //   setImageUrl(pickerResult.uri);
+  // };
+
+  const pickImage = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access the media library is required.");
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.canceled === true) {
+      return;
+    }
+
+    // Access the first asset in the assets array and get its URI
+    let selectedAssetUri = pickerResult.assets[0].uri;
+
+    uploadFileToFirebase(selectedAssetUri);
+    setImageUrl(selectedAssetUri);
+  };
+
   console.log(saveDetails);
   const postCollectionRef = query(db, "social");
 
@@ -95,18 +116,30 @@ const Upload = ({ setModalVisible, modalVisible }) => {
 
   return (
     <View
-      style={tw`absolute flex justify-start rounded-[10px] w-full h-full opacity-100 bg-[#ffc0cb] rounded-[10px] `}
+      style={tw`flex justify-start w-full h-full opacity-100 bg-[#ffffff] rounded-[10px] `}
     >
-      <View style={tw`flex flex-row justify-between items-center`}>
-        <Text style={tw`px-5 py-5 font-bold text-[13px]`}>Fill up to post</Text>
-        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-          <Text style={tw`px-5 py-5 font-bold text-[15px]`}>X</Text>
-        </TouchableOpacity>
+      {/*  */}
+      <View style={tw`flex flex-row justify-between items-center px-1`}>
+        <View style={tw`flex flex-row items-center`}>
+          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={tw`px-5 py-5 font-bold text-[20px]`}>X</Text>
+          </TouchableOpacity>
+          <Text style={tw`font-bold text-[18px]`}>Create a post</Text>
+        </View>
+
+        <View style={tw`flex items-center px-3 `}>
+          <TouchableOpacity
+            style={tw`bg-[#FAA0A0] w-full rounded-[10px] `}
+            onPress={saveDetails}
+          >
+            <Text style={tw`text-center text-[#ffffff] p-2`}>Post</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={tw`flex justify-center`}>
         <View style={tw`flex gap-3 px-4 py-4 justify-evenly`}>
-          <View style={tw` border-[2px] border-black px-2 py-2`}>
+          <View style={tw` border-b-[2px] border-black px-2 py-2`}>
             <TextInput
               placeholder="Title"
               style={tw`text-black`}
@@ -114,7 +147,7 @@ const Upload = ({ setModalVisible, modalVisible }) => {
               onChangeText={(text) => setTitle(text)}
             />
           </View>
-          <View style={tw` border-[2px] border-black px-2 py-2`}>
+          <View style={tw` border-b-[2px] border-black px-2 py-2`}>
             <TextInput
               placeholder="Description"
               numberOfLines={4}
@@ -133,13 +166,6 @@ const Upload = ({ setModalVisible, modalVisible }) => {
             <Image source={{ uri: imageUrl }} style={styles.image} />
           )}
         </View>
-      </View>
-      <View
-        style={tw`absolute bottom-3 left-0 right-3 flex items-center px-3 `}
-      >
-        <TouchableOpacity style={tw`bg-blue-500 w-full `} onPress={saveDetails}>
-          <Text style={tw`text-center text-[#ffffff] p-2`}>Submit</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );

@@ -17,10 +17,16 @@ import Post from "../../component/Post";
 
 import { Feather } from "@expo/vector-icons";
 import Upload from "../../component/Upload";
+import { useNavigation } from "@react-navigation/native";
 
 const Newsfeed = () => {
+  const navigation = useNavigation();
   const [post, setPost] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const handleClose = () => {
+    navigation.navigate("Fitness");
+  };
 
   //
   useEffect(() => {
@@ -36,27 +42,33 @@ const Newsfeed = () => {
   }, []);
 
   return (
-    <View style={tw`h-full bg-[#ffc0cb] p-5`}>
+    <View style={tw`h-full bg-[#ffc0cb]`}>
       {/* Logo */}
-      <View style={tw`flex flex-row justify-start items-center px-3`}>
-        <View>
-          <Image source={require("../../../assets/Image2.png")} />
-        </View>
-        <View style={tw`px-2`}>
-          <View style={tw`flex flex-row`}>
-            <Text style={tw`text-black text-[22px] font-extrabold`}>INSTA</Text>
-            <Text style={tw`text-[#ffffff] text-[22px] font-extrabold`}>
-              FIT
-            </Text>
+      <View style={tw`flex flex-row justify-start items-center p-5`}>
+        <TouchableOpacity onPress={handleClose}>
+          <Image source={require("../../../assets/Vector11.png")} />
+        </TouchableOpacity>
+        <View style={tw`flex flex-row px-19`}>
+          <View>
+            <Image source={require("../../../assets/Image2.png")} />
           </View>
-          <Text style={tw`text-black text-[13px]`}>BE MORE FIT</Text>
+          <View style={tw`px-2`}>
+            <View style={tw`flex flex-row`}>
+              <Text style={tw`text-black text-[22px] font-extrabold`}>
+                INSTA
+              </Text>
+              <Text style={tw`text-[#ffffff] text-[22px] font-extrabold`}>
+                FIT
+              </Text>
+            </View>
+            <Text style={tw`text-black text-[13px]`}>BE MORE FIT</Text>
+          </View>
         </View>
       </View>
       {/*  */}
-      <View style={tw`flex items-center gap-3 px-5 py-3 relative h-full`}>
-        <View style={tw`border-t-[2px] w-full flex items-center py-3`}>
-          <Text style={tw`text-[25px] font-bold`}>Newsfeed</Text>
-        </View>
+      <View
+        style={tw`flex items-center gap-3 py-3 relative h-full w-full bg-[#ffffff]`}
+      >
         {/*  */}
         <ScrollView style={tw`h-full gap-5 `}>
           {post.map(

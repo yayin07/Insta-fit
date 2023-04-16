@@ -1,11 +1,21 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import tw from "twrnc";
+import { useNavigation } from "@react-navigation/native";
 
-const WorkoutTime = ({ navigation }: any) => {
+const WorkoutTime = () => {
+  const navigation = useNavigation();
+  const [selectedTime, setSelectedTime] = useState(null);
+
   const handleNext = () => {
     navigation.navigate("Subscription");
   };
+
+  const handleSelectTime = (time) => {
+    setSelectedTime(time);
+  };
+
+  const timeOptions = ["5-10min", "15-20min", "25-30min", "30+min"];
   return (
     <View style={tw`bg-[#FAA0A0] flex-1`}>
       <View style={tw`px-4 py-4 `}>
@@ -40,48 +50,34 @@ const WorkoutTime = ({ navigation }: any) => {
         </View>
         {/* Goals */}
         <View>
-          <View style={tw`py-3 w-[310px]`}>
-            <TouchableOpacity
-              style={tw`border-[2px] border-black p-3 rounded-[32px]`}
-            >
-              <Text style={tw`text-center text-[16px] font-semibold`}>
-                5-10min
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={tw`py-3 w-[310px]`}>
-            <TouchableOpacity
-              style={tw`border-[2px] border-black p-3 rounded-[32px]`}
-            >
-              <Text style={tw`text-center text-[16px] font-semibold`}>
-                15-20min
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={tw`py-3 w-[310px]`}>
-            <TouchableOpacity
-              style={tw`border-[2px] border-black p-3 rounded-[32px]`}
-            >
-              <Text style={tw`text-center text-[16px] font-semibold`}>
-                25-30min
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={tw`py-3 w-[310px]`}>
-            <TouchableOpacity
-              style={tw`border-[2px] border-black p-3 rounded-[32px]`}
-            >
-              <Text style={tw`text-center text-[16px] font-semibold`}>
-                30+min
-              </Text>
-            </TouchableOpacity>
-          </View>
+          {timeOptions.map((time, index) => (
+            <View key={index} style={tw`py-3 w-[310px]`}>
+              <TouchableOpacity
+                onPress={() => handleSelectTime(time)}
+                style={[
+                  tw`border-[2px] p-3 rounded-[32px]`,
+                  selectedTime === time
+                    ? tw`border-[#FF1D38] bg-[#FAA0A0]`
+                    : tw`border-black`,
+                ]}
+              >
+                <Text
+                  style={[
+                    tw`text-center text-[16px] font-semibold`,
+                    selectedTime === time ? tw`text-[#ffffff]` : tw`text-black`,
+                  ]}
+                >
+                  {time}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
         </View>
 
         {/* Button */}
         <TouchableOpacity
           onPress={handleNext}
-          style={tw`bg-[#FF1D38] w-[350px] py-3 px-3 rounded-[30px] absolute bottom-6`}
+          style={tw`bg-[#FAA0A0] w-[350px] py-3 px-3 rounded-[30px] absolute bottom-6`}
         >
           <Text
             style={tw`text-center text-[#ffffff] text-[16px] font-semibold`}

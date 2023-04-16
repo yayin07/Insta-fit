@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Stack = createStackNavigator();
 
-const Navigation: React.FC = () => {
+const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -122,6 +122,11 @@ const Navigation: React.FC = () => {
             name="AdvancedPlan"
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.ADVANCEDPLAN}
+          />
+          <Stack.Screen
+            name="Newsfeed"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.NEWSFEED}
           />
         </>
       </Stack.Navigator>
