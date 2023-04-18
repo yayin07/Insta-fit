@@ -16,7 +16,7 @@ import DINNER from "../../screens/Plan/MealPlan/Dinner";
 import MAINCOURSE from "../../screens/Plan/MealPlan/MainCourse";
 import DRINKS from "../../screens/Plan/MealPlan/Drinks";
 import SALAD from "../../screens/Plan/MealPlan/Salad";
-import VIDEO from "../../component/VideoLink";
+import BEGINNERLANDINGPAGE from "../../component/BeginnerLandingPage";
 import TIMER from "../../component/PlanTimer";
 import UPLOAD from "../../component/Upload";
 import ABOUT from "../../screens/Auth/AboutYou";
@@ -25,6 +25,11 @@ import SUBSCRIPTION from "../../component/Subscription";
 import FITNESS from "../../screens/Plan/FitnessPlan";
 import INTERMIDIATEPLAN from "../../screens/Plan/IntermidiatePlan";
 import ADVANCEDPLAN from "../../screens/Plan/AdvancedPlan";
+import SUGGESTPLAN from "../../screens/Social/SuggestPlan";
+import INTERMEDIATELANDINGPAGE from "../../component/IntermediateLandingPage";
+import ADVANCEDLANDINGPAGE from "../../component/AdvancedLandingPage";
+import MAKEYOURPLAN from "../../screens/Social/MakeYourPlan";
+import PREFERREDMEALS from "../../screens/Social/PreferredMeals";
 
 export const SCREENS = {
   BOTTOM_TAB,
@@ -45,7 +50,7 @@ export const SCREENS = {
   MAINCOURSE,
   DRINKS,
   SALAD,
-  VIDEO,
+  BEGINNERLANDINGPAGE,
   TIMER,
   UPLOAD,
   ABOUT,
@@ -54,4 +59,9 @@ export const SCREENS = {
   FITNESS,
   INTERMIDIATEPLAN,
   ADVANCEDPLAN,
+  SUGGESTPLAN,
+  INTERMEDIATELANDINGPAGE,
+  ADVANCEDLANDINGPAGE,
+  MAKEYOURPLAN,
+  PREFERREDMEALS,
 };

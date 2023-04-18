@@ -10,7 +10,7 @@ import tw from "twrnc";
 import Beginner from "./Level/Beginner";
 import Intermidiate from "./Level/Intermidiate";
 import Advanced from "./Level/Advanced";
-
+import { auth } from "../../../Firebase.config";
 import { db } from "../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
 // import { auth } from "../../../Firebase.config";
@@ -20,6 +20,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 
 const FitnessPlan = () => {
+  const [user, setUser] = useState(auth);
   const navigation = useNavigation();
 
   const handlePress = () => {

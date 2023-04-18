@@ -4,15 +4,16 @@ import tw from "twrnc";
 
 import { db } from "../../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
-
-const MainCourse = ({ navigation }: any) => {
+import { useNavigation } from "@react-navigation/native";
+const MainCourse = () => {
   const [mealPlan, setMealPlan] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const getMealPlanRef = collection(db, "meal-plan");
     const getRef = query(getMealPlanRef);
     const unsubcribe = onSnapshot(getRef, (snapshot) => {
-      const { fetchPlan }: any = snapshot.docs.map((doc) => ({
+      const fetchPlan = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
@@ -27,7 +28,7 @@ const MainCourse = ({ navigation }: any) => {
       </View>
       <View style={tw`py-5 flex items-center`}>
         {mealPlan
-          .filter(({ meal_time }) => meal_time === "MainCourse")
+          .filter(({ meal_type }) => meal_type === "Main course")
           .map(({ description, meal_plan, meal_time, i }) => (
             <View key={i} style={tw`h-[180px] w-[370px] bg-white `}>
               <View

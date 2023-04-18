@@ -3,9 +3,7 @@ import { View, Text, Image, Platform, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import tw from "twrnc";
 
-const Height = () => {
-  const [height, setHeight] = useState("5'0''");
-
+const Height = ({ height, setHeight }) => {
   const onHeightChange = (selectedHeight) => {
     setHeight(selectedHeight);
   };

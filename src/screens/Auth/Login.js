@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
@@ -15,8 +16,10 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const Login = ({ navigation }: any): JSX.Element => {
+const Login = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
@@ -29,31 +32,40 @@ const Login = ({ navigation }: any): JSX.Element => {
     setHidePassword(!hidePassword);
   };
 
-  const handleSignin = () => {
-    navigation.navigate("Fitness");
-  };
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate("Fitness");
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   // const handleSignin = () => {
-  //   if (!email || !password) {
-  //     ToastAndroid.show(
-  //       "Please enter your email and password",
-  //       ToastAndroid.SHORT
-  //     );
-  //     return;
-  //   }
-  //   signInWithEmailAndPassword(auth, email, password)
-  //     .then(() => {
-  //       navigation.navigate("Fitness");
-  //       ToastAndroid.show("Login successful", ToastAndroid.SHORT);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       ToastAndroid.show(
-  //         "Error signing in. Please try again.",
-  //         ToastAndroid.SHORT
-  //       );
-  //     });
+  //   navigation.navigate("Fitness");
   // };
+
+  const handleSignin = () => {
+    if (!email || !password) {
+      ToastAndroid.show(
+        "Please enter your email and password",
+        ToastAndroid.SHORT
+      );
+      return;
+    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        navigation.navigate("Fitness");
+        ToastAndroid.show("Login successful", ToastAndroid.SHORT);
+      })
+      .catch((error) => {
+        console.error(error);
+        ToastAndroid.show(
+          "Error signing in. Please try again.",
+          ToastAndroid.SHORT
+        );
+      });
+  };
 
   console.log(handleSignin);
 
@@ -62,7 +74,7 @@ const Login = ({ navigation }: any): JSX.Element => {
   };
 
   return (
-    <View style={tw`flex-1 bg-black py-1`}>
+    <KeyboardAvoidingView style={tw`flex-1 bg-black py-1`}>
       {/* Background Image */}
       <View style={tw`flex items-center absolute -bottom-3 right-0 left-0 `}>
         <Image
@@ -166,7 +178,7 @@ const Login = ({ navigation }: any): JSX.Element => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

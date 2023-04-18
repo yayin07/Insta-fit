@@ -8,7 +8,11 @@ import {
 import React from "react";
 import tw from "twrnc";
 import { getAuth, signOut } from "firebase/auth";
-const Logout = ({ navigation }: any) => {
+import { useNavigation } from "@react-navigation/native";
+
+const Logout = () => {
+  const navigation = useNavigation();
+
   const handleLogout = async () => {
     const auth = getAuth();
     await signOut(auth)

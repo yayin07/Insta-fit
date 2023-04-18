@@ -1,20 +1,56 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ToastAndroid,
+} from "react-native";
+import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import PickDate from "../../component/PickDate";
 import Height from "../../component/Height";
 import Weight from "../../component/Weight";
 import Gender from "../../component/Gender";
 import { useNavigation } from "@react-navigation/native";
+import { collection, setDoc, doc, addDoc } from "firebase/firestore";
+import { auth } from "../../../Firebase.config";
+import { db } from "../../../Firebase.config";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { StatusBar } from "react-native";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
 const AboutYou = () => {
   const navigation = useNavigation();
-  const [birthday, setBirthday] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
+  const [user, setUser] = useState(auth.currentUser);
+  const [date, setDate] = useState(new Date());
+  const [height, setHeight] = useState("5'0''");
+  const [weight, setWeight] = useState("50 kg");
+  const [gender, setGender] = useState(null);
+  const { setUserAboutInfo } = useAuthContext();
+  const userCollectionRef = collection(db, "user");
 
-  const handleNext = () => {
-    navigation.navigate("Goal", {});
+  const addUserToCollection = async () => {
+    if (!date || !height || !weight || !gender) {
+      ToastAndroid.show("Please choose  correctly", ToastAndroid.SHORT);
+      return;
+    }
+
+    setUserAboutInfo({
+      date: date,
+      user_height: height,
+      user_weight: weight,
+      user_gender: gender,
+    });
+
+    ToastAndroid.show(
+      "User Information added successfully",
+      ToastAndroid.SHORT
+    );
+    navigation.navigate("Goal");
   };
+
+  // const addUserToCollection = () => {
+  //   navigation.navigate("Goal");
+  // };
 
   return (
     <View style={tw`bg-[#FAA0A0] flex-1`}>
@@ -56,23 +92,23 @@ const AboutYou = () => {
           {/* Gender Tab */}
           <View style={tw`flex items-center`}>
             <Image source={require("../../../assets/Frame24.png")} />
-            <Gender />
+            <Gender gender={gender} setGender={setGender} />
           </View>
           {/*  */}
           <View style={tw`w-full `}>
-            <PickDate />
+            <PickDate date={date} setDate={setDate} />
           </View>
           {/*  */}
           <View style={tw`w-full `}>
-            <Height />
+            <Height height={height} setHeight={setHeight} />
           </View>
           {/*  */}
           <View>
-            <Weight />
+            <Weight weight={weight} setWeight={setWeight} />
           </View>
           {/* Button */}
           <TouchableOpacity
-            onPress={handleNext}
+            onPress={addUserToCollection}
             style={tw`bg-[#FAA0A0] w-full py-3 px-3 rounded-[30px] flex items-center `}
           >
             <Text

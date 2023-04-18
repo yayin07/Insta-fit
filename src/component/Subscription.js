@@ -75,8 +75,12 @@ const Subscription = () => {
                   <View>
                     <Text style={tw`font-bold`}>₱ 300</Text>
                   </View>
-                  <Text>Full access on Intermediate Workout</Text>
-                  <Text>Limited Upload Photos per day on InstaFeed</Text>
+                  <Text style={tw`w-200px`}>
+                    Full access on Intermediate Workout
+                  </Text>
+                  <Text style={tw`w-200px`}>
+                    Limited Upload Photos per day on InstaFeed
+                  </Text>
                 </View>
               )}
               {/* Add other information related to each subscription plan here */}
@@ -99,7 +103,7 @@ const Subscription = () => {
 
         {/* Button */}
         <View
-          style={tw`py-3 flex justify-center items-center absolute bottom-4 left-6 gap-3`}
+          style={tw`py-3 flex justify-center items-center absolute bottom-15 left-5  gap-3`}
         >
           <View
             style={tw`border-[#FAA0A0] border-[2px] w-full p-2 rounded-[20px]`}
@@ -110,7 +114,7 @@ const Subscription = () => {
           </View>
 
           <TouchableOpacity
-            style={tw`bg-[#FF1D38] w-[340px] rounded-[40px] py-2 px-2`}
+            style={tw`bg-[#FAA0A0] w-[340px] rounded-[40px] py-2 px-2`}
           >
             <Text style={tw`text-[#ffffff] text-center font-bold text-[18px]`}>
               UPGRADE NOW - SAVE 10%

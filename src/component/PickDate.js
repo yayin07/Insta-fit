@@ -3,14 +3,14 @@ import { View, Text, Image, Platform, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import tw from "twrnc";
 
-const PickDate = () => {
-  const [date, setDate] = useState(new Date());
+const PickDate = ({ setDate, date }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShowDatePicker(Platform.OS === "ios");
     setDate(currentDate);
+    console.log(currentDate);
   };
 
   const showDatePickerModal = () => {

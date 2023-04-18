@@ -10,8 +10,10 @@ import React, { useState } from "react";
 import tw from "twrnc";
 import { db } from "../../../Firebase.config";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 
-const ForgotPassword = ({ navigation }: any) => {
+const ForgotPassword = () => {
+  const navigation = useNavigation();
   const handleBack = () => {
     navigation.navigate("Login", {});
   };

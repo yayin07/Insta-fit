@@ -1,13 +1,36 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ToastAndroid,
+} from "react-native";
 import React, { useState } from "react";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
 
 const WorkoutTime = () => {
   const navigation = useNavigation();
   const [selectedTime, setSelectedTime] = useState(null);
+  const { setUserWorkoutTime, handleCreateUser } = useAuthContext();
 
   const handleNext = () => {
+    if (!selectedTime) {
+      ToastAndroid.show(
+        "Please choose a information correctly",
+        ToastAndroid.SHORT
+      );
+      return;
+    }
+
+    setUserWorkoutTime(selectedTime);
+    handleCreateUser();
+
+    ToastAndroid.show(
+      "User Information added successfully",
+      ToastAndroid.SHORT
+    );
     navigation.navigate("Subscription");
   };
 
@@ -16,6 +39,8 @@ const WorkoutTime = () => {
   };
 
   const timeOptions = ["5-10min", "15-20min", "25-30min", "30+min"];
+
+  // The return statement is inside the WorkoutTime functional component
   return (
     <View style={tw`bg-[#FAA0A0] flex-1`}>
       <View style={tw`px-4 py-4 `}>

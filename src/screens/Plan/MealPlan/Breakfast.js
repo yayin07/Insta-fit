@@ -30,7 +30,7 @@ const Breakfast = () => {
         {mealPlan
           .filter(({ meal_time }) => meal_time === "breakfast")
           .map(({ description, meal_plan, meal_time, i, image_url }) => (
-            <View key={i} style={tw`h-[180px] w-[370px] bg-white `}>
+            <View key={i} style={tw`h-[180px] w-[370px] bg-white px-3 `}>
               <View
                 style={tw`shadow-xl shadow-black rounded-[20px] bg-[#ffffff] flex flex-row `}
               >
@@ -53,7 +53,7 @@ const Breakfast = () => {
                   <Text style={tw`text-black text-[16px] font-semibold`}>
                     {meal_plan}
                   </Text>
-                  <Text style={tw`text-black text-[16px] font-semibold`}>
+                  <Text style={tw`text-black text-[16px] w-40 font-semibold`}>
                     {description}
                   </Text>
                 </View>

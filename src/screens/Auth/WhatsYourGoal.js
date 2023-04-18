@@ -1,18 +1,63 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ToastAndroid,
+} from "react-native";
+import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../../Firebase.config";
+import { auth } from "../../../Firebase.config";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
+
 const WhatsYourGoal = () => {
+  const [user, setUser] = useState(auth);
   const navigation = useNavigation();
   const [selectedGoal, setSelectedGoal] = useState("");
+  const [selectedWeight, setSelectedWeight] = useState(50);
+  const [selectedMuscle, setSelectedMuscle] = useState("chest");
+  const { setUserGoal } = useAuthContext();
+  const userCollectionRef = collection(db, "userGoal");
 
-  const handleNext = () => {
-    navigation.navigate("Work", {});
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const addUser = async () => {
+    if (!selectedGoal || !selectedWeight || !selectedMuscle) {
+      ToastAndroid.show(
+        "Please choose a information correctly",
+        ToastAndroid.SHORT
+      );
+      return;
+    }
+
+    setUserGoal(selectedGoal);
+
+    ToastAndroid.show(
+      "User Information added successfully",
+      ToastAndroid.SHORT
+    );
+    navigation.navigate("Work");
   };
 
   const handleSelectGoal = (goal) => {
     setSelectedGoal(goal);
   };
+  console.log(user);
+
+  // const addUser = () => {
+  //   navigation.navigate("Start");
+  // };
 
   const goalButton = (title) => (
     <View style={tw`py-3 w-[310px]`}>
@@ -32,8 +77,31 @@ const WhatsYourGoal = () => {
           {title}
         </Text>
       </TouchableOpacity>
+      {title === "Lose Weight" && selectedGoal === title && (
+        <Picker
+          selectedValue={selectedWeight}
+          onValueChange={(itemValue) => setSelectedWeight(itemValue)}
+          style={tw`w-[310px]`}
+        >
+          {[...Array(451)].map((_, i) => (
+            <Picker.Item key={i} label={`${i + 50} kg`} value={i + 50} />
+          ))}
+        </Picker>
+      )}
+      {title === "Gain Muscle" && selectedGoal === title && (
+        <Picker
+          selectedValue={selectedMuscle}
+          onValueChange={(itemValue) => setSelectedMuscle(itemValue)}
+          style={tw`w-[310px]`}
+        >
+          {["Chest", "Bicep", "Back", "Triceps", "Shoulder"].map((muscle) => (
+            <Picker.Item key={muscle} label={muscle} value={muscle} />
+          ))}
+        </Picker>
+      )}
     </View>
   );
+
   return (
     <View style={tw`bg-[#FAA0A0] flex-1`}>
       <View style={tw`px-4 py-4 `}>
@@ -77,7 +145,7 @@ const WhatsYourGoal = () => {
         </View>
         {/* Button */}
         <TouchableOpacity
-          onPress={handleNext}
+          onPress={addUser}
           style={tw`bg-[#FAA0A0] w-[350px] py-3 px-3 rounded-[30px] absolute bottom-6`}
         >
           <Text

@@ -29,7 +29,7 @@ const Dinner = () => {
         {mealPlan
           .filter(({ meal_time }) => meal_time === "dinner")
           .map(({ description, meal_plan, meal_time, i, image_url }) => (
-            <View key={i} style={tw`h-[180px] w-[370px] bg-white `}>
+            <View key={i} style={tw`h-[180px] w-[370px] bg-white px-3 `}>
               <View
                 style={tw`shadow-xl shadow-black rounded-[20px] bg-[#ffffff] flex flex-row `}
               >

@@ -3,9 +3,7 @@ import { View, Text, Image, Platform, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import tw from "twrnc";
 
-const PickWeight = () => {
-  const [weight, setWeight] = useState("50 kg");
-
+const PickWeight = ({ weight, setWeight }) => {
   const onWeightChange = (selectedWeight) => {
     setWeight(selectedWeight);
   };

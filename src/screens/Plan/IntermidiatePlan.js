@@ -4,6 +4,7 @@ import tw from "twrnc";
 import { db } from "../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const IntermidiatePlan = ({ id, title, description }) => {
   const [trainings, setTrainings] = useState([]);
@@ -21,8 +22,8 @@ const IntermidiatePlan = ({ id, title, description }) => {
     });
   }, []);
 
-  const handleStart = (training) => {
-    navigation.navigate("Video", { training });
+  const handleStart = (details) => {
+    navigation.navigate("IntermediateLandingPage", { data: details });
   };
 
   const handleBack = () => {
@@ -35,10 +36,13 @@ const IntermidiatePlan = ({ id, title, description }) => {
       >
         <View style={tw`flex flex-row items-center justify-start w-full p-2`}>
           <TouchableOpacity onPress={handleBack}>
-            <Image source={require("../../../assets/Vector11.png")} />
+            <Image
+              source={require("../../../assets/Vector11.png")}
+              style={tw`w-4 h-4`}
+            />
           </TouchableOpacity>
 
-          <Text style={tw`text-[16px] font-bold px-31`}>Intermediate</Text>
+          <Text style={tw`text-[16px] font-bold px-25`}>Intermediate</Text>
         </View>
       </View>
       {/*  */}
@@ -47,8 +51,11 @@ const IntermidiatePlan = ({ id, title, description }) => {
           {/* Card */}
           {trainings
             .filter(({ intensity }) => intensity === "intermediate")
-            .map(({ date, img, name, target_parts, id }) => (
-              <TouchableOpacity onPress={handleStart} style={tw`py-5`}>
+            .map((data) => (
+              <TouchableOpacity
+                onPress={() => handleStart(data)}
+                style={tw`py-5`}
+              >
                 <View
                   key={id}
                   style={tw`shadow-black shadow-xl bg-[#ffffff] rounded-b-[10px] py-4`}
@@ -62,7 +69,9 @@ const IntermidiatePlan = ({ id, title, description }) => {
                     >
                       <View style={tw`py-3 px-3`}>
                         <View>
-                          <Text style={tw`text-[16px] font-bold`}>{name}</Text>
+                          <Text style={tw`text-[16px] font-bold`}>
+                            {data.name}
+                          </Text>
                         </View>
                         <View>
                           <Text style={tw`text-black opacity-70`}>10 mins</Text>

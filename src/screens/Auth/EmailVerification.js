@@ -1,8 +1,10 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import tw from "twrnc";
+import { useNavigation } from "@react-navigation/native";
 
-const EmailVerification = ({ navigation }: any) => {
+const EmailVerification = () => {
+  const navigation = useNavigation();
   const handleSend = () => {
     navigation.navigate("About", {});
   };

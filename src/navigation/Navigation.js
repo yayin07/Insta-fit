@@ -1,9 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { ROUTE_NAME } from "./constants/constants";
 import { SCREENS } from "./constants/routeComponents";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Stack = createStackNavigator();
 
@@ -16,6 +14,11 @@ const Navigation = () => {
             name="Login"
             component={SCREENS.LOGIN}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Create"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.CREATEACCOUNT}
           />
           <Stack.Screen
             name="Subscription"
@@ -31,11 +34,6 @@ const Navigation = () => {
             name="Fitness"
             component={SCREENS.BOTTOM_TAB}
             options={{ headerShown: false, gestureEnabled: false }}
-          />
-          <Stack.Screen
-            name="Create"
-            options={{ headerShown: false, gestureEnabled: false }}
-            component={SCREENS.CREATEACCOUNT}
           />
           <Stack.Screen
             name="Start"
@@ -94,9 +92,9 @@ const Navigation = () => {
             component={SCREENS.SALAD}
           />
           <Stack.Screen
-            name="Video"
+            name="BeginnerLandingPage"
             options={{ headerShown: false, gestureEnabled: false }}
-            component={SCREENS.VIDEO}
+            component={SCREENS.BEGINNERLANDINGPAGE}
           />
           <Stack.Screen
             name="Timer"
@@ -127,6 +125,31 @@ const Navigation = () => {
             name="Newsfeed"
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.NEWSFEED}
+          />
+          <Stack.Screen
+            name="SuggestPlan"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.SUGGESTPLAN}
+          />
+          <Stack.Screen
+            name="IntermediateLandingPage"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.INTERMEDIATELANDINGPAGE}
+          />
+          <Stack.Screen
+            name="AdvancedLandingPage"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.ADVANCEDLANDINGPAGE}
+          />
+          <Stack.Screen
+            name="MakeYourPlan"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.MAKEYOURPLAN}
+          />
+          <Stack.Screen
+            name="PreferredMeals"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.PREFERREDMEALS}
           />
         </>
       </Stack.Navigator>

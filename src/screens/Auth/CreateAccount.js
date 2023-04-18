@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState, createRef } from "react";
 import tw from "twrnc";
@@ -16,8 +17,9 @@ import { auth } from "../../../Firebase.config";
 import { db } from "../../../Firebase.config";
 
 import { Feather } from "@expo/vector-icons";
-
-const Login = ({ navigation }: any) => {
+import { useNavigation } from "@react-navigation/native";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
+const CreateAccount = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,8 +28,8 @@ const Login = ({ navigation }: any) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
   const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
-
-  const userCollectionRef = collection(db, "users");
+  const navigation = useNavigation();
+  const { setUserAccInfo } = useAuthContext();
 
   const handleLogin = () => {
     navigation.navigate("Login");
@@ -41,50 +43,51 @@ const Login = ({ navigation }: any) => {
     setHideConfirmPassword(!hideConfirmPassword);
   };
 
-  // const handleSignup = async () => {
-  //   if (
-  //     !email ||
-  //     !password ||
-  //     !confirmPassword ||
-  //     !firstname ||
-  //     !lastname ||
-  //     !phoneNumber ||
-  //     !/^\d{10}$/.test(phoneNumber) ||
-  //     password !== confirmPassword
-  //   ) {
-  //     ToastAndroid.show(
-  //       "Please fill up the form correctly",
-  //       ToastAndroid.SHORT
-  //     );
-  //     return;
-  //   }
-  //   await addDoc(userCollectionRef, {
-  //     first_name: firstname,
-  //     last_name: lastname,
-  //     email,
-  //     password,
-  //     confirmPassword,
-  //     role: "null",
-  //     phone: phoneNumber,
-  //     subscriptions: "no",
-  //   });
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then(() => {
-  //       navigation.navigate("About");
-  //       ToastAndroid.show("Registered Successfully", ToastAndroid.SHORT);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       ToastAndroid.show("Error registering user", ToastAndroid.SHORT);
-  //     });
-  // };
+  const handleSignup = async () => {
+    if (
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !firstname ||
+      !lastname ||
+      !phoneNumber ||
+      !/^\d{10}$/.test(phoneNumber) ||
+      password !== confirmPassword
+    ) {
+      ToastAndroid.show(
+        "Please fill up the form correctly",
+        ToastAndroid.SHORT
+      );
+      return;
+    }
 
-  const handleSignup = () => {
-    navigation.navigate("About");
+    setUserAccInfo({
+      first_name: firstname,
+      last_name: lastname,
+      email,
+      password,
+      role: "null",
+      phone: phoneNumber,
+      subscriptions: "no",
+    });
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        navigation.navigate("About");
+        ToastAndroid.show("Registered Successfully", ToastAndroid.SHORT);
+      })
+      .catch((err) => {
+        console.error(err);
+        ToastAndroid.show("Email already used.", ToastAndroid.SHORT);
+      });
   };
 
+  // const handleSignup = () => {
+  //   navigation.navigate("About");
+  // };
+
   return (
-    <View style={tw`flex-1 bg-black`}>
+    <KeyboardAvoidingView style={tw`flex-1 bg-black`}>
       {/* Background Image */}
       <View style={tw`flex items-center absolute -bottom-3 right-0 left-0 `}>
         <Image
@@ -230,8 +233,8 @@ const Login = ({ navigation }: any) => {
           </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
-export default Login;
+export default CreateAccount;
