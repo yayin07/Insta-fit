@@ -13,7 +13,6 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../Firebase.config";
 import { auth } from "../../../Firebase.config";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useAuthContext } from "../../component/AuthContext/AuthContext";
 
 const WhatsYourGoal = () => {
   const [user, setUser] = useState(auth);
@@ -21,13 +20,15 @@ const WhatsYourGoal = () => {
   const [selectedGoal, setSelectedGoal] = useState("");
   const [selectedWeight, setSelectedWeight] = useState(50);
   const [selectedMuscle, setSelectedMuscle] = useState("chest");
-  const { setUserGoal } = useAuthContext();
+  const { setUserGoal, setGetUser } = useAuthContext();
   const userCollectionRef = collection(db, "userGoal");
 
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log(currentUser);
       setUser(currentUser);
+      setGetUser(currentUser.email);
     });
     return () => unsubscribe();
   }, []);

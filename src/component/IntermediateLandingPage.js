@@ -32,7 +32,7 @@ const IntermediateLandingPage = ({ route }) => {
         <YoutubePlayer
           height={300}
           play={playing}
-          videoId={"CIxNJbit9BA"}
+          videoId={"Gr1GtwTp_ko"}
           onChangeState={onStateChange}
         />
         <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />

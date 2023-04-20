@@ -9,6 +9,7 @@ export default AuthContextProvider = ({ children }) => {
   const [userAboutInfo, setUserAboutInfo] = React.useState();
   const [userGoal, setUserGoal] = React.useState();
   const [userWorkoutTime, setUserWorkoutTime] = React.useState();
+  const [getUser, setGetUser] = React.useState("");
   const userCollectionRef = collection(db, "users");
 
   const handleCreateUser = async () => {
@@ -31,6 +32,8 @@ export default AuthContextProvider = ({ children }) => {
         setUserGoal,
         handleCreateUser,
         setUserWorkoutTime,
+        setGetUser,
+        getUser,
       }}
     >
       {children}

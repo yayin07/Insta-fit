@@ -7,7 +7,6 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   getFirestore,
   doc,
@@ -31,6 +30,10 @@ const UserProfile = ({ id }) => {
     navigation.navigate("MakeYourPlan");
   };
 
+  const handleFitnessPlan = () => {
+    navigation.navigate("Subscription");
+  };
+
   useEffect(() => {
     const getUserList = async () => {
       try {
@@ -45,6 +48,7 @@ const UserProfile = ({ id }) => {
       }
     };
   });
+
   return (
     <View style={tw`flex-1 `}>
       <View>
@@ -67,21 +71,24 @@ const UserProfile = ({ id }) => {
         {/*  */}
         <View style={tw`flex items-center py-3`}>
           <View style={tw`flex flex-row  `}>
-            <TouchableOpacity
-              onPress={handleSuggestPlan}
-              style={tw`px-5 py-3 flex items-center`}
-            >
-              <Image
-                source={require("../../../assets/Group4.png")}
-                style={tw``}
-              />
+            <View style={tw`px-5 py-3 flex items-center`}>
+              <TouchableOpacity onPress={handleSuggestPlan}>
+                <Image
+                  source={require("../../../assets/Group4.png")}
+                  style={tw``}
+                />
+              </TouchableOpacity>
+
               <Text style={tw`py-2`}>Suggest Plan</Text>
-            </TouchableOpacity>
+            </View>
             <View style={tw`px-5 py-3  flex items-center`}>
-              <Image
-                source={require("../../../assets/Group5.png")}
-                style={tw``}
-              />
+              <TouchableOpacity onPress={handleFitnessPlan}>
+                <Image
+                  source={require("../../../assets/Group5.png")}
+                  style={tw``}
+                />
+              </TouchableOpacity>
+
               <Text style={tw`py-4`}>Fitness Plan</Text>
             </View>
           </View>
@@ -99,25 +106,25 @@ const UserProfile = ({ id }) => {
               style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
             >
               <Text>Gender:</Text>
-              {/* <Text>{i?.user_gender}</Text> */}
+              <Text>Female</Text>
             </View>
             <View
               style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
             >
               <Text>Height: </Text>
-              {/* <Text>{i?.user_height}</Text> */}
+              <Text>160m</Text>
             </View>
             <View
               style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
             >
               <Text>Weight: </Text>
-              {/* <Text>{i?.user_weight}</Text> */}
+              <Text>50kg</Text>
             </View>
             <View
               style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
             >
               <Text>Birthday: </Text>
-              {/* <Text>{formattedDate}</Text> */}
+              <Text>8-30-1991</Text>
             </View>
           </View>
         </View>

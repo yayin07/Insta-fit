@@ -1,22 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { RadioButton } from "react-native-paper";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../Firebase.config";
 
 const Subscription = () => {
   const navigation = useNavigation();
+  const [data, setData] = useState([]);
   const subscription = [
-    { value: "Basic" },
-    { value: "Intermediate" },
-    { value: "Advanced" },
+    { value: "Basic", price: 0 },
+    { value: "Intermediate", price: 300 },
+    { value: "Advanced", price: 500 },
   ];
+  const [selectedSubscription, setSelectedSubscription] = useState("Basic");
 
   const handleNext = () => {
-    navigation.navigate("Start");
+    if (selectedSubscription === "Basic") {
+      const basicData = {
+        value: "Basic",
+        price: "0",
+      };
+      return navigation.navigate("Pay", { data: basicData });
+    } else if (selectedSubscription === "Intermediate") {
+      const intermedateData = {
+        value: "Intermediate",
+        price: "300",
+      };
+      return navigation.navigate("Pay", { data: intermedateData });
+    } else {
+      const advancedData = {
+        value: "Advanced",
+        price: "500",
+      };
+      return navigation.navigate("Pay", { data: advancedData });
+    }
   };
-
-  const [selectedSubscription, setSelectedSubscription] = useState("Basic");
 
   return (
     <View style={tw`flex justify-start items-center flex-1 bg-[#FAA0A0]`}>
@@ -108,7 +128,7 @@ const Subscription = () => {
           <View
             style={tw`border-[#FAA0A0] border-[2px] w-full p-2 rounded-[20px]`}
           >
-            <TouchableOpacity onPress={handleNext}>
+            <TouchableOpacity onPress={() => handleNext()}>
               <Text style={tw`text-center`}>Next</Text>
             </TouchableOpacity>
           </View>

@@ -17,12 +17,14 @@ import {
 } from "firebase/auth";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
 
 const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
+  const { setGetUser } = useAuthContext();
 
   const handleRegister = () => {
     navigation.navigate("Create", {});
@@ -36,7 +38,9 @@ const Login = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         navigation.navigate("Fitness");
+        setGetUser(user.email);
       }
+      console.log("user", user);
     });
     return unsubscribe;
   }, []);

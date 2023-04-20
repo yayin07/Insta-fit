@@ -15,7 +15,6 @@ import { useNavigation } from "@react-navigation/native";
 import { collection, setDoc, doc, addDoc } from "firebase/firestore";
 import { auth } from "../../../Firebase.config";
 import { db } from "../../../Firebase.config";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { StatusBar } from "react-native";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
 const AboutYou = () => {

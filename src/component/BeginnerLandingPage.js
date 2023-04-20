@@ -33,7 +33,7 @@ const BeginnerLandingPage = ({ route }) => {
         <YoutubePlayer
           height={300}
           play={playing}
-          videoId={"CIxNJbit9BA"}
+          videoId={"LrNhnsWPtgQ"}
           onChangeState={onStateChange}
         />
         <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />

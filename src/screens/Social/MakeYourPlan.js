@@ -11,6 +11,8 @@ import { Picker } from "@react-native-picker/picker";
 import tw from "twrnc";
 import PlanHeader from "../../component/PlanHeader";
 import { useNavigation } from "@react-navigation/native";
+import { db } from "../../../Firebase.config";
+import { doc, setDoc } from "firebase/firestore";
 
 const MakeYourPlan = () => {
   const navigation = useNavigation();
@@ -22,9 +24,21 @@ const MakeYourPlan = () => {
   const [showWorkoutTypeDropdown, setShowWorkoutTypeDropdown] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const screenWidth = Dimensions.get("window").width;
+  // const makeYourPlanRef = doc(db, "user");
 
   const bodyAreas = ["Biceps", "Triceps", "Chest", "Abs"];
-  const workoutTypes = ["Beginner", "Intermediate", "Advanced"];
+  const workoutTypes = [
+    "Yoga",
+    "Cardiovascular workouts",
+    "Strength training workouts",
+    "High-intensity interval training",
+    "Pilates",
+    "CrossFit",
+    "Boxing",
+    "Dance-based workouts",
+    "Circuit training",
+    "Outdoor workouts",
+  ];
 
   const toggleDropdown = () => {
     setShowDropdown((prevState) => !prevState);

@@ -151,6 +151,26 @@ const Navigation = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.PREFERREDMEALS}
           />
+          <Stack.Screen
+            name="MyFitnessPlan"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.MYFITNESSPLAN}
+          />
+          <Stack.Screen
+            name="MealPlanLandingPage"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.MEALPLANLANDINGPAGE}
+          />
+          <Stack.Screen
+            name="Pay"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.PAY}
+          />
+          <Stack.Screen
+            name="TransactionComplete"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.TRANSACTIONCOMPLETE}
+          />
         </>
       </Stack.Navigator>
     </NavigationContainer>

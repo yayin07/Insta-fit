@@ -34,7 +34,7 @@ const AdvancedLandingPage = ({ route }) => {
         <Text style={tw`text-30px font-bold`}>{data.name}</Text>
       </View>
       {/*  */}
-      <View>
+      {/* <View>
         <YoutubePlayer
           height={300}
           play={playing}
@@ -42,7 +42,7 @@ const AdvancedLandingPage = ({ route }) => {
           onChangeState={onStateChange}
         />
         <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />
-      </View>
+      </View> */}
       {/* Description */}
       <View style={tw`p-3`}>
         <Text style={tw`text-[17px] font-bold px-1 `}>Description</Text>

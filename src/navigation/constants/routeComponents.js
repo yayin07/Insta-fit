@@ -30,7 +30,10 @@ import INTERMEDIATELANDINGPAGE from "../../component/IntermediateLandingPage";
 import ADVANCEDLANDINGPAGE from "../../component/AdvancedLandingPage";
 import MAKEYOURPLAN from "../../screens/Social/MakeYourPlan";
 import PREFERREDMEALS from "../../screens/Social/PreferredMeals";
-
+import MYFITNESSPLAN from "../../screens/Social/MyFitnessPlan";
+import PAY from "../../screens/Auth/Pay";
+import MEALPLANLANDINGPAGE from "../../component/MealPlanLandingPage";
+import TRANSACTIONCOMPLETE from "../../screens/Social/TransactionComplete";
 export const SCREENS = {
   BOTTOM_TAB,
   PLAN,
@@ -64,4 +67,8 @@ export const SCREENS = {
   ADVANCEDLANDINGPAGE,
   MAKEYOURPLAN,
   PREFERREDMEALS,
+  MYFITNESSPLAN,
+  PAY,
+  MEALPLANLANDINGPAGE,
+  TRANSACTIONCOMPLETE,
 };
