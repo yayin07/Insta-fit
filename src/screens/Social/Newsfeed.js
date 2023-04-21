@@ -114,9 +114,9 @@ const Newsfeed = () => {
                       </View>
                       <View style={tw`flex items-start justify-center`}>
                         <Text style={tw`text-[15px] px-2 font-bold`}>
-                          {post_name}
+                          Daniel Jeffrey
                         </Text>
-                        <Text style={tw`text-11px px-2`}>23m</Text>
+                        <Text style={tw`text-11px px-2`}>0m</Text>
                       </View>
                     </View>
 

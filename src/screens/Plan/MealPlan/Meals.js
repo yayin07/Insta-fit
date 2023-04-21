@@ -45,18 +45,18 @@ const Meals = () => {
             <TouchableOpacity onPress={handleDinner}>
               <Image source={require("../../../../assets/Frame13.png")} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleMainCourse}>
+            {/* <TouchableOpacity onPress={handleMainCourse}>
               <Image source={require("../../../../assets/Frame14.png")} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
-          <View style={tw`flex flex-row`}>
+          {/* <View style={tw`flex flex-row`}>
             <TouchableOpacity onPress={handleDrinks}>
               <Image source={require("../../../../assets/Frame15.png")} />
             </TouchableOpacity>
             <TouchableOpacity onPress={handleSalad}>
               <Image source={require("../../../../assets/Frame16.png")} />
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </View>
     </View>

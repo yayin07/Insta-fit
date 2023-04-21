@@ -40,7 +40,7 @@ const Login = () => {
         navigation.navigate("Fitness");
         setGetUser(user.email);
       }
-      console.log("user", user);
+      console.log("user:", user);
     });
     return unsubscribe;
   }, []);

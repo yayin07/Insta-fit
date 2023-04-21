@@ -56,7 +56,7 @@ const Lunch = () => {
                     />
                   </View>
                   <View style={tw`flex flex-col items-start justify-center`}>
-                    <Text style={tw`text-[#FF1D38] text-[18px] font-bold`}>
+                    <Text style={tw`text-[#FF1D38] text-[18px] font-bold w-30`}>
                       {data.meal_plan}
                     </Text>
 
