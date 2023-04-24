@@ -13,6 +13,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../Firebase.config";
 import { auth } from "../../../Firebase.config";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
 
 const WhatsYourGoal = () => {
   const [user, setUser] = useState(auth);

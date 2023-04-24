@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
   Text,
   View,
@@ -6,48 +6,55 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-} from "react-native";
+} from "react-native"
 import {
   getFirestore,
   doc,
   getDoc,
   collection,
   getDocs,
-} from "firebase/firestore";
+} from "firebase/firestore"
 // import app from "./firebaseConfig";
-import PlanHeader from "../../component/PlanHeader";
-import tw from "twrnc";
-import { db } from "../../../Firebase.config";
-import { auth } from "../../../Firebase.config";
-import { useNavigation } from "@react-navigation/native";
+import PlanHeader from "../../component/PlanHeader"
+import tw from "twrnc"
+import { db } from "../../../Firebase.config"
+import { auth } from "../../../Firebase.config"
+import { useNavigation } from "@react-navigation/native"
+import { useAuthContext } from "../../component/AuthContext/AuthContext"
 
 const UserProfile = ({ id }) => {
-  const navigation = useNavigation();
-  const [userInfo, setUserInfo] = useState([]);
-  const userInfoCollection = collection(db, "users");
+  const navigation = useNavigation()
+  const { getUser } = useAuthContext()
+  const [userInfo, setUserInfo] = useState([])
+  const userInfoCollection = collection(db, "users")
+  const [getUserInfo, setGetUserInfo] = useState([])
 
   const handleSuggestPlan = () => {
-    navigation.navigate("MakeYourPlan");
-  };
+    navigation.navigate("MakeYourPlan")
+  }
 
   const handleFitnessPlan = () => {
-    navigation.navigate("Subscription");
-  };
+    navigation.navigate("Subscription")
+  }
 
   useEffect(() => {
     const getUserList = async () => {
       try {
-        const data = await getDocs(userInfoCollection);
+        const data = await getDocs(userInfoCollection)
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
-        }));
-        console.log(filteredData);
+        }))
+        setGetUserInfo(filteredData)
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
-    };
-  });
+    }
+    getUserList()
+  }, [])
+
+  console.log("getUser", getUser)
+  console.log("getUserInfo", getUserInfo)
 
   return (
     <View style={tw`flex-1 `}>
@@ -101,37 +108,44 @@ const UserProfile = ({ id }) => {
         <View style={tw`px-6  flex items-center`}>
           <Text style={tw`px-1 py-2 text-17px font-bold`}>About Me</Text>
 
-          <View style={tw`gap-3`}>
-            <View
-              style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
-            >
-              <Text>Gender:</Text>
-              <Text>Female</Text>
-            </View>
-            <View
-              style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
-            >
-              <Text>Height: </Text>
-              <Text>160m</Text>
-            </View>
-            <View
-              style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
-            >
-              <Text>Weight: </Text>
-              <Text>50kg</Text>
-            </View>
-            <View
-              style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
-            >
-              <Text>Birthday: </Text>
-              <Text>8-30-1991</Text>
-            </View>
-          </View>
+          {getUserInfo.length > 0 &&
+            getUserInfo.map((getUserDetails) => {
+              if (getUserDetails.email === getUser?.email) {
+                return (
+                  <View style={tw`gap-3`}>
+                    <View
+                      style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
+                    >
+                      <Text>Gender:</Text>
+                      <Text>{getUserDetails.hasOwnProperty('gender') ? getUserDetails.gender : "No Gender data"}</Text>
+                    </View>
+                    <View
+                      style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
+                    >
+                      <Text>Height:</Text>
+                      <Text>{getUserDetails.hasOwnProperty('height') ? getUserDetails.height : "No Height data"}</Text>
+                    </View>
+                    <View
+                      style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
+                    >
+                      <Text>Weight:</Text>
+                      <Text>{getUserDetails.hasOwnProperty('weight') ? getUserDetails.weight : "No Weight data"}</Text>
+                    </View>
+                    <View
+                      style={tw`flex flex-row justify-between items-center px-4 bg-[#ffffff] shadow-md p-2 w-330px`}
+                    >
+                      <Text>Birthday:</Text>
+                      <Text>{getUserDetails.hasOwnProperty('birthday') ? getUserDetails.height : "No Birthday data"}</Text>
+                    </View>
+                  </View>
+                )
+              }
+            })}
         </View>
         {/*  */}
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default UserProfile;
+export default UserProfile

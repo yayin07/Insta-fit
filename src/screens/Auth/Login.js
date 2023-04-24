@@ -36,13 +36,12 @@ const Login = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      setGetUser(user);
       if (user) {
         navigation.navigate("Fitness");
-        setGetUser(user.email);
       }
-      console.log("user:", user);
     });
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
   // const handleSignin = () => {
@@ -70,8 +69,6 @@ const Login = () => {
         );
       });
   };
-
-  console.log(handleSignin);
 
   const handleForgot = () => {
     navigation.navigate("ForgotPassword");

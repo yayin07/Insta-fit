@@ -92,7 +92,7 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Social"
+        name="SocialStack"
         component={SocialStackNavigator}
         options={{
           headerShown: false,
