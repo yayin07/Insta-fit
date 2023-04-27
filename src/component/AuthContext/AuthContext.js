@@ -7,8 +7,9 @@ const AuthContext = createContext();
 export default AuthContextProvider = ({ children }) => {
   const [userAccInfo, setUserAccInfo] = React.useState();
   const [userAboutInfo, setUserAboutInfo] = React.useState();
+
   const [userGoal, setUserGoal] = React.useState();
-  const [userWorkoutTime, setUserWorkoutTime] = React.useState();
+  const [userWorkoutTime, setUserWorkoutTime] = React.useState([]);
   const [getUser, setGetUser] = React.useState({});
   const userCollectionRef = collection(db, "users");
 

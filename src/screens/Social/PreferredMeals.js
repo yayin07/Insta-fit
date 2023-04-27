@@ -6,9 +6,14 @@ import { useNavigation } from "@react-navigation/native";
 
 const PreferredMeals = () => {
   const [selectedItem, setSelectedItem] = useState("");
+  const navigation = useNavigation();
 
   const handleSelect = (item) => {
     setSelectedItem(item);
+  };
+
+  const handleNext = () => {
+    navigation.navigate("EverydayMealPlan");
   };
   return (
     <View style={tw`flex-1`}>
@@ -78,7 +83,7 @@ const PreferredMeals = () => {
       </View>
       <View style={tw`absolute bottom-3 w-full px-6`}>
         <TouchableOpacity
-          //   onPress={handleNext}
+          onPress={handleNext}
           style={tw`bg-[#FAA0A0] px-4 py-2 rounded-full`}
         >
           <Text style={tw`text-center text-[#ffffff] text-18px font-bold`}>

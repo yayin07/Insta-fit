@@ -19,15 +19,16 @@ import { Feather } from "@expo/vector-icons";
 import Upload from "../../component/Upload";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../../Firebase.config";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
 
 const Newsfeed = () => {
   const [userInfo, setUserInfo] = useState([]);
   const navigation = useNavigation();
   const [post, setPost] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [user, setUser] = useState(auth.currentUser);
-
-  console.log(user);
+  const { getUser } = useAuthContext();
+  const userPostCollection = collection(db, "social");
+  const [getUserPost, setGetUserInfo] = useState([]);
 
   const handleClose = () => {
     navigation.navigate("Fitness");
@@ -61,11 +62,11 @@ const Newsfeed = () => {
   return (
     <View style={tw`h-full bg-[#ffc0cb]`}>
       {/* Logo */}
-      <View style={tw`flex flex-row justify-start items-center p-4`}>
-        <TouchableOpacity onPress={handleClose}>
+      <View style={tw`flex flex-row justify-start items-center p-5`}>
+        {/* <TouchableOpacity onPress={handleClose}>
           <Image source={require("../../../assets/Vector11.png")} />
-        </TouchableOpacity>
-        <View style={tw`flex flex-row px-19`}>
+        </TouchableOpacity> */}
+        <View style={tw`flex flex-row`}>
           <View>
             <Image
               source={require("../../../assets/Image2.png")}
@@ -114,7 +115,24 @@ const Newsfeed = () => {
                       </View>
                       <View style={tw`flex items-start justify-center`}>
                         <Text style={tw`text-[15px] px-2 font-bold`}>
-                          Daniel Jeffrey
+                          {userInfo.length > 0 &&
+                            userInfo.map((getUserInfo) => {
+                              if (getUserInfo.email === getUser?.email) {
+                                return (
+                                  <View>
+                                    <View>
+                                      <Text>
+                                        {getUserInfo.hasOwnProperty(
+                                          "first_name"
+                                        )
+                                          ? getUserInfo.first_name
+                                          : "No username"}
+                                      </Text>
+                                    </View>
+                                  </View>
+                                );
+                              }
+                            })}
                         </Text>
                         <Text style={tw`text-11px px-2`}>0m</Text>
                       </View>

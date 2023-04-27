@@ -31,7 +31,7 @@ const WorkoutTime = () => {
       "User Information added successfully",
       ToastAndroid.SHORT
     );
-    navigation.navigate("Subscription");
+    navigation.navigate("Start");
   };
 
   const handleSelectTime = (time) => {

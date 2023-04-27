@@ -171,6 +171,17 @@ const Navigation = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.TRANSACTIONCOMPLETE}
           />
+          <Stack.Screen
+            name="EverydayMealPlan"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.EVERYDAYMEALPLAN}
+          />
+
+          <Stack.Screen
+            name="UserProfile"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.USERPROFILE}
+          />
         </>
       </Stack.Navigator>
     </NavigationContainer>

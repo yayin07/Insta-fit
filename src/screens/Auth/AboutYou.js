@@ -19,7 +19,7 @@ import { StatusBar } from "react-native";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
 const AboutYou = () => {
   const navigation = useNavigation();
-  const [user, setUser] = useState(auth.currentUser);
+  const { getUser } = useAuthContext();
   const [date, setDate] = useState(new Date());
   const [height, setHeight] = useState("5'0''");
   const [weight, setWeight] = useState("50 kg");
@@ -39,6 +39,7 @@ const AboutYou = () => {
       user_weight: weight,
       user_gender: gender,
     });
+    console.log("User", getUser);
 
     ToastAndroid.show(
       "User Information added successfully",

@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import { db } from "../../../../Firebase.config";
@@ -25,7 +25,7 @@ const Breakfast = () => {
   };
 
   return (
-    <View style={tw`flex-1 bg-[#ffffff]`}>
+    <ScrollView style={tw`flex-1 bg-[#ffffff]`}>
       <View style={tw`p-4 bg-[#ffffff] shadow-xl shadow-black`}>
         <Text style={tw`text-[18px] font-bold`}>Breakfast</Text>
       </View>
@@ -67,7 +67,7 @@ const Breakfast = () => {
             );
           })}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
