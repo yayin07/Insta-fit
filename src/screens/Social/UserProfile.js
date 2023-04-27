@@ -19,7 +19,7 @@ import {
 import PlanHeader from "../../component/PlanHeader";
 import tw from "twrnc";
 import { db } from "../../../Firebase.config";
-import { auth } from "../../../Firebase.config";
+// import { auth } from "../../../Firebase.config";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
 
@@ -37,7 +37,7 @@ const UserProfile = ({ id }) => {
   };
 
   const handleFitnessPlan = () => {
-    navigation.navigate("Subscription");
+    navigation.navigate("EverydayMealPlan");
   };
 
   useEffect(() => {
@@ -104,7 +104,7 @@ const UserProfile = ({ id }) => {
                   }
                 })}
             </Text>
-            <Image source={require("../../../assets/PRO2.png")} />
+            {/* <Image source={require("../../../assets/PRO2.png")} /> */}
           </View>
         </View>
         {/*  */}

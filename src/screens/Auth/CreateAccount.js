@@ -10,7 +10,11 @@ import {
 } from "react-native";
 import React, { useState, createRef } from "react";
 import tw from "twrnc";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  getAuth,
+} from "firebase/auth";
 import { query, collection, setDoc, doc, addDoc } from "firebase/firestore";
 
 import { auth } from "../../../Firebase.config";
@@ -43,6 +47,45 @@ const CreateAccount = () => {
     setHideConfirmPassword(!hideConfirmPassword);
   };
 
+  // const handleSignup = async () => {
+  //   if (
+  //     !email ||
+  //     !password ||
+  //     !confirmPassword ||
+  //     !firstname ||
+  //     !lastname ||
+  //     !phoneNumber ||
+  //     !/^\d{10}$/.test(phoneNumber) ||
+  //     password !== confirmPassword
+  //   ) {
+  //     ToastAndroid.show(
+  //       "Please fill up the form correctly",
+  //       ToastAndroid.SHORT
+  //     );
+  //     return;
+  //   }
+
+  //   setUserAccInfo({
+  //     first_name: firstname,
+  //     last_name: lastname,
+  //     email,
+  //     password,
+  //     role: "null",
+  //     phone: phoneNumber,
+  //     subscriptions: "no",
+  //   });
+
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((details) => {
+  //       navigation.navigate("About", { data: details });
+  //       ToastAndroid.show("Registered Successfully", ToastAndroid.SHORT);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       ToastAndroid.show("Email already used.", ToastAndroid.SHORT);
+  //     });
+  // };
+
   const handleSignup = async () => {
     if (
       !email ||
@@ -72,9 +115,16 @@ const CreateAccount = () => {
     });
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigation.navigate("About");
-        ToastAndroid.show("Registered Successfully", ToastAndroid.SHORT);
+      .then((details) => {
+        signInWithEmailAndPassword(auth, email, password)
+          .then(() => {
+            navigation.navigate("About", { data: details });
+            ToastAndroid.show("Registered Successfully", ToastAndroid.SHORT);
+          })
+          .catch((err) => {
+            console.error(err);
+            ToastAndroid.show("Failed to log in.", ToastAndroid.SHORT);
+          });
       })
       .catch((err) => {
         console.error(err);

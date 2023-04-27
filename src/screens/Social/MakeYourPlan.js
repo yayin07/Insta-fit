@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,47 +6,47 @@ import {
   Dimensions,
   Modal,
   StyleSheet,
-} from "react-native"
-import { Picker } from "@react-native-picker/picker"
-import tw from "twrnc"
-import PlanHeader from "../../component/PlanHeader"
-import { useNavigation } from "@react-navigation/native"
-import { db } from "../../../Firebase.config"
-import { collection, doc, onSnapshot, query, setDoc } from "firebase/firestore"
-import { useAuthContext } from "../../component/AuthContext/AuthContext"
+} from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import tw from "twrnc";
+import PlanHeader from "../../component/PlanHeader";
+import { useNavigation } from "@react-navigation/native";
+import { db } from "../../../Firebase.config";
+import { collection, doc, onSnapshot, query, setDoc } from "firebase/firestore";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
 
 const MakeYourPlan = () => {
-  const navigation = useNavigation()
-  const [selectedWeight, setSelectedWeight] = useState(null)
-  const [selectedBodyArea, setSelectedBodyArea] = useState(null)
-  const [selectedWorkoutType, setSelectedWorkoutType] = useState(null)
-  const [showWeightDropdown, setShowWeightDropdown] = useState(false)
-  const [showBodyAreaDropdown, setShowBodyAreaDropdown] = useState(false)
-  const [showWorkoutTypeDropdown, setShowWorkoutTypeDropdown] = useState(false)
-  const [showDropdown, setShowDropdown] = useState(false)
-  const screenWidth = Dimensions.get("window").width
-  const [requestPlan, setRequestPlan] = useState([])
-  const { getUser } = useAuthContext()
+  const navigation = useNavigation();
+  const [selectedWeight, setSelectedWeight] = useState(null);
+  const [selectedBodyArea, setSelectedBodyArea] = useState(null);
+  const [selectedWorkoutType, setSelectedWorkoutType] = useState(null);
+  const [showWeightDropdown, setShowWeightDropdown] = useState(false);
+  const [showBodyAreaDropdown, setShowBodyAreaDropdown] = useState(false);
+  const [showWorkoutTypeDropdown, setShowWorkoutTypeDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const screenWidth = Dimensions.get("window").width;
+  const [requestPlan, setRequestPlan] = useState([]);
+  const { getUser } = useAuthContext();
   // const makeYourPlanRef = doc(db, "user");
 
   useEffect(() => {
-    const suggestRef = collection(db, "request_plan")
-    const getRef = query(suggestRef)
+    const suggestRef = collection(db, "request_plan");
+    const getRef = query(suggestRef);
     const unsubscribe = onSnapshot(getRef, (snaphot) => {
       const fetchRequestPlan = snaphot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }))
-      setRequestPlan(fetchRequestPlan)
-    })
+      }));
+      setRequestPlan(fetchRequestPlan);
+    });
     return () => {
-      unsubscribe()
-    }
-  }, [])
+      unsubscribe();
+    };
+  }, []);
 
-  console.log("requestPlan", requestPlan)
+  console.log("requestPlan", requestPlan);
 
-  const bodyAreas = ["Biceps", "Triceps", "Chest", "Abs"]
+  const bodyAreas = ["Biceps", "Triceps", "Chest", "Abs"];
   const workoutTypes = [
     "Yoga",
     "Cardiovascular workouts",
@@ -58,19 +58,19 @@ const MakeYourPlan = () => {
     "Dance-based workouts",
     "Circuit training",
     "Outdoor workouts",
-  ]
+  ];
 
   const toggleDropdown = () => {
-    setShowDropdown((prevState) => !prevState)
-  }
+    setShowDropdown((prevState) => !prevState);
+  };
 
   const toggleBodyAreaDropdown = () => {
-    setShowBodyAreaDropdown((prevState) => !prevState)
-  }
+    setShowBodyAreaDropdown((prevState) => !prevState);
+  };
 
   const toggleWorkoutTypeDropdown = () => {
-    setShowWorkoutTypeDropdown((prevState) => !prevState)
-  }
+    setShowWorkoutTypeDropdown((prevState) => !prevState);
+  };
 
   const handleNext = () => {
     const planData = {
@@ -78,18 +78,18 @@ const MakeYourPlan = () => {
       request_target_body: selectedBodyArea,
       request_workout_type: selectedWorkoutType,
       request_status: "Not Processed",
-    }
-    navigation.navigate("PreferredMeals", { data: planData })
-  }
+    };
+    navigation.navigate("PreferredMeals", { data: planData });
+  };
 
   const getRequestEmail = requestPlan.map((userEmail) => {
-    return userEmail.request_user
-  })
+    return userEmail.request_user;
+  });
 
-  console.log("getRequestEmail", getRequestEmail)
+  console.log("getRequestEmail", getRequestEmail);
 
   return (
-    <View style={tw`flex-1`}>
+    <View style={tw`flex-1 `}>
       <View>
         <PlanHeader />
       </View>
@@ -144,7 +144,7 @@ const MakeYourPlan = () => {
               </View>
             </View>
             <Modal
-              animationType='slide'
+              animationType="slide"
               transparent={true}
               visible={showDropdown}
             >
@@ -156,8 +156,8 @@ const MakeYourPlan = () => {
                   <Picker
                     selectedValue={selectedWeight}
                     onValueChange={(itemValue, itemIndex) => {
-                      setSelectedWeight(itemValue)
-                      toggleDropdown()
+                      setSelectedWeight(itemValue);
+                      toggleDropdown();
                     }}
                     style={tw`w-32`}
                   >
@@ -173,7 +173,7 @@ const MakeYourPlan = () => {
               </View>
             </Modal>
             <Modal
-              animationType='slide'
+              animationType="slide"
               transparent={true}
               visible={showBodyAreaDropdown}
             >
@@ -185,8 +185,8 @@ const MakeYourPlan = () => {
                   <Picker
                     selectedValue={selectedBodyArea}
                     onValueChange={(itemValue, itemIndex) => {
-                      setSelectedBodyArea(itemValue)
-                      toggleBodyAreaDropdown()
+                      setSelectedBodyArea(itemValue);
+                      toggleBodyAreaDropdown();
                     }}
                     style={tw`w-32`}
                   >
@@ -202,7 +202,7 @@ const MakeYourPlan = () => {
               </View>
             </Modal>
             <Modal
-              animationType='slide'
+              animationType="slide"
               transparent={true}
               visible={showWorkoutTypeDropdown}
             >
@@ -214,8 +214,8 @@ const MakeYourPlan = () => {
                   <Picker
                     selectedValue={selectedWorkoutType}
                     onValueChange={(itemValue, itemIndex) => {
-                      setSelectedWorkoutType(itemValue)
-                      toggleWorkoutTypeDropdown()
+                      setSelectedWorkoutType(itemValue);
+                      toggleWorkoutTypeDropdown();
                     }}
                     style={tw`w-32`}
                   >
@@ -231,10 +231,10 @@ const MakeYourPlan = () => {
               </View>
             </Modal>
           </View>
-          <View style={tw`absolute bottom-3 w-full px-6`}>
+          <View style={tw` w-full h-full px-6 `}>
             <TouchableOpacity
               onPress={handleNext}
-              style={tw`bg-[#FAA0A0] px-4 py-2 rounded-full`}
+              style={tw`bg-[#FAA0A0] px-4 py-2 rounded-full  `}
             >
               <Text style={tw`text-center text-[#ffffff] text-18px font-bold`}>
                 Next
@@ -244,16 +244,16 @@ const MakeYourPlan = () => {
         </View>
       )}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },  
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -266,6 +266,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "80%",
   },
-})
+});
 
-export default MakeYourPlan
+export default MakeYourPlan;

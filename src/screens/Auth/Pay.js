@@ -20,12 +20,14 @@ import { useNavigation } from "@react-navigation/native";
 const Pay = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { getUser } = useAuthContext;
+  const { getUser } = useAuthContext();
   const { data } = route.params;
   const [selectedPayment, setSelectedPayment] = useState("");
   const [paymentTermsModalVisible, setPaymentTermsModalVisible] =
     useState(false);
   const [paymentAmount, setPaymentAmount] = useState(data.price);
+  const [email, setEmail] = useState(getUser);
+  // const { user } = getAuth();
 
   console.log("pay", data);
   console.log("Account", getUser);
@@ -64,7 +66,7 @@ const Pay = () => {
       subscription_type: data.value,
       payment_type: selectedPayment,
       amount: paymentAmount,
-      user: "danielaco3091@gmail.com",
+      user: getUser,
     };
     addDoc(subscriptionCollectionRef, paymentDetails);
     navigation.navigate("TransactionComplete");
@@ -74,6 +76,8 @@ const Pay = () => {
     selectedPayment === "gcash"
       ? require("../../../assets/Gcash.png")
       : require("../../../assets/Image5.png");
+
+  console.log("User", getUser);
 
   return (
     <View style={tw`flex-1`}>

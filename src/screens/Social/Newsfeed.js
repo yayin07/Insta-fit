@@ -10,10 +10,10 @@ import {
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
 import { collection, doc, onSnapshot, query, setDoc } from "firebase/firestore";
 import { db } from "../../../Firebase.config";
-import Post from "../../component/Post";
+// import Post from "../../component/Post";
 
 import { Feather } from "@expo/vector-icons";
 import Upload from "../../component/Upload";
@@ -27,8 +27,8 @@ const Newsfeed = () => {
   const [post, setPost] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const { getUser } = useAuthContext();
-  const userPostCollection = collection(db, "social");
-  const [getUserPost, setGetUserInfo] = useState([]);
+  // const userPostCollection = collection(db, "social");
+  // const [getUserPost, setGetUserInfo] = useState([]);
 
   const handleClose = () => {
     navigation.navigate("Fitness");
@@ -102,10 +102,11 @@ const Newsfeed = () => {
               image_url,
               post_description,
               id,
+              o,
             }) => {
               return (
                 <View
-                  key={id}
+                  key={o}
                   style={tw`bg-[#ffffff] w-[300px] h-[300px] flex justify-between  shadow-lg shadow-xl  pt-10  rounded-10px p-3`}
                 >
                   <View style={tw`px-1`}>

@@ -9,7 +9,7 @@ const GetStarted = () => {
   const [showConfetti, setShowConfetti] = useState(false);
 
   const handleStarted = () => {
-    navigation.navigate("Login");
+    navigation.navigate("Subscription");
   };
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const GetStarted = () => {
       clearTimeout(timer);
     };
   }, []);
+
   return (
     <View style={tw`flex-1 `}>
       <View></View>

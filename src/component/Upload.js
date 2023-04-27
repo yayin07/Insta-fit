@@ -19,6 +19,7 @@ import { storage } from "../../Firebase.config";
 import { saveItem } from "../utils/FirebaseFunction";
 import { addDoc, collection, query, serverTimestamp } from "firebase/firestore";
 import { db } from "../../Firebase.config";
+import { getUser } from "../component/AuthContext/AuthContext";
 
 const Upload = ({ setModalVisible, modalVisible }) => {
   const navigation = useNavigation();

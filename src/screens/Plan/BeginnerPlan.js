@@ -1,41 +1,48 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native"
-import React, { useEffect, useState } from "react"
-import tw from "twrnc"
-import { db } from "../../../Firebase.config"
-import { collection, onSnapshot, query } from "firebase/firestore"
-import { useNavigation } from "@react-navigation/native"
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import tw from "twrnc";
+import { db } from "../../../Firebase.config";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
 
 const BeginnerPlan = ({ id, title, description }) => {
-  const [trainings, setTrainings] = useState([])
-  const navigation = useNavigation()
+  const [trainings, setTrainings] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
-    const trainingRef = collection(db, "trainings")
-    const getRef = query(trainingRef)
+    const trainingRef = collection(db, "trainings");
+    const getRef = query(trainingRef);
     const unsubcribe = onSnapshot(getRef, (snapshot) => {
       const fetchPlan = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }))
-      setTrainings(fetchPlan)
-    })
-  }, [])
+      }));
+      setTrainings(fetchPlan);
+    });
+  }, []);
 
-  console.log("trainings", trainings)
+  console.log("trainings", trainings);
 
   const handleStart = (details) => {
-    if(details.subscriptions === "paid"){
+    if (details.subscriptions === "paid") {
       return;
     } else {
-      navigation.navigate("BeginnerLandingPage", { data: details })
+      navigation.navigate("BeginnerLandingPage", { data: details });
     }
-  }
+  };
 
   const handleBack = () => {
-    navigation.navigate("Fitness")
-  }
+    navigation.navigate("Fitness");
+  };
   return (
-    <View style={tw`flex-1 `}>
+    <SafeAreaView style={tw`flex-1 `}>
       <View
         style={tw`p-3 flex items-center shadow-xl shadow-black bg-[#FFFFFF]`}
       >
@@ -57,7 +64,7 @@ const BeginnerPlan = ({ id, title, description }) => {
           {trainings
             .filter(({ type }) => type === "beginner")
             .map((data, index) => {
-              console.log("Beginnerdata", data)
+              console.log("Beginnerdata", data);
               return (
                 <View key={index} style={tw`relative`}>
                   <TouchableOpacity
@@ -107,12 +114,12 @@ const BeginnerPlan = ({ id, title, description }) => {
                     </View>
                   </TouchableOpacity>
                 </View>
-              )
+              );
             })}
         </View>
       </ScrollView>
-    </View>
-  )
-}
+    </SafeAreaView>
+  );
+};
 
-export default BeginnerPlan
+export default BeginnerPlan;

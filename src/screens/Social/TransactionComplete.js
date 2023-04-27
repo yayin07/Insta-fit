@@ -9,7 +9,7 @@ const TransactionComplete = () => {
   const [showConfetti, setShowConfetti] = useState(false);
 
   const handleStarted = () => {
-    navigation.navigate("Fitness");
+    navigation.navigate("Login");
   };
 
   useEffect(() => {
