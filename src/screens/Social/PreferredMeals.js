@@ -1,20 +1,36 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
-import tw from "twrnc";
-import PlanHeader from "../../component/PlanHeader";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, TouchableOpacity } from "react-native"
+import React, { useState } from "react"
+import tw from "twrnc"
+import PlanHeader from "../../component/PlanHeader"
+import { useNavigation } from "@react-navigation/native"
+import { addDoc, collection } from "firebase/firestore"
+import { db } from "../../../Firebase.config"
+import { useAuthContext } from "../../component/AuthContext/AuthContext"
 
-const PreferredMeals = () => {
-  const [selectedItem, setSelectedItem] = useState("");
-  const navigation = useNavigation();
+const PreferredMeals = ({ navigation, route }) => {
+  const { data } = route.params
+  console.log("data", data)
+  const requestCollectionRef = collection(db, "request_plan")
+  const [selectedItem, setSelectedItem] = useState("")
+  const { getUser } = useAuthContext();
 
   const handleSelect = (item) => {
-    setSelectedItem(item);
-  };
+    setSelectedItem(item)
+  }
 
-  const handleNext = () => {
-    navigation.navigate("EverydayMealPlan");
-  };
+  const handleSubmit = async () => {
+    if (selectedItem !== "") {
+      await addDoc(requestCollectionRef, {
+        request_status: data.request_status,
+        request_target_body: data.request_target_body,
+        request_target_weight: data.request_target_weight,
+        request_workout_type: data.request_workout_type,
+        request_meal: selectedItem,
+        request_user: getUser.email,
+      })
+    }
+    navigation.navigate("Profile")
+  }
   return (
     <View style={tw`flex-1`}>
       <View>
@@ -83,16 +99,16 @@ const PreferredMeals = () => {
       </View>
       <View style={tw`absolute bottom-3 w-full px-6`}>
         <TouchableOpacity
-          onPress={handleNext}
+          onPress={() => handleSubmit()}
           style={tw`bg-[#FAA0A0] px-4 py-2 rounded-full`}
         >
           <Text style={tw`text-center text-[#ffffff] text-18px font-bold`}>
-            Next
+            Submit Plan
           </Text>
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default PreferredMeals;
+export default PreferredMeals

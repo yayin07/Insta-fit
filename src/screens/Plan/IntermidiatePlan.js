@@ -1,34 +1,41 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
-import tw from "twrnc";
-import { db } from "../../../Firebase.config";
-import { collection, onSnapshot, query } from "firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
-import YoutubePlayer from "react-native-youtube-iframe";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native"
+import React, { useEffect, useState } from "react"
+import tw from "twrnc"
+import { db } from "../../../Firebase.config"
+import { collection, onSnapshot, query } from "firebase/firestore"
+import { useNavigation } from "@react-navigation/native"
+import YoutubePlayer from "react-native-youtube-iframe"
 
 const IntermidiatePlan = ({ id, title, description }) => {
-  const [trainings, setTrainings] = useState([]);
-  const navigation = useNavigation();
+  const [trainings, setTrainings] = useState([])
+  const navigation = useNavigation()
 
   useEffect(() => {
-    const trainingRef = collection(db, "fitness-plan");
-    const getRef = query(trainingRef);
+    const trainingRef = collection(db, "trainings")
+    const getRef = query(trainingRef)
     const unsubcribe = onSnapshot(getRef, (snapshot) => {
       const fetchPlan = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
-      setTrainings(fetchPlan);
-    });
-  }, []);
+      }))
+      setTrainings(fetchPlan)
+    })
+    return () => {
+      unsubcribe();
+    }
+  }, [])
 
   const handleStart = (details) => {
-    navigation.navigate("IntermediateLandingPage", { data: details });
-  };
+    if (details.subscriptions === "paid") {
+      return
+    } else {
+      navigation.navigate("IntermediateLandingPage", { data: details })
+    }
+  }
 
   const handleBack = () => {
-    navigation.navigate("Fitness");
-  };
+    navigation.navigate("Fitness")
+  }
   return (
     <View style={tw`flex-1 `}>
       <View
@@ -47,48 +54,67 @@ const IntermidiatePlan = ({ id, title, description }) => {
       </View>
       {/*  */}
       <ScrollView>
-        <View style={tw`flex items-center justify-start h-[800px] py-10  `}>
+        <View style={tw`flex items-center justify-start`}>
           {/* Card */}
           {trainings
-            .filter(({ intensity }) => intensity === "intermediate")
-            .map((data) => (
-              <TouchableOpacity
-                onPress={() => handleStart(data)}
-                style={tw`py-5`}
-              >
-                <View
-                  key={id}
-                  style={tw`shadow-black shadow-xl bg-[#ffffff] rounded-b-[10px] py-4`}
-                >
-                  <View style={tw`flex`}>
-                    <View>
-                      <Image source={require("../../../assets/Frame4.png")} />
-                    </View>
+            .filter(({ type }) => type === "intermediate")
+            .map((data, index) => {
+              console.log("Intermediate", data)
+              return (
+                <View key={index} style={tw`relative`}>
+                  <TouchableOpacity
+                    onPress={() => handleStart(data)}
+                    style={tw`my-5`}
+                  >
+                    {data.subscriptions === "paid" ? (
+                      <Image
+                        style={tw`absolute z-10 h-[330px] w-[300px]`}
+                        source={require("../../../assets/lockImage.png")}
+                      />
+                    ) : (
+                      ""
+                    )}
                     <View
-                      style={tw`flex flex-row items-center justify-between px-4`}
+                      style={tw`shadow-black shadow-xl bg-[#ffffff] h-[319px] w-[300px] rounded-b-[10px] py-4`}
                     >
-                      <View style={tw`py-3 px-3`}>
+                      <View style={tw`flex`}>
                         <View>
-                          <Text style={tw`text-[16px] font-bold`}>
-                            {data.name}
-                          </Text>
+                          <Image
+                            style={tw`w-[300px]`}
+                            source={require("../../../assets/Frame4.png")}
+                          />
                         </View>
-                        <View>
-                          <Text style={tw`text-black opacity-70`}>10 mins</Text>
-                        </View>
-                        <View>
-                          <Text style={tw`text-black opacity-70`}>3 reps</Text>
+                        <View
+                          style={tw`flex flex-row items-center justify-between px-4`}
+                        >
+                          <View style={tw`py-3 px-3`}>
+                            <View>
+                              <Text style={tw`text-[16px] font-bold`}>
+                                {data.workout_name}
+                              </Text>
+                            </View>
+                            <View>
+                              <Text style={tw`text-black opacity-70`}>
+                                {data.trainer}
+                              </Text>
+                            </View>
+                            <View>
+                              <Text style={tw`text-black opacity-70`}>
+                                {data.type}
+                              </Text>
+                            </View>
+                          </View>
                         </View>
                       </View>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-            ))}
+              )
+            })}
         </View>
       </ScrollView>
     </View>
-  );
-};
+  )
+}
 
-export default IntermidiatePlan;
+export default IntermidiatePlan

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ToastAndroid,
   KeyboardAvoidingView,
+  StyleSheet,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
@@ -23,6 +24,8 @@ const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [validationError, setValidationError] = useState('');
+  const [validationPass, setValidationPass] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
   const { setGetUser } = useAuthContext();
 
@@ -74,6 +77,27 @@ const Login = () => {
     navigation.navigate("ForgotPassword");
   };
 
+  const validateInput = () => {
+    // Email validation pattern
+    const validationPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  
+    if (email === '') {
+      setValidationError('Input is required.');
+    } else if (!email.match(validationPattern)) {
+      setValidationError('Invalid email address.');
+    } else {
+      setValidationError('');
+    }
+  };
+
+  const validatePass = () => {
+    if (password === '') {
+      setValidationPass('Input is required.');
+    } else {
+      setValidationPass('');
+    }
+  };
+
   return (
     <KeyboardAvoidingView style={tw`flex-1 bg-black py-1`}>
       {/* Background Image */}
@@ -117,8 +141,12 @@ const Login = () => {
               <TextInput
                 style={tw`text-[#ffffff]`}
                 keyboardType="email-address"
-                onChangeText={(text) => setEmail(text)}
+                onChangeText={(text) => {
+                  setEmail(text);
+                  validateInput();
+                }}
               />
+              {validationError ? <Text style={styles.errorText}>{validationError}</Text> : null}
             </View>
             {/* Password Input */}
             <View style={tw`border-b-[2px] border-[#ffffff] opacity-70 `}>
@@ -126,9 +154,13 @@ const Login = () => {
               <TextInput
                 style={tw`text-[#ffffff] `}
                 secureTextEntry={hidePassword}
-                onChangeText={(text) => setPassword(text)}
+                onChangeText={(text) => {
+                  setPassword(text)
+                  validatePass()
+                }}
                 value={password}
               />
+              {validationPass ? <Text style={styles.errorText}>{validationPass}</Text> : null}
               <TouchableOpacity
                 style={tw`absolute right-3 top-7`}
                 onPress={togglePasswordVisibility}
@@ -183,4 +215,9 @@ const Login = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  errorText: {
+    color: 'red',
+  },
+})
 export default Login;
