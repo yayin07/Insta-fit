@@ -182,6 +182,16 @@ const Navigation = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.USERPROFILE}
           />
+          <Stack.Screen
+            name="MyPlan"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.MYPLAN}
+          />
+          <Stack.Screen
+            name="EverydayFitnessPlan"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.EVERYDAYFITNESSPLAN}
+          />
         </>
       </Stack.Navigator>
     </NavigationContainer>

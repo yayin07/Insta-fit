@@ -35,6 +35,8 @@ import PAY from "../../screens/Auth/Pay";
 import MEALPLANLANDINGPAGE from "../../component/MealPlanLandingPage";
 import TRANSACTIONCOMPLETE from "../../screens/Social/TransactionComplete";
 import EVERYDAYMEALPLAN from "../../screens/Social/EverydayMealPlan";
+import MYPLAN from "../../screens/Social/MyPlan";
+import EVERYDAYFITNESSPLAN from "../../screens/Social/EverydayFitnessPlan";
 export const SCREENS = {
   BOTTOM_TAB,
   PLAN,
@@ -73,4 +75,6 @@ export const SCREENS = {
   MEALPLANLANDINGPAGE,
   TRANSACTIONCOMPLETE,
   EVERYDAYMEALPLAN,
+  MYPLAN,
+  EVERYDAYFITNESSPLAN,
 };

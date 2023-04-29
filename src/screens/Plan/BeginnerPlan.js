@@ -41,6 +41,7 @@ const BeginnerPlan = ({ id, title, description }) => {
   const handleBack = () => {
     navigation.navigate("Fitness");
   };
+
   return (
     <SafeAreaView style={tw`flex-1 `}>
       <View

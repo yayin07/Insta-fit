@@ -21,21 +21,22 @@ const MealPlanLandingPage = () => {
                   ? "https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?w=740&t=st=1680882744~exp=1680883344~hmac=2ed4ad6558839e918a981b5e7fe157d7924703160281e5024981f21cab21b535"
                   : data.image_url,
             }}
-            style={tw`w-full h-220px opacity-75 `}
+            style={tw`w-full h-220px opacity-90 `}
             resizeMode="contain"
           />
         </View>
 
-        <View style={tw`absolute top-38`}>
-          <View style={tw`px-3 `}>
-            <View>
-              <Text style={tw`text-[34px] font-bold`}>{data.meal_plan}</Text>
+        <View style={tw`absolute top-38 w-full`}>
+          <View style={tw` `}>
+            <View style={tw`bg-gray-600 opacity-0`}>
+              <Text style={tw`text-[34px] font-bold `}>{data.meal_plan}</Text>
+              <View>
+                <Text style={tw`font-bold px-1`}>
+                  {data.calories_count} Calories
+                </Text>
+              </View>
             </View>
-            <View>
-              <Text style={tw`font-bold px-1`}>
-                {data.calories_count} Calories
-              </Text>
-            </View>
+
             <ScrollView>
               <View style={tw`py-10 flex items-center`}>
                 <View style={tw`flex items-center`}>

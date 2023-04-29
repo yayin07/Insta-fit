@@ -37,7 +37,7 @@ const UserProfile = ({ id }) => {
   };
 
   const handleFitnessPlan = () => {
-    navigation.navigate("EverydayMealPlan");
+    navigation.navigate("MyPlan");
   };
 
   useEffect(() => {

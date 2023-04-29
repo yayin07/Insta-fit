@@ -177,6 +177,7 @@ const Newsfeed = () => {
         <Upload setModalVisible={setModalVisible} modalVisible={modalVisible} />
       </Modal>
       <TouchableOpacity
+        key="post"
         onPress={() => setModalVisible(!modalVisible)}
         style={tw`absolute right-3 bottom-5 flex items-center`}
       >
