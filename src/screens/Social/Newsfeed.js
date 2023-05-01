@@ -20,6 +20,7 @@ import Upload from "../../component/Upload";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../../Firebase.config";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
+import moment from "moment";
 
 const Newsfeed = () => {
   const [userInfo, setUserInfo] = useState([]);
@@ -102,11 +103,10 @@ const Newsfeed = () => {
               image_url,
               post_description,
               id,
-              o,
-            }) => {
+            }, index) => {
               return (
                 <View
-                  key={o}
+                  key={index}
                   style={tw`bg-[#ffffff] w-[300px] h-[300px] flex justify-between  shadow-lg shadow-xl  pt-10  rounded-10px p-3`}
                 >
                   <View style={tw`px-1`}>
@@ -116,7 +116,7 @@ const Newsfeed = () => {
                       </View>
                       <View style={tw`flex items-start justify-center`}>
                         <Text style={tw`text-[15px] px-2 font-bold`}>
-                          {userInfo.length > 0 &&
+                          {/* {userInfo.length > 0 &&
                             userInfo.map((getUserInfo) => {
                               if (getUserInfo.email === getUser?.email) {
                                 return (
@@ -133,9 +133,10 @@ const Newsfeed = () => {
                                   </View>
                                 );
                               }
-                            })}
+                            })} */}
+                            {post_name}
                         </Text>
-                        <Text style={tw`text-11px px-2`}>0m</Text>
+                        <Text style={tw`text-11px px-2`}>{post_date}</Text>
                       </View>
                     </View>
 
@@ -177,8 +178,7 @@ const Newsfeed = () => {
         <Upload setModalVisible={setModalVisible} modalVisible={modalVisible} />
       </Modal>
       <TouchableOpacity
-        key="post"
-        onPress={() => setModalVisible(!modalVisible)}
+        onPress={() => setModalVisible(true)}
         style={tw`absolute right-3 bottom-5 flex items-center`}
       >
         <Image source={require("../../../assets/Group2.png")} />

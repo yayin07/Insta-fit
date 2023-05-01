@@ -13,7 +13,6 @@ import YoutubePlayer from "react-native-youtube-iframe"
 import PlanHeader from "./PlanHeader"
 const IntermediateLandingPage = ({ route }) => {
   const { data } = route.params
-  console.log("dataIntermediate", data)
   const [playing, setPlaying] = useState(false)
 
   const onStateChange = useCallback((state) => {

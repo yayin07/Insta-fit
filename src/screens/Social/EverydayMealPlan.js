@@ -39,10 +39,6 @@ const EverydayMealPlan = ({ id }) => {
     getRespondPlanList();
   }, []);
 
-  // console.log("User", getUserInfo[0].user);
-  // console.log("UserPlan", getUser);
-  console.log(userPlanInfo);
-
   const handleBack = () => {
     navigation.navigate("MyPlan");
   };

@@ -39,7 +39,6 @@ const AboutYou = () => {
       user_weight: weight,
       user_gender: gender,
     });
-    console.log("User", getUser);
 
     ToastAndroid.show(
       "User Information added successfully",

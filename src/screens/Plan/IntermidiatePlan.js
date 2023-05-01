@@ -59,7 +59,6 @@ const IntermidiatePlan = ({ id, title, description }) => {
           {trainings
             .filter(({ type }) => type === "intermediate")
             .map((data, index) => {
-              console.log("Intermediate", data);
               return (
                 <View key={index} style={tw`relative`}>
                   <TouchableOpacity

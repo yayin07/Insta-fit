@@ -9,7 +9,6 @@ import { useAuthContext } from "../../component/AuthContext/AuthContext"
 
 const PreferredMeals = ({ navigation, route }) => {
   const { data } = route.params
-  console.log("data", data)
   const requestCollectionRef = collection(db, "request_plan")
   const [selectedItem, setSelectedItem] = useState("")
   const { getUser } = useAuthContext();

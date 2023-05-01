@@ -44,9 +44,7 @@ const MakeYourPlan = () => {
     };
   }, []);
 
-  console.log("requestPlan", requestPlan);
-
-  const bodyAreas = ["Biceps", "Triceps", "Chest", "Abs"];
+  const bodyAreas = ["Biceps", "Triceps", "Chest", "Abs"]
   const workoutTypes = [
     "Yoga",
     "Cardiovascular workouts",
@@ -85,8 +83,6 @@ const MakeYourPlan = () => {
   const getRequestEmail = requestPlan.map((userEmail) => {
     return userEmail.request_user;
   });
-
-  console.log("getRequestEmail", getRequestEmail);
 
   return (
     <View style={tw`flex-1 `}>

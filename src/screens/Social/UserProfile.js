@@ -68,9 +68,6 @@ const UserProfile = ({ id }) => {
     });
   }, []);
 
-  // console.log("getUser", getUser);
-  console.log("getUserInfo", getUserInfo);
-
   return (
     <View style={tw`flex-1 `}>
       <View>

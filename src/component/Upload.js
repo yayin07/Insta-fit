@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {
   StyleSheet,
   View,
@@ -8,38 +8,39 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
-} from "react-native";
-import { ref, uploadBytesResumable, getDownloadURL } from "@firebase/storage";
-import * as ImagePicker from "expo-image-picker";
-import * as FileSystem from "expo-file-system";
-import { getAuth } from "firebase/auth";
-import tw from "twrnc";
-import { useNavigation } from "@react-navigation/native";
-import { storage } from "../../Firebase.config";
-import { saveItem } from "../utils/FirebaseFunction";
-import { addDoc, collection, query, serverTimestamp } from "firebase/firestore";
-import { db } from "../../Firebase.config";
-import { getUser } from "../component/AuthContext/AuthContext";
+} from "react-native"
+import { ref, uploadBytesResumable, getDownloadURL } from "@firebase/storage"
+import * as ImagePicker from "expo-image-picker"
+import * as FileSystem from "expo-file-system"
+import { getAuth } from "firebase/auth"
+import tw from "twrnc"
+import { useNavigation } from "@react-navigation/native"
+import { storage } from "../../Firebase.config"
+import { saveItem } from "../utils/FirebaseFunction"
+import { addDoc, collection, query, serverTimestamp } from "firebase/firestore"
+import { db } from "../../Firebase.config"
+import moment from "moment"
 
 const Upload = ({ setModalVisible, modalVisible }) => {
-  const navigation = useNavigation();
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
-  const [imageRef, setImageRef] = useState(null);
-  const [username, setUsername] = useState(user);
+  const navigation = useNavigation()
+  const auth = getAuth()
+  const user = auth.currentUser
+  const [title, setTitle] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [description, setDescription] = useState("")
+  const [imageUrl, setImageUrl] = useState(null)
+  const [imageRef, setImageRef] = useState(null)
+  const [username, setUsername] = useState(user)
 
   const uploadFileToFirebase = async (uri) => {
-    const fileExtension = uri.split(".").pop();
-    const fileName = `${Date.now()}.${fileExtension}`;
-    const storageRef = ref(storage, `images/${fileName}`); // Customize your path and filename
+    const fileExtension = uri.split(".").pop()
+    const fileName = `${Date.now()}.${fileExtension}`
+    const storageRef = ref(storage, `images/${fileName}`) // Customize your path and filename
 
-    const response = await fetch(uri);
-    const blob = await response.blob();
+    const response = await fetch(uri)
+    const blob = await response.blob()
 
-    const uploadTask = uploadBytesResumable(storageRef, blob);
+    const uploadTask = uploadBytesResumable(storageRef, blob)
 
     uploadTask.on(
       "state_changed",
@@ -47,59 +48,58 @@ const Upload = ({ setModalVisible, modalVisible }) => {
         // You can track the progress here (optional)
       },
       (error) => {
-        console.error("Error uploading file:", error);
+        console.error("Error uploading file:", error)
+        setLoading(false)
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-          setImageUrl(downloadURL); // Set the imageURL state to the downloadURL
-          setImageRef(`images/${fileName}`); // Set the imageRef state to the correct path
-        });
+          setImageUrl(downloadURL) // Set the imageURL state to the downloadURL
+          setImageRef(fileName) // Set the imageRef state to the correct path
+          setLoading(false)
+        })
       }
-    );
-  };
+    )
+  }
 
   const pickImage = async () => {
     let permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+      await ImagePicker.requestMediaLibraryPermissionsAsync()
 
     if (permissionResult.granted === false) {
-      alert("Permission to access the media library is required.");
-      return;
+      alert("Permission to access the media library is required.")
+      return
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    let pickerResult = await ImagePicker.launchImageLibraryAsync()
     if (pickerResult.canceled === true) {
-      return;
+      return
     }
 
     // Access the first asset in the assets array and get its URI
-    let selectedAssetUri = pickerResult.assets[0].uri;
+    let selectedAssetUri = pickerResult.assets[0].uri
 
-    uploadFileToFirebase(selectedAssetUri);
-  };
+    uploadFileToFirebase(selectedAssetUri)
+    setLoading(true)
+  }
 
-  const postCollectionRef = collection(db, "social"); // Change from query to collection
+  const postCollectionRef = collection(db, "social") // Change from query to collection
 
   const saveDetails = async () => {
     if (!description || !imageUrl) {
-      ToastAndroid.show("Required fields cannot be empty", ToastAndroid.SHORT);
+      ToastAndroid.show("Required fields cannot be empty", ToastAndroid.SHORT)
     } else {
       await addDoc(postCollectionRef, {
-        id: `${Date.now()}`,
-        // post_title: title,
         post_description: description,
-        post_date: `${Date.now()}`,
-        post_name: "Honey",
+        post_date: moment(Date.now()).format("MMMM D, YYYY hh:mm a"),
+        post_email: user.email,
+        post_name: user.displayName,
         image_ref: imageRef,
         image_url: imageUrl,
-      });
-      ToastAndroid.show("Post saved successfully!", ToastAndroid.SHORT);
-      const handlePost = () => {
-        navigation.navigate("Newsfeed");
-      };
+      })
+      ToastAndroid.show("Post saved successfully!", ToastAndroid.SHORT)
+      setModalVisible(false)
     }
-  };
+  }
 
   return (
     <View
@@ -108,7 +108,7 @@ const Upload = ({ setModalVisible, modalVisible }) => {
       {/*  */}
       <View style={tw`flex flex-row justify-between items-center px-1`}>
         <View style={tw`flex flex-row items-center`}>
-          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+          <TouchableOpacity onPress={() => setModalVisible(false)}>
             <Text style={tw`px-5 py-5 font-bold text-[20px]`}>X</Text>
           </TouchableOpacity>
           <Text style={tw`font-bold text-[18px]`}>Create a post</Text>
@@ -136,7 +136,7 @@ const Upload = ({ setModalVisible, modalVisible }) => {
           </View> */}
           <View style={tw` border-b-[2px] border-black px-2 py-2`}>
             <TextInput
-              placeholder="Description"
+              placeholder='Description'
               numberOfLines={4}
               value={description}
               style={tw`text-black`}
@@ -147,7 +147,11 @@ const Upload = ({ setModalVisible, modalVisible }) => {
       </View>
 
       <View style={tw`px-3 flex items-center `}>
-        <Button title="Pick an image" onPress={pickImage} />
+        {loading ? (
+          <Text>Upload in Progress</Text>
+        ) : (
+          <Button title='Pick an image' onPress={pickImage} />
+        )}
         <View style={tw`flex items-center`}>
           {imageUrl && (
             <Image source={{ uri: imageUrl }} style={styles.image} />
@@ -155,8 +159,8 @@ const Upload = ({ setModalVisible, modalVisible }) => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -168,6 +172,6 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     marginTop: 20,
   },
-});
+})
 
-export default Upload;
+export default Upload

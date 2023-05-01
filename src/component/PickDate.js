@@ -10,7 +10,6 @@ const PickDate = ({ setDate, date }) => {
     const currentDate = selectedDate || date;
     setShowDatePicker(Platform.OS === "ios");
     setDate(currentDate);
-    console.log(currentDate);
   };
 
   const showDatePickerModal = () => {

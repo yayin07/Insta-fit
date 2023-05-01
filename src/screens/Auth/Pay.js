@@ -16,11 +16,13 @@ import AuthContext, {
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../Firebase.config";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth } from "firebase/auth";
 
 const Pay = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { getUser } = useAuthContext();
+  const auth = getAuth()
+  const user = auth.currentUser
   const { data } = route.params;
   const [selectedPayment, setSelectedPayment] = useState("");
   const [paymentTermsModalVisible, setPaymentTermsModalVisible] =
@@ -28,9 +30,6 @@ const Pay = () => {
   const [paymentAmount, setPaymentAmount] = useState(data.price);
   const [email, setEmail] = useState(getUser);
   // const { user } = getAuth();
-
-  console.log("pay", data);
-  console.log("Account", getUser);
 
   const RadioButton = ({ isSelected }) => (
     <View
@@ -66,7 +65,7 @@ const Pay = () => {
       subscription_type: data.value,
       payment_type: selectedPayment,
       amount: paymentAmount,
-      user: getUser,
+      user: user.email,
     };
     addDoc(subscriptionCollectionRef, paymentDetails);
     navigation.navigate("TransactionComplete");

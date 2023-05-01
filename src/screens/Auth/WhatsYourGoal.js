@@ -27,7 +27,6 @@ const WhatsYourGoal = () => {
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
       setUser(currentUser);
       setGetUser(currentUser.email);
     });
@@ -55,7 +54,6 @@ const WhatsYourGoal = () => {
   const handleSelectGoal = (goal) => {
     setSelectedGoal(goal);
   };
-  console.log(user);
 
   // const addUser = () => {
   //   navigation.navigate("Start");

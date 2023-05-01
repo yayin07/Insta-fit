@@ -28,8 +28,6 @@ const BeginnerPlan = ({ id, title, description }) => {
     });
   }, []);
 
-  console.log("trainings", trainings);
-
   const handleStart = (details) => {
     if (details.subscriptions === "paid") {
       return;
@@ -65,28 +63,18 @@ const BeginnerPlan = ({ id, title, description }) => {
           {trainings
             .filter(({ type }) => type === "beginner")
             .map((data, index) => {
-              console.log("Beginnerdata", data);
               return (
-                <View key={index} style={tw`relative`}>
+                <View key={index}>
                   <TouchableOpacity
                     onPress={() => handleStart(data)}
                     style={tw`my-5`}
                   >
-                    {data.subscriptions === "paid" ? (
-                      <Image
-                        style={tw`absolute z-10 h-[330px] w-[300px]`}
-                        source={require("../../../assets/lockImage.png")}
-                      />
-                    ) : (
-                      ""
-                    )}
                     <View
-                      style={tw`shadow-black shadow-xl bg-[#ffffff] h-[319px] w-[300px] rounded-b-[10px] py-4`}
+                      style={tw`shadow-black shadow-xl bg-[#ffffff] rounded-b-[10px] py-4`}
                     >
                       <View style={tw`flex`}>
                         <View>
                           <Image
-                            style={tw`w-[300px]`}
                             source={require("../../../assets/Frame4.png")}
                           />
                         </View>
