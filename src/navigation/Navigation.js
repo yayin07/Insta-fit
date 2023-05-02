@@ -82,9 +82,9 @@ const Navigation = () => {
             component={SCREENS.MAINCOURSE}
           />
           <Stack.Screen
-            name="Drinks"
+            name="Snacks"
             options={{ headerShown: false, gestureEnabled: false }}
-            component={SCREENS.DRINKS}
+            component={SCREENS.SNACKS}
           />
           <Stack.Screen
             name="Salad"

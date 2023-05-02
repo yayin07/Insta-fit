@@ -1,11 +1,11 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 
 import { db } from "../../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
 
-const Drinks = () => {
+const Snacks = () => {
   const [mealPlan, setMealPlan] = useState([]);
 
   useEffect(() => {
@@ -23,13 +23,16 @@ const Drinks = () => {
   return (
     <View style={tw`flex-1 bg-[#ffffff]`}>
       <View style={tw`p-4 bg-[#ffffff] shadow-xl shadow-black`}>
-        <Text style={tw`text-[18px] font-bold`}>Drinks</Text>
+        <Text style={tw`text-[18px] font-bold`}>Snacks</Text>
       </View>
       <View style={tw`py-5 flex items-center`}>
         {mealPlan
-          .filter(({ meal_type }) => meal_type === "Drinks")
+          .filter(({ meal_type }) => meal_type === "Snacks")
           .map(({ description, meal_plan, meal_time, i }) => (
-            <View key={i} style={tw`h-[180px] w-[370px] bg-white `}>
+            <TouchableOpacity
+              key={data.id}
+              style={tw`h-[180px] w-[370px] bg-white `}
+            >
               <View
                 style={tw`shadow-xl shadow-black rounded-[20px] bg-[#ffffff] flex flex-row `}
               >
@@ -45,11 +48,11 @@ const Drinks = () => {
                   </Text>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
       </View>
     </View>
   );
 };
 
-export default Drinks;
+export default Snacks;

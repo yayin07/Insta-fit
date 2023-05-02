@@ -22,8 +22,7 @@ import { db } from "../../../Firebase.config";
 // import { auth } from "../../../Firebase.config";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
-
-// import moment from "moment";
+import Logout from "../../component/Logout";
 
 const UserProfile = ({ id }) => {
   const navigation = useNavigation();
@@ -48,6 +47,7 @@ const UserProfile = ({ id }) => {
           ...doc.data(),
           id: doc.id,
         }));
+
         setGetUserInfo(filteredData);
       } catch (err) {
         console.error(err);
@@ -76,10 +76,26 @@ const UserProfile = ({ id }) => {
       <View style={tw`p-5 bg-[#FAA0A0] h-181px`}>
         <View style={tw`flex items-center`}>
           <View style={tw`flex items-center`}>
-            <Image
-              source={require("../../../assets/Frame27.png")}
-              style={tw`bg-white rounded-full`}
-            />
+            {getUserInfo.length > 0 &&
+              getUserInfo.map((getGenderDetails) => {
+                if (getGenderDetails.email === getUser?.email) {
+                  return (
+                    <View
+                      style={tw`flex flex-row justify-center bg-white items-center rounded-full shadow-md `}
+                    >
+                      {getGenderDetails.user_gender === "Male" ? (
+                        <Image
+                          source={require("../../../assets/Frame27.png")}
+                        />
+                      ) : (
+                        <Image
+                          source={require("../../../assets/Frame28.png")}
+                        />
+                      )}
+                    </View>
+                  );
+                }
+              })}
           </View>
 
           <View style={tw`flex flex-row items-center py-1`}>
@@ -130,18 +146,12 @@ const UserProfile = ({ id }) => {
           </View>
         </View>
         {/*  */}
-        {/* <View style={tw`flex items-center`}>
-          <Image source={require("../../../assets/Button.png")} />
-        </View> */}
-        {/*  */}
         <View style={tw`px-6  flex items-center`}>
-          <View></View>
-
           {getUserInfo.length > 0 &&
-            getUserInfo.map((getUserDetails) => {
+            getUserInfo.map((getUserDetails, data) => {
               if (getUserDetails.email === getUser?.email) {
                 return (
-                  <View style={tw`gap-3`}>
+                  <View key={data.id} style={tw`gap-3`}>
                     <View style={tw`gap-3 `}>
                       <Text style={tw`px-1 py-1 text-17px text-left font-bold`}>
                         About Me
@@ -212,7 +222,9 @@ const UserProfile = ({ id }) => {
               }
             })}
         </View>
-        {/*  */}
+        <View style={tw`flex items-center w-full`}>
+          <Logout />
+        </View>
       </View>
     </View>
   );

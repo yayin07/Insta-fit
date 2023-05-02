@@ -27,7 +27,7 @@ const IntermidiatePlan = ({ id, title, description }) => {
 
   const handleStart = (details) => {
     if (details.subscriptions === "paid") {
-      navigation.navigate("Subscription");
+      return;
     } else {
       navigation.navigate("IntermediateLandingPage", { data: details });
     }

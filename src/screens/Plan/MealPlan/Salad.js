@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
@@ -27,9 +27,12 @@ const Salad = () => {
       </View>
       <View style={tw`py-5 flex items-center`}>
         {mealPlan
-          .filter(({ meal_time }) => meal_time === "Salad")
-          .map(({ description, meal_plan, meal_time, i }) => (
-            <View key={i} style={tw`h-[180px] w-[370px] bg-white `}>
+          .filter(({ meal_time }) => meal_time === "salad")
+          .map(({ description, meal_plan, meal_time, i, data }) => (
+            <TouchableOpacity
+              key={data.id}
+              style={tw`h-[180px] w-[370px] bg-white `}
+            >
               <View
                 style={tw`shadow-xl shadow-black rounded-[20px] bg-[#ffffff] flex flex-row `}
               >
@@ -45,7 +48,7 @@ const Salad = () => {
                   </Text>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
       </View>
     </View>

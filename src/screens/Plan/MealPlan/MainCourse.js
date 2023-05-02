@@ -32,22 +32,32 @@ const MainCourse = () => {
       </View>
       <View style={tw`py-5 flex items-center`}>
         {mealPlan
-          .filter(({ meal_time }) => meal_time === "lunch")
-          .map(({ description, meal_plan, meal_time, i }) => {
+          .filter(({ meal_time }) => meal_time === "main_course")
+          .map((data) => {
             return (
-              <TouchableOpacity style={tw`h-[180px] w-[370px] bg-white `}>
+              <TouchableOpacity
+                key={data.id}
+                onPress={() => handleMeal(data)}
+                style={tw`h-[180px] w-[370px] bg-white `}
+              >
                 <View
                   style={tw`shadow-xl shadow-black rounded-[20px] bg-[#ffffff] flex flex-row `}
                 >
                   <View style={tw`p-3`}>
-                    <Image source={require("../../../../assets/image4.png")} />
+                    <Image
+                      source={{
+                        uri:
+                          data.image_url === "null"
+                            ? "https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?w=740&t=st=1680882744~exp=1680883344~hmac=2ed4ad6558839e918a981b5e7fe157d7924703160281e5024981f21cab21b535"
+                            : data.image_url,
+                      }}
+                      style={tw`w-140px h-140px`}
+                      resizeMode="cover"
+                    />
                   </View>
                   <View style={tw`flex flex-col items-start justify-center`}>
                     <Text style={tw`text-[#FF1D38] text-[18px] font-bold`}>
-                      {meal_time}
-                    </Text>
-                    <Text style={tw`text-black text-[16px] font-semibold`}>
-                      {meal_plan}
+                      {data.meal_plan}
                     </Text>
                   </View>
                 </View>

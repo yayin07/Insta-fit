@@ -26,13 +26,16 @@ const Logout = () => {
   };
 
   return (
-    <View style={tw`px-5`}>
-      <TouchableOpacity onPress={handleLogout}>
+    <View style={tw`py-5 w-full px-3 `}>
+      <TouchableOpacity
+        onPress={handleLogout}
+        style={tw`p-3 rounded-[18px] bg-[#FAA0A0] `}
+      >
         {/* <Image
           source={require("../../assets/logout.png")}
           style={tw`w-[30px] h-[30px]`}
         /> */}
-        <Text style={tw`text-[15px]`}>Logout</Text>
+        <Text style={tw`text-[15px] text-center font-bold`}>Logout</Text>
       </TouchableOpacity>
     </View>
   );

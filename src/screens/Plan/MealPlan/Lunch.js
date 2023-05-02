@@ -37,6 +37,7 @@ const Lunch = () => {
           .map((data) => {
             return (
               <TouchableOpacity
+                key={data.id}
                 onPress={() => handleMeal(data)}
                 style={tw`h-[180px] w-[370px] bg-white px-3`}
               >

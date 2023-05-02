@@ -8,12 +8,14 @@ const MealPlanLandingPage = () => {
   const route = useRoute();
   const { data } = route.params;
   return (
-    <View style={tw`flex-1 relative`}>
+    <View style={tw`flex-1 `}>
       <View>
         <PlanHeader />
       </View>
-      <View style={tw`w-full `}>
-        <View>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+      >
+        <View key={data.id}>
           <Image
             source={{
               uri:
@@ -26,7 +28,7 @@ const MealPlanLandingPage = () => {
           />
         </View>
 
-        <View style={tw`absolute top-38 w-full`}>
+        <View style={tw`p-4 w-full`}>
           <View style={tw` `}>
             <View style={tw`bg-gray-600 opacity-0`}>
               <Text style={tw`text-[34px] font-bold `}>{data.meal_plan}</Text>
@@ -37,7 +39,7 @@ const MealPlanLandingPage = () => {
               </View>
             </View>
 
-            <ScrollView>
+            <View>
               <View style={tw`py-10 flex items-center`}>
                 <View style={tw`flex items-center`}>
                   <Image
@@ -45,20 +47,22 @@ const MealPlanLandingPage = () => {
                     style={tw`w-full`}
                   />
                 </View>
-                <View style={tw`px-2 py-2`}>
-                  <Text style={tw`text-16px font-bold`}>Description</Text>
-                  <Text style={tw`py-2 text-14px`}>{data.description}</Text>
+                <View style={tw`px-2 py-2 flex `}>
+                  <View>
+                    <Text style={tw`text-16px font-bold`}>Description</Text>
+                    <Text style={tw`py-2 text-14px`}>{data.description}</Text>
+                  </View>
                 </View>
                 {/* <View style={tw`px-2 py-2`}>
                 <Text style={tw`text-16px font-bold`}>Description</Text>
                 <Text style={tw`py-2 text-14px`}>{data.description}</Text>
               </View> */}
               </View>
-            </ScrollView>
+            </View>
           </View>
         </View>
         {/*  */}
-      </View>
+      </ScrollView>
     </View>
   );
 };

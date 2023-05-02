@@ -22,7 +22,7 @@ const Meals = () => {
     navigation.navigate("Salad");
   };
   const handleDrinks = () => {
-    navigation.navigate("Drinks");
+    navigation.navigate("Snacks");
   };
   return (
     <ScrollView style={tw`flex-1 `}>

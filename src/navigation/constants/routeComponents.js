@@ -14,7 +14,7 @@ import FORGOTPASSWORD from "../../screens/Auth/ForgotPassword";
 import NEWSFEED from "../../screens/Social/Newsfeed";
 import DINNER from "../../screens/Plan/MealPlan/Dinner";
 import MAINCOURSE from "../../screens/Plan/MealPlan/MainCourse";
-import DRINKS from "../../screens/Plan/MealPlan/Drinks";
+import SNACKS from "../../screens/Plan/MealPlan/Snacks";
 import SALAD from "../../screens/Plan/MealPlan/Salad";
 import BEGINNERLANDINGPAGE from "../../component/BeginnerLandingPage";
 import TIMER from "../../component/PlanTimer";
@@ -54,7 +54,7 @@ export const SCREENS = {
   NEWSFEED,
   DINNER,
   MAINCOURSE,
-  DRINKS,
+  SNACKS,
   SALAD,
   BEGINNERLANDINGPAGE,
   TIMER,
