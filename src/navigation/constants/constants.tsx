@@ -5,6 +5,5 @@ export enum ROUTE_NAME {
   SOCIAL = "Social",
   PLAN = "Plan",
   MEAL = "Meal",
-  LOGIN = "../screens/Auth/Login",
   PROFILE = "Profile",
 }

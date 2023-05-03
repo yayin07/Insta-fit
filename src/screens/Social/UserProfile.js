@@ -24,7 +24,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
 import Logout from "../../component/Logout";
 
-const UserProfile = ({ id }) => {
+const UserProfile = ({ data, id }) => {
   const navigation = useNavigation();
   const { getUser } = useAuthContext();
   const [userInfo, setUserInfo] = useState([]);
@@ -81,6 +81,7 @@ const UserProfile = ({ id }) => {
                 if (getGenderDetails.email === getUser?.email) {
                   return (
                     <View
+                      key={data}
                       style={tw`flex flex-row justify-center bg-white items-center rounded-full shadow-md `}
                     >
                       {getGenderDetails.user_gender === "Male" ? (
@@ -151,7 +152,7 @@ const UserProfile = ({ id }) => {
             getUserInfo.map((getUserDetails, data) => {
               if (getUserDetails.email === getUser?.email) {
                 return (
-                  <View key={data.id} style={tw`gap-3`}>
+                  <View key={data} style={tw`gap-3`}>
                     <View style={tw`gap-3 `}>
                       <Text style={tw`px-1 py-1 text-17px text-left font-bold`}>
                         About Me

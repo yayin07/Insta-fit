@@ -44,7 +44,7 @@ const MakeYourPlan = () => {
     };
   }, []);
 
-  const bodyAreas = ["Biceps", "Triceps", "Chest", "Abs"]
+  const bodyAreas = ["Biceps", "Triceps", "Chest", "Abs"];
   const workoutTypes = [
     "Yoga",
     "Cardiovascular workouts",
@@ -85,7 +85,7 @@ const MakeYourPlan = () => {
   });
 
   return (
-    <View style={tw`flex-1 `}>
+    <View style={tw`h-full w-full`}>
       <View>
         <PlanHeader />
       </View>
@@ -96,7 +96,7 @@ const MakeYourPlan = () => {
         </View>
       ) : (
         <View>
-          <View>
+          <View style={tw`flex items-center justify-center`}>
             <View
               style={tw`p-3 flex items-center py-10 ${
                 screenWidth >= 640 ? "justify-between" : "flex-wrap"
@@ -112,7 +112,7 @@ const MakeYourPlan = () => {
               <View style={tw`flex items-center gap-5`}>
                 <TouchableOpacity
                   onPress={toggleDropdown}
-                  style={tw`ml-4 p-2 border border-gray-400 rounded-full w-340px`}
+                  style={tw`p-2 border border-gray-400 rounded-full w-340px`}
                 >
                   <Text style={tw`text-lg font-semibold text-center`}>
                     {selectedWeight ? `${selectedWeight} kg` : "Lose Weight"}
@@ -121,7 +121,7 @@ const MakeYourPlan = () => {
 
                 <TouchableOpacity
                   onPress={toggleBodyAreaDropdown}
-                  style={tw`ml-4 p-2 border border-gray-400 rounded-full w-340px`}
+                  style={tw`p-2 border border-gray-400 rounded-full w-340px`}
                 >
                   <Text style={tw`text-lg font-semibold text-center`}>
                     {selectedBodyArea ? selectedBodyArea : "Target Body Area"}
@@ -129,7 +129,7 @@ const MakeYourPlan = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={toggleWorkoutTypeDropdown}
-                  style={tw`ml-4 p-2 border border-gray-400 rounded-full w-340px`}
+                  style={tw` p-2 border border-gray-400 rounded-full w-340px`}
                 >
                   <Text style={tw`text-lg font-semibold text-center`}>
                     {selectedWorkoutType
@@ -227,10 +227,10 @@ const MakeYourPlan = () => {
               </View>
             </Modal>
           </View>
-          <View style={tw` w-full h-full px-6 `}>
+          <View style={tw` w-full h-full px-3`}>
             <TouchableOpacity
               onPress={handleNext}
-              style={tw`bg-[#FAA0A0] px-4 py-2 rounded-full  `}
+              style={tw`bg-[#FAA0A0] px-4 py-3 rounded-full w-full  `}
             >
               <Text style={tw`text-center text-[#ffffff] text-18px font-bold`}>
                 Next

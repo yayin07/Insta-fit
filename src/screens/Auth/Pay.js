@@ -10,9 +10,7 @@ import {
 } from "react-native";
 import tw from "twrnc";
 import { useRoute } from "@react-navigation/native";
-import AuthContext, {
-  useAuthContext,
-} from "../../component/AuthContext/AuthContext";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../Firebase.config";
 import { useNavigation } from "@react-navigation/native";
@@ -21,15 +19,15 @@ import { getAuth } from "firebase/auth";
 const Pay = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const auth = getAuth()
-  const user = auth.currentUser
+  const auth = getAuth();
+  const user = auth.currentUser;
   const { data } = route.params;
   const [selectedPayment, setSelectedPayment] = useState("");
   const [paymentTermsModalVisible, setPaymentTermsModalVisible] =
     useState(false);
   const [paymentAmount, setPaymentAmount] = useState(data.price);
-  const [email, setEmail] = useState(getUser);
-  // const { user } = getAuth();
+  // const [email, setEmail] = useState(getUser);
+  const { getUser } = useAuthContext();
 
   const RadioButton = ({ isSelected }) => (
     <View

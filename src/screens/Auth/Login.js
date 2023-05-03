@@ -24,8 +24,8 @@ const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("instafitadmin@gmail.com");
   const [password, setPassword] = useState("qqqq1111");
-  const [validationError, setValidationError] = useState('');
-  const [validationPass, setValidationPass] = useState('');
+  const [validationError, setValidationError] = useState("");
+  const [validationPass, setValidationPass] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
   const { setGetUser } = useAuthContext();
 
@@ -61,7 +61,7 @@ const Login = () => {
     }
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigation.navigate("Fitness");
+        navigation.navigate("Plan");
         ToastAndroid.show("Login successful", ToastAndroid.SHORT);
       })
       .catch((error) => {
@@ -80,21 +80,21 @@ const Login = () => {
   const validateInput = () => {
     // Email validation pattern
     const validationPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-  
-    if (email === '') {
-      setValidationError('Input is required.');
+
+    if (email === "") {
+      setValidationError("Input is required.");
     } else if (!email.match(validationPattern)) {
-      setValidationError('Invalid email address.');
+      setValidationError("Invalid email address.");
     } else {
-      setValidationError('');
+      setValidationError("");
     }
   };
 
   const validatePass = () => {
-    if (password === '') {
-      setValidationPass('Input is required.');
+    if (password === "") {
+      setValidationPass("Input is required.");
     } else {
-      setValidationPass('');
+      setValidationPass("");
     }
   };
 
@@ -146,7 +146,9 @@ const Login = () => {
                   validateInput();
                 }}
               />
-              {validationError ? <Text style={styles.errorText}>{validationError}</Text> : null}
+              {validationError ? (
+                <Text style={styles.errorText}>{validationError}</Text>
+              ) : null}
             </View>
             {/* Password Input */}
             <View style={tw`border-b-[2px] border-[#ffffff] opacity-70 `}>
@@ -155,12 +157,14 @@ const Login = () => {
                 style={tw`text-[#ffffff] `}
                 secureTextEntry={hidePassword}
                 onChangeText={(text) => {
-                  setPassword(text)
-                  validatePass()
+                  setPassword(text);
+                  validatePass();
                 }}
                 value={password}
               />
-              {validationPass ? <Text style={styles.errorText}>{validationPass}</Text> : null}
+              {validationPass ? (
+                <Text style={styles.errorText}>{validationPass}</Text>
+              ) : null}
               <TouchableOpacity
                 style={tw`absolute right-3 top-7`}
                 onPress={togglePasswordVisibility}
@@ -217,7 +221,7 @@ const Login = () => {
 
 const styles = StyleSheet.create({
   errorText: {
-    color: 'red',
+    color: "red",
   },
-})
+});
 export default Login;

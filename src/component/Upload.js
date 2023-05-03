@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -8,39 +8,64 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
-} from "react-native"
-import { ref, uploadBytesResumable, getDownloadURL } from "@firebase/storage"
-import * as ImagePicker from "expo-image-picker"
-import * as FileSystem from "expo-file-system"
-import { getAuth } from "firebase/auth"
-import tw from "twrnc"
-import { useNavigation } from "@react-navigation/native"
-import { storage } from "../../Firebase.config"
-import { saveItem } from "../utils/FirebaseFunction"
-import { addDoc, collection, query, serverTimestamp } from "firebase/firestore"
-import { db } from "../../Firebase.config"
-import moment from "moment"
+} from "react-native";
+import { ref, uploadBytesResumable, getDownloadURL } from "@firebase/storage";
+import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
+import { getAuth } from "firebase/auth";
+import tw from "twrnc";
+import { useNavigation } from "@react-navigation/native";
+import { storage } from "../../Firebase.config";
+import { saveItem } from "../utils/FirebaseFunction";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db } from "../../Firebase.config";
+import moment from "moment";
+import { useAuthContext } from "./AuthContext/AuthContext";
 
-const Upload = ({ setModalVisible, modalVisible }) => {
-  const navigation = useNavigation()
-  const auth = getAuth()
-  const user = auth.currentUser
-  const [title, setTitle] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [description, setDescription] = useState("")
-  const [imageUrl, setImageUrl] = useState(null)
-  const [imageRef, setImageRef] = useState(null)
-  const [username, setUsername] = useState(user)
+const Upload = ({ setModalVisible, modalVisible, data }) => {
+  const navigation = useNavigation();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [description, setDescription] = useState("");
+  const [imageUrl, setImageUrl] = useState(null);
+  const [imageRef, setImageRef] = useState(null);
+  const [username, setUsername] = useState(user);
+  const [getUserInfo, setGetUserInfo] = useState([]);
+
+  const { getUser } = useAuthContext();
+
+  useEffect(() => {
+    const postRef = collection(db, "users");
+    const getRef = query(postRef);
+    const unsubcribe = onSnapshot(getRef, (snaphot) => {
+      const fetchPost = snaphot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setGetUserInfo(fetchPost);
+    });
+  }, []);
+
+  console.log("user", getUserInfo);
 
   const uploadFileToFirebase = async (uri) => {
-    const fileExtension = uri.split(".").pop()
-    const fileName = `${Date.now()}.${fileExtension}`
-    const storageRef = ref(storage, `images/${fileName}`) // Customize your path and filename
+    const fileExtension = uri.split(".").pop();
+    const fileName = `${Date.now()}.${fileExtension}`;
+    const storageRef = ref(storage, `images/${fileName}`); // Customize your path and filename
 
-    const response = await fetch(uri)
-    const blob = await response.blob()
+    const response = await fetch(uri);
+    const blob = await response.blob();
 
-    const uploadTask = uploadBytesResumable(storageRef, blob)
+    const uploadTask = uploadBytesResumable(storageRef, blob);
 
     uploadTask.on(
       "state_changed",
@@ -48,58 +73,58 @@ const Upload = ({ setModalVisible, modalVisible }) => {
         // You can track the progress here (optional)
       },
       (error) => {
-        console.error("Error uploading file:", error)
-        setLoading(false)
+        console.error("Error uploading file:", error);
+        setLoading(false);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImageUrl(downloadURL) // Set the imageURL state to the downloadURL
-          setImageRef(fileName) // Set the imageRef state to the correct path
-          setLoading(false)
-        })
+          setImageUrl(downloadURL); // Set the imageURL state to the downloadURL
+          setImageRef(fileName); // Set the imageRef state to the correct path
+          setLoading(false);
+        });
       }
-    )
-  }
+    );
+  };
 
   const pickImage = async () => {
     let permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync()
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted === false) {
-      alert("Permission to access the media library is required.")
-      return
+      alert("Permission to access the media library is required.");
+      return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync()
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
     if (pickerResult.canceled === true) {
-      return
+      return;
     }
 
     // Access the first asset in the assets array and get its URI
-    let selectedAssetUri = pickerResult.assets[0].uri
+    let selectedAssetUri = pickerResult.assets[0].uri;
 
-    uploadFileToFirebase(selectedAssetUri)
-    setLoading(true)
-  }
+    uploadFileToFirebase(selectedAssetUri);
+    setLoading(true);
+  };
 
-  const postCollectionRef = collection(db, "social") // Change from query to collection
+  const postCollectionRef = collection(db, "social"); // Change from query to collection
 
   const saveDetails = async () => {
     if (!description || !imageUrl) {
-      ToastAndroid.show("Required fields cannot be empty", ToastAndroid.SHORT)
+      ToastAndroid.show("Required fields cannot be empty", ToastAndroid.SHORT);
     } else {
       await addDoc(postCollectionRef, {
         post_description: description,
         post_date: moment(Date.now()).format("MMMM D, YYYY hh:mm a"),
-        post_email: user.email,
-        post_name: user.displayName,
+        post_email: user?.email,
+        post_name: "User",
         image_ref: imageRef,
         image_url: imageUrl,
-      })
-      ToastAndroid.show("Post saved successfully!", ToastAndroid.SHORT)
-      setModalVisible(false)
+      });
+      ToastAndroid.show("Post saved successfully!", ToastAndroid.SHORT);
+      setModalVisible(false);
     }
-  }
+  };
 
   return (
     <View
@@ -125,18 +150,53 @@ const Upload = ({ setModalVisible, modalVisible }) => {
       </View>
 
       <View style={tw`flex justify-center`}>
-        <View style={tw`flex gap-3 px-4 py-4 justify-evenly`}>
-          {/* <View style={tw` border-b-[2px] border-black px-2 py-2`}>
+        <View style={tw`flex gap-3 px-4 justify-evenly`}>
+          <View>
+            <View style={tw`flex flex-row px-3`}>
+              <View style={tw``}>
+                {getUserInfo.length > 0 &&
+                  getUserInfo.map((getGenderDetails) => {
+                    if (getGenderDetails.email === getUser?.email) {
+                      return (
+                        <View
+                          style={tw`flex flex-row justify-center bg-white items-center rounded-full w-5 h-5 `}
+                        >
+                          {getGenderDetails.user_gender === "Male" ? (
+                            <Image
+                              source={require("../../assets/Frame27.png")}
+                              style={tw`h-10 w-10`}
+                            />
+                          ) : (
+                            <Image
+                              source={require("../../assets/Frame28.png")}
+                            />
+                          )}
+                        </View>
+                      );
+                    }
+                  })}
+              </View>
+              <View>
+                {getUserInfo.length > 0 &&
+                  getUserInfo.map((getUserFirstName) => {
+                    if (getUserFirstName.email === getUser.email) {
+                      return (
+                        <View key={data}>
+                          <Text style={tw`px-5 font-bold text-[18px]`}>
+                            {getUserFirstName.hasOwnProperty("first_name")
+                              ? getUserFirstName.first_name
+                              : "No user info"}
+                          </Text>
+                        </View>
+                      );
+                    }
+                  })}
+              </View>
+            </View>
+          </View>
+          <View style={tw`border-b-[1px] border-[#A0ABBB] px-2 `}>
             <TextInput
-              placeholder="Title"
-              style={tw`text-black`}
-              value={title}
-              onChangeText={(text) => setTitle(text)}
-            />
-          </View> */}
-          <View style={tw` border-b-[2px] border-black px-2 py-2`}>
-            <TextInput
-              placeholder='Description'
+              placeholder="Description"
               numberOfLines={4}
               value={description}
               style={tw`text-black`}
@@ -146,11 +206,19 @@ const Upload = ({ setModalVisible, modalVisible }) => {
         </View>
       </View>
 
-      <View style={tw`px-3 flex items-center `}>
+      <View style={tw`px-3 py-3  flex items-center `}>
         {loading ? (
           <Text>Upload in Progress</Text>
         ) : (
-          <Button title='Pick an image' onPress={pickImage} />
+          <TouchableOpacity
+            onPress={pickImage}
+            style={tw`border-[2px] border-[#A0ABBB] w-full flex items-center p-3 rounded-[5px]`}
+          >
+            <View style={tw`flex flex-row items-center  px-2`}>
+              <Image source={require("../../assets/Icon6.png")} />
+              <Text style={tw`text-[#A0ABBB]`}>Add Photo</Text>
+            </View>
+          </TouchableOpacity>
         )}
         <View style={tw`flex items-center`}>
           {imageUrl && (
@@ -159,8 +227,8 @@ const Upload = ({ setModalVisible, modalVisible }) => {
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -172,6 +240,6 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     marginTop: 20,
   },
-})
+});
 
-export default Upload
+export default Upload;

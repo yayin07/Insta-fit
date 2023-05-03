@@ -3,9 +3,9 @@ import React from "react";
 import PlanHeader from "../../component/PlanHeader";
 import tw from "twrnc";
 
-const MyFitnessPlan = () => {
+const MyFitnessPlan = ({ data }) => {
   return (
-    <View>
+    <View key={data.id}>
       <View
         style={tw`p-3 flex items-center shadow-md shadow-black bg-[#ffffff]`}
       >

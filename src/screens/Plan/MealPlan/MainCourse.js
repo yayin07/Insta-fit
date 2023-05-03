@@ -30,7 +30,7 @@ const MainCourse = () => {
       <View style={tw`p-4 bg-[#ffffff] shadow-xl shadow-black`}>
         <Text style={tw`text-[18px] font-bold`}>Main Course</Text>
       </View>
-      <View style={tw`py-5 flex items-center`}>
+      <View style={tw`p-6 flex items-center`}>
         {mealPlan
           .filter(({ meal_time }) => meal_time === "main_course")
           .map((data) => {
@@ -38,7 +38,7 @@ const MainCourse = () => {
               <TouchableOpacity
                 key={data.id}
                 onPress={() => handleMeal(data)}
-                style={tw`h-[180px] w-[370px] bg-white `}
+                style={tw`h-[180px] w-[370px] bg-white px-4`}
               >
                 <View
                   style={tw`shadow-xl shadow-black rounded-[20px] bg-[#ffffff] flex flex-row `}

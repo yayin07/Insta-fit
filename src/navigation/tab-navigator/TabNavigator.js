@@ -6,18 +6,6 @@ import { Image } from "react-native";
 
 const Stack = createStackNavigator();
 
-const FitnessPlanStackNavigator = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name={ROUTE_NAME.PLAN}
-        options={{ headerShown: false, gestureEnabled: false }}
-        component={SCREENS.PLAN}
-      />
-    </Stack.Navigator>
-  );
-};
-
 const MealPlanStackNavigator = () => {
   return (
     <Stack.Navigator>
@@ -72,8 +60,8 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={ROUTE_NAME.WORKOUT}
-        component={FitnessPlanStackNavigator}
+        name={ROUTE_NAME.PLAN}
+        component={SCREENS.PLAN}
         options={{
           headerShown: false,
           tabBarIcon: () => (

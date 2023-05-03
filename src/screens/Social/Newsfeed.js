@@ -11,7 +11,13 @@ import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 
 // import { getAuth } from "firebase/auth";
-import { collection, doc, onSnapshot, query, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../../../Firebase.config";
 // import Post from "../../component/Post";
 
@@ -22,13 +28,14 @@ import { auth } from "../../../Firebase.config";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
 import moment from "moment";
 
-const Newsfeed = () => {
+const Newsfeed = ({ data }) => {
   const [userInfo, setUserInfo] = useState([]);
   const navigation = useNavigation();
   const [post, setPost] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const { getUser } = useAuthContext();
-  // const userPostCollection = collection(db, "social");
+  const [getUserInfo, setGetUserInfo] = useState([]);
+  const userInfoCollection = collection(db, "users");
   // const [getUserPost, setGetUserInfo] = useState([]);
 
   const handleClose = () => {
@@ -46,6 +53,23 @@ const Newsfeed = () => {
       }));
       setPost(fetchPost);
     });
+  }, []);
+
+  useEffect(() => {
+    const getUserList = async () => {
+      try {
+        const data = await getDocs(userInfoCollection, "email");
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+
+        setGetUserInfo(filteredData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getUserList();
   }, []);
 
   useEffect(() => {
@@ -96,45 +120,52 @@ const Newsfeed = () => {
           style={tw`flex items-center py-3 relative h-full w-full bg-[#ffffff] shadow-xl gap-5 shadow-[#F9F9F9]`}
         >
           {post.map(
-            ({
-              post_name,
-              post_title,
-              post_date,
-              image_url,
-              post_description,
-              id,
-            }, index) => {
+            (
+              {
+                post_name,
+                post_title,
+                post_date,
+                image_url,
+                post_description,
+                id,
+              },
+              index
+            ) => {
               return (
                 <View
                   key={index}
-                  style={tw`bg-[#ffffff] w-[300px] h-[300px] flex justify-between  shadow-lg shadow-xl  pt-10  rounded-10px p-3`}
+                  style={tw`bg-[#ffffff] w-[300px] h-[300px] flex justify-between  shadow-lg shadow-xl  pt-10 rounded-10px p-3`}
                 >
                   <View style={tw`px-1`}>
                     <View style={tw`flex flex-row items-center`}>
-                      <View>
-                        <Image source={require("../../../assets/Group3.png")} />
+                      <View style={tw`px-2`}>
+                        {getUserInfo.length > 0 &&
+                          getUserInfo.map((getGenderDetails) => {
+                            if (getGenderDetails.email === getUser?.email) {
+                              return (
+                                <View
+                                  key={data}
+                                  style={tw`flex flex-row justify-center bg-white items-center rounded-full w-5 h-5 `}
+                                >
+                                  {getGenderDetails.user_gender === "Male" ? (
+                                    <Image
+                                      source={require("../../../assets/Frame27.png")}
+                                      style={tw`h-10 w-10`}
+                                    />
+                                  ) : (
+                                    <Image
+                                      source={require("../../../assets/Frame28.png")}
+                                      style={tw`h-10 w-10`}
+                                    />
+                                  )}
+                                </View>
+                              );
+                            }
+                          })}
                       </View>
                       <View style={tw`flex items-start justify-center`}>
                         <Text style={tw`text-[15px] px-2 font-bold`}>
-                          {/* {userInfo.length > 0 &&
-                            userInfo.map((getUserInfo) => {
-                              if (getUserInfo.email === getUser?.email) {
-                                return (
-                                  <View>
-                                    <View>
-                                      <Text>
-                                        {getUserInfo.hasOwnProperty(
-                                          "first_name"
-                                        )
-                                          ? getUserInfo.first_name
-                                          : "No username"}
-                                      </Text>
-                                    </View>
-                                  </View>
-                                );
-                              }
-                            })} */}
-                            {post_name}
+                          {post_name}
                         </Text>
                         <Text style={tw`text-11px px-2`}>{post_date}</Text>
                       </View>
@@ -143,9 +174,6 @@ const Newsfeed = () => {
                     <View style={tw`py-3`}>
                       <Text>{post_description}</Text>
                     </View>
-                    {/* <Text style={tw`text-[20px] py-1 font-bold`}>
-                      {post_date}
-                    </Text> */}
                   </View>
                   {/*  */}
                   <View style={tw``}>

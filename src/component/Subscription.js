@@ -123,7 +123,7 @@ const Subscription = () => {
 
         {/* Button */}
         <View
-          style={tw`py-3 flex justify-center items-center absolute bottom-15 left-5  gap-3`}
+          style={tw`py-3 flex justify-center items-center absolute bottom-15 left-3  gap-3`}
         >
           <View
             style={tw`border-[#FAA0A0] border-[2px] w-full p-2 rounded-[20px]`}

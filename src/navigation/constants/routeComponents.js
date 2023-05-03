@@ -37,6 +37,7 @@ import TRANSACTIONCOMPLETE from "../../screens/Social/TransactionComplete";
 import EVERYDAYMEALPLAN from "../../screens/Social/EverydayMealPlan";
 import MYPLAN from "../../screens/Social/MyPlan";
 import EVERYDAYFITNESSPLAN from "../../screens/Social/EverydayFitnessPlan";
+
 export const SCREENS = {
   BOTTOM_TAB,
   PLAN,

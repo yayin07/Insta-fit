@@ -30,11 +30,11 @@ const Navigation = () => {
             component={SCREENS.SPLASHSCREEN}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Fitness"
             component={SCREENS.BOTTOM_TAB}
             options={{ headerShown: false, gestureEnabled: false }}
-          />
+          /> */}
           <Stack.Screen
             name="Start"
             options={{ headerShown: false, gestureEnabled: false }}
