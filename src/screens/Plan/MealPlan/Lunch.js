@@ -27,11 +27,11 @@ const Lunch = () => {
   };
 
   return (
-    <View style={tw`flex-1 bg-[#ffffff]`}>
+    <ScrollView style={tw`flex-1 bg-[#ffffff]`}>
       <View style={tw`p-4 bg-[#ffffff] shadow-xl shadow-black`}>
         <Text style={tw`text-[18px] font-bold`}>Lunch</Text>
       </View>
-      <ScrollView style={tw`py-5 flex items-center`}>
+      <View style={tw`py-5 flex items-center`}>
         {mealPlan
           .filter(({ meal_time }) => meal_time === "lunch")
           .map((data) => {
@@ -69,8 +69,8 @@ const Lunch = () => {
               </TouchableOpacity>
             );
           })}
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

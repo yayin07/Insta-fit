@@ -5,7 +5,7 @@ import { db } from "../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 
-const AdvancedPlan = ({ id, title, description }) => {
+const AdvancedPlan = () => {
   const [trainings, setTrainings] = useState([]);
   const navigation = useNavigation();
 
@@ -33,7 +33,7 @@ const AdvancedPlan = ({ id, title, description }) => {
     navigation.navigate("BottomTab");
   };
   return (
-    <View style={tw`flex-1 `}>
+    <ScrollView style={tw`flex-1 `}>
       <View
         style={tw`p-3 flex items-center shadow-xl shadow-black bg-[#FFFFFF]`}
       >
@@ -49,7 +49,7 @@ const AdvancedPlan = ({ id, title, description }) => {
         </View>
       </View>
       {/*  */}
-      <ScrollView>
+      <View>
         <View style={tw`flex items-center justify-start`}>
           {/* Card */}
           {trainings
@@ -105,8 +105,8 @@ const AdvancedPlan = ({ id, title, description }) => {
               </View>
             ))}
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

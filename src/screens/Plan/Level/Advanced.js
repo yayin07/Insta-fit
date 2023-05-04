@@ -12,7 +12,7 @@ const Advanced = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const handleButton = () => {
-    navigation.navigate("IntermidiatePlan");
+    navigation.navigate("AdvancedPlan");
   };
 
   useEffect(() => {
