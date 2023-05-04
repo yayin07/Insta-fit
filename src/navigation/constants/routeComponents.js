@@ -1,5 +1,3 @@
-import BOTTOM_TAB from "../tab-navigator/TabNavigator";
-import PLAN from "../../screens/Plan/FitnessPlan";
 import MEAL from "../../screens/Plan/MealPlan/Meals";
 import LOGIN from "../../screens/Auth/Login";
 import CREATEACCOUNT from "../../screens/Auth/CreateAccount";
@@ -39,10 +37,9 @@ import MYPLAN from "../../screens/Social/MyPlan";
 import EVERYDAYFITNESSPLAN from "../../screens/Social/EverydayFitnessPlan";
 
 export const SCREENS = {
-  BOTTOM_TAB,
-  PLAN,
-  MEAL,
   LOGIN,
+
+  MEAL,
   CREATEACCOUNT,
   GOAL,
   WORKOUTTIME,

@@ -1,41 +1,42 @@
-import { View, Text, Image, TouchableOpacity } from "react-native"
-import React, { useEffect, useState } from "react"
-import tw from "twrnc"
-import { useNavigation } from "@react-navigation/native"
-import { collection, onSnapshot, query } from "firebase/firestore"
-import { db } from "../../../../Firebase.config"
-import { getAuth } from "firebase/auth"
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import tw from "twrnc";
+import { useNavigation } from "@react-navigation/native";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { db } from "../../../../Firebase.config";
+import { getAuth } from "firebase/auth";
+
 const Intermidiate = () => {
-  const [subs, setSubs] = useState([])
-  const navigation = useNavigation()
-  const auth = getAuth()
-  const user = auth.currentUser
+  const [subs, setSubs] = useState([]);
+  const navigation = useNavigation();
+  const auth = getAuth();
+  const user = auth.currentUser;
   const handleButton = () => {
-    navigation.navigate("IntermidiatePlan")
-  }
+    navigation.navigate("IntermidiatePlan");
+  };
 
   useEffect(() => {
-    const subsRef = collection(db, "subscriptions")
-    const getRef = query(subsRef)
+    const subsRef = collection(db, "subscriptions");
+    const getRef = query(subsRef);
     const unsubcribe = onSnapshot(getRef, (snapshot) => {
       const fetchSubs = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }))
-      setSubs(fetchSubs)
-    })
+      }));
+      setSubs(fetchSubs);
+    });
     return () => {
-      unsubcribe()
-    }
-  }, [])
+      unsubcribe();
+    };
+  }, []);
 
-  const getUserSub = subs.find(
-    (getUserEmail) => user.email === getUserEmail.user
-  )
+  const getUserSub =
+    user && subs.find((getUserEmail) => user.email === getUserEmail.user);
 
   return (
     <View>
-      {getUserSub &&
+      {user &&
+      getUserSub &&
       getUserSub.user === user.email &&
       getUserSub.subscription_type === "Basic" ? (
         <View style={tw`relative`}>
@@ -59,7 +60,7 @@ const Intermidiate = () => {
         </TouchableOpacity>
       )}
     </View>
-  )
-}
+  );
+};
 
-export default Intermidiate
+export default Intermidiate;

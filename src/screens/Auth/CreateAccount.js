@@ -115,10 +115,10 @@ const CreateAccount = () => {
     });
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((details) => {
+      .then(() => {
         signInWithEmailAndPassword(auth, email, password)
           .then(() => {
-            navigation.navigate("About", { data: details });
+            navigation.navigate("About");
             ToastAndroid.show("Registered Successfully", ToastAndroid.SHORT);
           })
           .catch((err) => {
@@ -236,17 +236,19 @@ const CreateAccount = () => {
                 <Text style={tw`text-[#ffffff] opacity-70 py-2`}>
                   Phone Number
                 </Text>
-                <TextInput
-                  style={tw`text-[#ffffff] px-10`}
-                  keyboardType="number-pad"
-                  value={phoneNumber}
-                  onChangeText={(text) => setPhoneNumber(text)}
-                  maxLength={10}
-                />
+                <View style={tw`flex flex-row items-center`}>
+                  <Text style={tw`text-[#ffffff] opacity-70 absolute`}>
+                    +63
+                  </Text>
+                  <TextInput
+                    style={tw`text-[#ffffff] px-6 opacity-70`}
+                    keyboardType="number-pad"
+                    value={phoneNumber}
+                    onChangeText={(text) => setPhoneNumber(text)}
+                    maxLength={10}
+                  />
+                </View>
               </View>
-              <Text style={tw`text-[#ffffff] opacity-70 absolute bottom-2`}>
-                +63
-              </Text>
             </View>
 
             {/* Button */}

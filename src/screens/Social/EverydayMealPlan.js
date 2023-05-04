@@ -46,12 +46,12 @@ const EverydayMealPlan = ({ id }) => {
   return (
     <ScrollView style={tw`flex-1 flex flex-col bg-[#ffffff]`}>
       {userPlanInfo.length > 0 &&
-        userPlanInfo.map((getUserPlanInfo) => {
+        userPlanInfo.map((getUserPlanInfo, data) => {
           // if (getUserPlanInfo.user === getUser?.email) {
           //   return <Text>Still on pending</Text>;
           // }
           return (
-            <View>
+            <View key={data}>
               <View>
                 <Image
                   source={require("../../../assets/Meal.jpg")}

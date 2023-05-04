@@ -24,7 +24,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
 import Logout from "../../component/Logout";
 
-const UserProfile = ({ data, id }) => {
+const UserProfile = () => {
   const navigation = useNavigation();
   const { getUser } = useAuthContext();
   const [userInfo, setUserInfo] = useState([]);
@@ -77,7 +77,7 @@ const UserProfile = ({ data, id }) => {
         <View style={tw`flex items-center`}>
           <View style={tw`flex items-center`}>
             {getUserInfo.length > 0 &&
-              getUserInfo.map((getGenderDetails) => {
+              getUserInfo.map((getGenderDetails, data) => {
                 if (getGenderDetails.email === getUser?.email) {
                   return (
                     <View
@@ -102,10 +102,10 @@ const UserProfile = ({ data, id }) => {
           <View style={tw`flex flex-row items-center py-1`}>
             <Text style={tw`text-[15px] px-2 font-bold`}>
               {userInfo.length > 0 &&
-                userInfo.map((getUserInfo) => {
+                userInfo.map((getUserInfo, data) => {
                   if (getUserInfo.email === getUser?.email) {
                     return (
-                      <View style={tw`flex flex-row w-full`}>
+                      <View key={data} style={tw`flex flex-row w-full`}>
                         <View>
                           <Text style={tw`text-20px`}>
                             {getUserInfo.hasOwnProperty("first_name")

@@ -37,7 +37,7 @@ const BeginnerPlan = ({ id, title, description }) => {
   };
 
   const handleBack = () => {
-    navigation.navigate("Fitness");
+    navigation.navigate("BottomTab");
   };
 
   return (

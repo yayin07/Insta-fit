@@ -34,7 +34,7 @@ const IntermidiatePlan = ({ id, title, description }) => {
   };
 
   const handleBack = () => {
-    navigation.navigate("Fitness");
+    navigation.navigate("BottomTab");
   };
   return (
     <View style={tw`flex-1 `}>

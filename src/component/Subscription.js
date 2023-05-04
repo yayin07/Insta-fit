@@ -67,7 +67,7 @@ const Subscription = () => {
       </View>
 
       <View
-        style={tw`h-[720px] w-full bg-[#ffffff] rounded-[32px] p-5 gap-5 flex`}
+        style={tw`h-[720px] w-full bg-[#ffffff]  rounded-[32px] p-5 gap-5 flex`}
       >
         {subscription.map((plan) => (
           <View
@@ -123,13 +123,13 @@ const Subscription = () => {
 
         {/* Button */}
         <View
-          style={tw`py-3 flex justify-center items-center absolute bottom-15 left-3  gap-3`}
+          style={tw`px-3 py-3 flex justify-center items-center absolute bottom-15 left-0 right-0  gap-3`}
         >
           <View
             style={tw`border-[#FAA0A0] border-[2px] w-full p-2 rounded-[20px]`}
           >
             <TouchableOpacity onPress={() => handleNext()}>
-              <Text style={tw`text-center`}>Next</Text>
+              <Text style={tw`text-center `}>Next</Text>
             </TouchableOpacity>
           </View>
 

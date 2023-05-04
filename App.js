@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { StatusBar } from "react-native";
-import Navigation from "./src/navigation/Navigation";
+import React, { useEffect, useState, lazy, Suspense } from "react";
+import { StatusBar, Text } from "react-native";
 import AuthContextProvider from "./src/component/AuthContext/AuthContext";
+import { BottomTabNavigator } from "./src/navigation/tab-navigator/TabNavigator";
+
+const Navigation = lazy(() => import("./src/navigation/Navigation"));
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +14,9 @@ export default function App() {
 
   return (
     <AuthContextProvider>
-      <Navigation />
+      <Suspense fallback={<Text>Loading...</Text>}>
+        <Navigation />
+      </Suspense>
     </AuthContextProvider>
   );
 }

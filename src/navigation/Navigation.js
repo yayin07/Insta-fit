@@ -2,13 +2,14 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SCREENS } from "./constants/routeComponents";
+import BottomTabNavigator from "./tab-navigator/TabNavigator";
 
 const Stack = createStackNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator>
         <>
           <Stack.Screen
             name="Login"
@@ -16,10 +17,22 @@ const Navigation = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="BottomTab"
+            component={BottomTabNavigator}
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
+          <Stack.Screen
             name="Create"
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.CREATEACCOUNT}
           />
+
+          <Stack.Screen
+            name="Fitness"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.FITNESS}
+          />
+
           <Stack.Screen
             name="Subscription"
             options={{ headerShown: false, gestureEnabled: false }}
@@ -30,11 +43,7 @@ const Navigation = () => {
             component={SCREENS.SPLASHSCREEN}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-            name="Fitness"
-            component={SCREENS.BOTTOM_TAB}
-            options={{ headerShown: false, gestureEnabled: false }}
-          /> */}
+
           <Stack.Screen
             name="Start"
             options={{ headerShown: false, gestureEnabled: false }}

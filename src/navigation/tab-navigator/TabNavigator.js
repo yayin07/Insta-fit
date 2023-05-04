@@ -6,25 +6,25 @@ import { Image } from "react-native";
 
 const Stack = createStackNavigator();
 
-const MealPlanStackNavigator = () => {
+const FitnessPlanStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={ROUTE_NAME.MEAL}
+        name="Fitness"
         options={{ headerShown: false, gestureEnabled: false }}
-        component={SCREENS.MEAL}
+        component={SCREENS.FITNESS}
       />
     </Stack.Navigator>
   );
 };
 
-const LoginStackNavigator = () => {
+const MealPlanStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={ROUTE_NAME.LOGIN}
+        name="Meal"
         options={{ headerShown: false, gestureEnabled: false }}
-        component={SCREENS.LOGIN}
+        component={SCREENS.MEAL}
       />
     </Stack.Navigator>
   );
@@ -34,7 +34,7 @@ const UserProfileStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={ROUTE_NAME.PROFILE}
+        name="UserProfile"
         options={{ headerShown: false, gestureEnabled: false }}
         component={SCREENS.USERPROFILE}
       />
@@ -46,7 +46,7 @@ const SocialStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={ROUTE_NAME.SOCIAL}
+        name="Newsfeed"
         options={{ headerShown: false, gestureEnabled: false }}
         component={SCREENS.NEWSFEED}
       />
@@ -60,8 +60,8 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={ROUTE_NAME.PLAN}
-        component={SCREENS.PLAN}
+        name="FitnessPlan"
+        component={FitnessPlanStackNavigator}
         options={{
           headerShown: false,
           tabBarIcon: () => (
@@ -70,7 +70,7 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={ROUTE_NAME.MEALPLAN}
+        name="MealPlanStack"
         component={MealPlanStackNavigator}
         options={{
           headerShown: false,

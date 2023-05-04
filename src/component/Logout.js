@@ -26,7 +26,7 @@ const Logout = () => {
   };
 
   return (
-    <View style={tw`py-5 w-full px-3 `}>
+    <View style={tw`py-5 w-full  `}>
       <TouchableOpacity
         onPress={handleLogout}
         style={tw`p-3 rounded-[18px] bg-[#FAA0A0] `}

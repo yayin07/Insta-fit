@@ -10,7 +10,6 @@ import tw from "twrnc";
 import Beginner from "./Level/Beginner";
 import Intermidiate from "./Level/Intermidiate";
 import Advanced from "./Level/Advanced";
-// import { auth } from "../../../Firebase.config";
 import { useNavigation } from "@react-navigation/native";
 
 const FitnessPlan = () => {

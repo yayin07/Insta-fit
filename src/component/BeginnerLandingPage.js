@@ -28,7 +28,7 @@ const BeginnerLandingPage = ({ route }) => {
   }, []);
 
   return (
-    <View style={tw``}>
+    <View>
       <View>
         <PlanHeader />
       </View>
@@ -45,7 +45,7 @@ const BeginnerLandingPage = ({ route }) => {
           />
           {/* <Button title={playing ? "pause" : "play"} onPress={togglePlaying} /> */}
         </View>
-        <View style={tw`p-3 flex border-t-[1px] border- gap-3`}>
+        <View style={tw`p-3 flex border-t-[1px] gap-3`}>
           <Text style={tw`text-[17px] font-bold `}>Procedure</Text>
           <Text style={tw`text-sm`}>{data.general_procedure}</Text>
         </View>
@@ -55,7 +55,9 @@ const BeginnerLandingPage = ({ route }) => {
             {data.target_parts.map((part, index) => {
               return (
                 <View key={index} style={tw`w-[120px]`}>
-                  <Text style={tw`bg-red-400 px-2 py-1 my-1 mr-2 rounded-5px`}>
+                  <Text
+                    style={tw`bg-red-400 px-2 py-1 my-1 mr-2 text-[#ffffff] text-center rounded-5px`}
+                  >
                     {part}
                   </Text>
                 </View>

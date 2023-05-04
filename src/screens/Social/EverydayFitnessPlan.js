@@ -40,9 +40,9 @@ const EverydayFitnessPlan = () => {
   return (
     <ScrollView>
       <View>
-        {userPlanInfo.map((getUserPlanInfo) => {
+        {userPlanInfo.map((getUserPlanInfo, data) => {
           return (
-            <View>
+            <View key={data}>
               {/*  */}
               <View style={tw`p-10 flex `}>
                 <View style={tw`border-b-[2px] py-10 flex `}>

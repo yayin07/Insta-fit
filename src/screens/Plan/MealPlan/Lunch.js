@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 
@@ -31,7 +31,7 @@ const Lunch = () => {
       <View style={tw`p-4 bg-[#ffffff] shadow-xl shadow-black`}>
         <Text style={tw`text-[18px] font-bold`}>Lunch</Text>
       </View>
-      <View style={tw`py-5 flex items-center`}>
+      <ScrollView style={tw`py-5 flex items-center`}>
         {mealPlan
           .filter(({ meal_time }) => meal_time === "lunch")
           .map((data) => {
@@ -69,7 +69,7 @@ const Lunch = () => {
               </TouchableOpacity>
             );
           })}
-      </View>
+      </ScrollView>
     </View>
   );
 };

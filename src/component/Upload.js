@@ -29,7 +29,7 @@ import { db } from "../../Firebase.config";
 import moment from "moment";
 import { useAuthContext } from "./AuthContext/AuthContext";
 
-const Upload = ({ setModalVisible, modalVisible, data }) => {
+const Upload = ({ setModalVisible, modalVisible }) => {
   const navigation = useNavigation();
   const auth = getAuth();
   const user = auth.currentUser;
@@ -155,10 +155,11 @@ const Upload = ({ setModalVisible, modalVisible, data }) => {
             <View style={tw`flex flex-row px-3`}>
               <View style={tw``}>
                 {getUserInfo.length > 0 &&
-                  getUserInfo.map((getGenderDetails) => {
+                  getUserInfo.map((getGenderDetails, data) => {
                     if (getGenderDetails.email === getUser?.email) {
                       return (
                         <View
+                          key={data}
                           style={tw`flex flex-row justify-center bg-white items-center rounded-full w-5 h-5 `}
                         >
                           {getGenderDetails.user_gender === "Male" ? (
@@ -169,6 +170,7 @@ const Upload = ({ setModalVisible, modalVisible, data }) => {
                           ) : (
                             <Image
                               source={require("../../assets/Frame28.png")}
+                              style={tw`h-10 w-10`}
                             />
                           )}
                         </View>
@@ -178,7 +180,7 @@ const Upload = ({ setModalVisible, modalVisible, data }) => {
               </View>
               <View>
                 {getUserInfo.length > 0 &&
-                  getUserInfo.map((getUserFirstName) => {
+                  getUserInfo.map((getUserFirstName, data) => {
                     if (getUserFirstName.email === getUser.email) {
                       return (
                         <View key={data}>

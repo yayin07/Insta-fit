@@ -11,11 +11,7 @@ import {
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import { auth } from "../../../Firebase.config";
-import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
@@ -41,7 +37,7 @@ const Login = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setGetUser(user);
       if (user) {
-        navigation.navigate("Fitness");
+        navigation.navigate("BottomTab");
       }
     });
     return () => unsubscribe();
@@ -61,7 +57,7 @@ const Login = () => {
     }
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigation.navigate("Plan");
+        navigation.navigate("BottomTab");
         ToastAndroid.show("Login successful", ToastAndroid.SHORT);
       })
       .catch((error) => {

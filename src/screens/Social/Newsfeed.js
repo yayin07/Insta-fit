@@ -28,7 +28,7 @@ import { auth } from "../../../Firebase.config";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
 import moment from "moment";
 
-const Newsfeed = ({ data }) => {
+const Newsfeed = () => {
   const [userInfo, setUserInfo] = useState([]);
   const navigation = useNavigation();
   const [post, setPost] = useState([]);
@@ -119,81 +119,69 @@ const Newsfeed = ({ data }) => {
         <View
           style={tw`flex items-center py-3 relative h-full w-full bg-[#ffffff] shadow-xl gap-5 shadow-[#F9F9F9]`}
         >
-          {post.map(
-            (
-              {
-                post_name,
-                post_title,
-                post_date,
-                image_url,
-                post_description,
-                id,
-              },
-              index
-            ) => {
-              return (
-                <View
-                  key={index}
-                  style={tw`bg-[#ffffff] w-[300px] h-[300px] flex justify-between  shadow-lg shadow-xl  pt-10 rounded-10px p-3`}
-                >
-                  <View style={tw`px-1`}>
-                    <View style={tw`flex flex-row items-center`}>
-                      <View style={tw`px-2`}>
-                        {getUserInfo.length > 0 &&
-                          getUserInfo.map((getGenderDetails) => {
-                            if (getGenderDetails.email === getUser?.email) {
-                              return (
-                                <View
-                                  key={data}
-                                  style={tw`flex flex-row justify-center bg-white items-center rounded-full w-5 h-5 `}
-                                >
-                                  {getGenderDetails.user_gender === "Male" ? (
-                                    <Image
-                                      source={require("../../../assets/Frame27.png")}
-                                      style={tw`h-10 w-10`}
-                                    />
-                                  ) : (
-                                    <Image
-                                      source={require("../../../assets/Frame28.png")}
-                                      style={tw`h-10 w-10`}
-                                    />
-                                  )}
-                                </View>
-                              );
-                            }
-                          })}
-                      </View>
-                      <View style={tw`flex items-start justify-center`}>
-                        <Text style={tw`text-[15px] px-2 font-bold`}>
-                          {post_name}
-                        </Text>
-                        <Text style={tw`text-11px px-2`}>{post_date}</Text>
-                      </View>
+          {post.map((data) => {
+            return (
+              <View
+                key={data.id}
+                style={tw`bg-[#ffffff] w-[300px] h-[300px] flex justify-between  shadow-lg shadow-xl  pt-10 rounded-10px p-3`}
+              >
+                <View style={tw`px-1`}>
+                  <View style={tw`flex flex-row items-center`}>
+                    <View style={tw`px-2`}>
+                      {getUserInfo.length > 0 &&
+                        getUserInfo.map((getGenderDetails, id) => {
+                          if (getGenderDetails.email === getUser?.email) {
+                            return (
+                              <View
+                                key={getGenderDetails.id}
+                                style={tw`flex flex-row justify-center bg-white items-center rounded-full w-5 h-5 `}
+                              >
+                                {getGenderDetails.user_gender === "Male" ? (
+                                  <Image
+                                    source={require("../../../assets/Frame27.png")}
+                                    style={tw`h-10 w-10`}
+                                  />
+                                ) : (
+                                  <Image
+                                    source={require("../../../assets/Frame28.png")}
+                                    style={tw`h-10 w-10`}
+                                  />
+                                )}
+                              </View>
+                            );
+                          }
+                        })}
                     </View>
-
-                    <View style={tw`py-3`}>
-                      <Text>{post_description}</Text>
+                    <View style={tw`flex items-start justify-center`}>
+                      <Text style={tw`text-[15px] px-2 font-bold`}>
+                        {data.post_name}
+                      </Text>
+                      <Text style={tw`text-11px px-2`}>{data.post_date}</Text>
                     </View>
                   </View>
-                  {/*  */}
-                  <View style={tw``}>
-                    <View style={tw`flex items-center`}>
-                      <Image
-                        source={{
-                          uri:
-                            image_url === "null"
-                              ? "https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?w=740&t=st=1680882744~exp=1680883344~hmac=2ed4ad6558839e918a981b5e7fe157d7924703160281e5024981f21cab21b535"
-                              : image_url,
-                        }}
-                        style={tw`w-full h-190px`}
-                        resizeMode="cover"
-                      />
-                    </View>
+
+                  <View style={tw`py-3`}>
+                    <Text>{data.post_description}</Text>
                   </View>
                 </View>
-              );
-            }
-          )}
+                {/*  */}
+                <View style={tw``}>
+                  <View style={tw`flex items-center`}>
+                    <Image
+                      source={{
+                        uri:
+                          data.image_url === "null"
+                            ? "https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?w=740&t=st=1680882744~exp=1680883344~hmac=2ed4ad6558839e918a981b5e7fe157d7924703160281e5024981f21cab21b535"
+                            : data.image_url,
+                      }}
+                      style={tw`w-full h-190px`}
+                      resizeMode="cover"
+                    />
+                  </View>
+                </View>
+              </View>
+            );
+          })}
         </View>
       </ScrollView>
 
