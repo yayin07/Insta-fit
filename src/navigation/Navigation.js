@@ -38,11 +38,6 @@ const Navigation = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.SUBSCRIPTION}
           />
-          <Stack.Screen
-            name="Splash"
-            component={SCREENS.SPLASHSCREEN}
-            options={{ headerShown: false }}
-          />
 
           <Stack.Screen
             name="Start"
@@ -105,11 +100,7 @@ const Navigation = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.BEGINNERLANDINGPAGE}
           />
-          <Stack.Screen
-            name="Timer"
-            options={{ headerShown: false, gestureEnabled: false }}
-            component={SCREENS.TIMER}
-          />
+
           <Stack.Screen
             name="Upload"
             options={{ headerShown: false, gestureEnabled: false }}

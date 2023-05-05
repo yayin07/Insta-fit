@@ -7,7 +7,6 @@ import GETSTARTED from "../../screens/Auth/GetStarted";
 import BEGINNERPLAN from "../../screens/Plan/BeginnerPlan";
 import BREAKFAST from "../../screens/Plan/MealPlan/Breakfast";
 import LUNCH from "../../screens/Plan/MealPlan/Lunch";
-import SPLASHSCREEN from "../../component/SplashScreen";
 import FORGOTPASSWORD from "../../screens/Auth/ForgotPassword";
 import NEWSFEED from "../../screens/Social/Newsfeed";
 import DINNER from "../../screens/Plan/MealPlan/Dinner";
@@ -15,7 +14,6 @@ import MAINCOURSE from "../../screens/Plan/MealPlan/MainCourse";
 import SNACKS from "../../screens/Plan/MealPlan/Snacks";
 import SALAD from "../../screens/Plan/MealPlan/Salad";
 import BEGINNERLANDINGPAGE from "../../component/BeginnerLandingPage";
-import TIMER from "../../component/PlanTimer";
 import UPLOAD from "../../component/Upload";
 import ABOUT from "../../screens/Auth/AboutYou";
 import USERPROFILE from "../../screens/Social/UserProfile";
@@ -47,7 +45,7 @@ export const SCREENS = {
   BEGINNERPLAN,
   BREAKFAST,
   LUNCH,
-  SPLASHSCREEN,
+
   FORGOTPASSWORD,
   NEWSFEED,
   DINNER,
@@ -55,7 +53,7 @@ export const SCREENS = {
   SNACKS,
   SALAD,
   BEGINNERLANDINGPAGE,
-  TIMER,
+
   UPLOAD,
   ABOUT,
   USERPROFILE,
