@@ -51,7 +51,7 @@ const Meals = () => {
           </View>
           <View style={tw`flex flex-row`}>
             <TouchableOpacity key="drinks" onPress={handleDrinks}>
-              <Image source={require("../../../../assets/Frame15.png")} />
+              <Image source={require("../../../../assets/Frame36.png")} />
             </TouchableOpacity>
             <TouchableOpacity key="salad" onPress={handleSalad}>
               <Image source={require("../../../../assets/Frame16.png")} />
