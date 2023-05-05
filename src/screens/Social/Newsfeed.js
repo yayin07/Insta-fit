@@ -117,7 +117,7 @@ const Newsfeed = () => {
       >
         {/*  */}
         <View
-          style={tw`flex items-center py-3 relative h-full w-full bg-[#ffffff] shadow-xl gap-5 shadow-[#F9F9F9]`}
+          style={tw`flex items-center py-4 relative h-full w-full bg-[#ffffff] shadow-xl gap-5 shadow-[#F9F9F9]`}
         >
           {post.map((data) => {
             return (
