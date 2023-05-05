@@ -11,8 +11,17 @@ const Intermidiate = () => {
   const navigation = useNavigation();
   const auth = getAuth();
   const user = auth.currentUser;
+
+  const handleSubscription = () => {
+    navigation.navigate("Subscription");
+  };
+
   const handleButton = () => {
-    navigation.navigate("IntermidiatePlan");
+    if (details.subscriptions === "paid") {
+      return;
+    } else {
+      navigation.navigate("IntermidiatePlan");
+    }
   };
 
   useEffect(() => {
@@ -39,18 +48,18 @@ const Intermidiate = () => {
       getUserSub &&
       getUserSub.user === user.email &&
       getUserSub.subscription_type === "Basic" ? (
-        <View style={tw`relative`}>
+        <TouchableOpacity style={tw`relative`} onPress={handleSubscription}>
           <Image
             style={tw`absolute h-[170px] z-10 w-[330px]`}
             source={require("../../../../assets/lockImage.png")}
           />
-          <TouchableOpacity disabled>
+          <View>
             <Image
               source={require("../../../../assets/Frame17.png")}
               style={tw`w-330px rounded-[10px]`}
             />
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={handleButton}>
           <Image

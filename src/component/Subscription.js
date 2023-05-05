@@ -134,7 +134,7 @@ const Subscription = () => {
           </View>
 
           <TouchableOpacity
-            style={tw`bg-[#FAA0A0] w-[340px] rounded-[40px] py-2 px-2`}
+            style={tw`bg-[#FAA0A0] w-full rounded-[40px] py-2 px-2`}
           >
             <Text style={tw`text-[#ffffff] text-center font-bold text-[18px]`}>
               UPGRADE NOW - SAVE 10%
