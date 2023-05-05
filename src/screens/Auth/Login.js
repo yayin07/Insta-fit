@@ -74,15 +74,19 @@ const Login = () => {
   };
 
   const validateInput = () => {
-    // Email validation pattern
-    const validationPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    try {
+      // Email validation pattern
+      const validationPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
-    if (email === "") {
-      setValidationError("Input is required.");
-    } else if (!email.match(validationPattern)) {
-      setValidationError("Invalid email address.");
-    } else {
-      setValidationError("");
+      if (email === "") {
+        setValidationError("Input is required.");
+      } else if (!email.match(validationPattern)) {
+        setValidationError("Invalid email address.");
+      } else {
+        setValidationError("");
+      }
+    } catch (err) {
+      ToastAndroid.show("Invalid input", ToastAndroid.SHORT);
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
-import { StatusBar, Text } from "react-native";
+import { StatusBar, Text, Image } from "react-native";
 import AuthContextProvider from "./src/component/AuthContext/AuthContext";
 import { BottomTabNavigator } from "./src/navigation/tab-navigator/TabNavigator";
 
@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <AuthContextProvider>
-      <Suspense fallback={<Text>Loading...</Text>}>
+      <Suspense fallback={<Image source={require("./assets/Frame26.png")} />}>
         <Navigation />
       </Suspense>
     </AuthContextProvider>

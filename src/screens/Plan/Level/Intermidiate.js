@@ -16,7 +16,7 @@ const Intermidiate = () => {
     navigation.navigate("Subscription");
   };
 
-  const handleButton = () => {
+  const handleButton = (details) => {
     if (details.subscriptions === "paid") {
       return;
     } else {

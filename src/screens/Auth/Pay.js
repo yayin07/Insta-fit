@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import {
 import tw from "twrnc";
 import { useRoute } from "@react-navigation/native";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../../Firebase.config";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth } from "firebase/auth";
@@ -27,7 +27,8 @@ const Pay = () => {
     useState(false);
   const [paymentAmount, setPaymentAmount] = useState(data.price);
   // const [email, setEmail] = useState(getUser);
-  const { getUser } = useAuthContext();
+
+  const [isSubscribe, setIsSubscribe] = useState([]);
 
   const RadioButton = ({ isSelected }) => (
     <View
@@ -58,15 +59,35 @@ const Pay = () => {
 
   const subscriptionCollectionRef = collection(db, "subscriptions");
 
-  const handleSubmit = () => {
-    const paymentDetails = {
-      subscription_type: data.value,
-      payment_type: selectedPayment,
-      amount: paymentAmount,
-      user: user.email,
+  useEffect(() => {
+    const unsubcribe = onSnapshot(subscriptionCollectionRef, (snapshot) => {
+      const fetchData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setIsSubscribe(fetchData);
+    });
+    return () => {
+      unsubcribe();
     };
-    addDoc(subscriptionCollectionRef, paymentDetails);
-    navigation.navigate("TransactionComplete");
+  }, []);
+  const checkUserSubscription = isSubscribe.some(
+    (dat) => dat.user === user.email
+  );
+
+  const handleSubmit = () => {
+    if (checkUserSubscription) {
+      updateDoc;
+    } else {
+      const paymentDetails = {
+        subscription_type: data.value,
+        payment_type: selectedPayment,
+        amount: paymentAmount,
+        user: user.email,
+      };
+      addDoc(subscriptionCollectionRef, paymentDetails);
+      navigation.navigate("TransactionComplete");
+    }
   };
 
   const selectedPaymentLogo =

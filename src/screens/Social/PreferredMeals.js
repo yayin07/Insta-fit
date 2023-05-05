@@ -1,21 +1,21 @@
-import { View, Text, TouchableOpacity } from "react-native"
-import React, { useState } from "react"
-import tw from "twrnc"
-import PlanHeader from "../../component/PlanHeader"
-import { useNavigation } from "@react-navigation/native"
-import { addDoc, collection } from "firebase/firestore"
-import { db } from "../../../Firebase.config"
-import { useAuthContext } from "../../component/AuthContext/AuthContext"
+import { View, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import tw from "twrnc";
+import PlanHeader from "../../component/PlanHeader";
+import { useNavigation } from "@react-navigation/native";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../../Firebase.config";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
 
 const PreferredMeals = ({ navigation, route }) => {
-  const { data } = route.params
-  const requestCollectionRef = collection(db, "request_plan")
-  const [selectedItem, setSelectedItem] = useState("")
+  const { data } = route.params;
+  const requestCollectionRef = collection(db, "request_plan");
+  const [selectedItem, setSelectedItem] = useState("");
   const { getUser } = useAuthContext();
 
   const handleSelect = (item) => {
-    setSelectedItem(item)
-  }
+    setSelectedItem(item);
+  };
 
   const handleSubmit = async () => {
     if (selectedItem !== "") {
@@ -26,10 +26,10 @@ const PreferredMeals = ({ navigation, route }) => {
         request_workout_type: data.request_workout_type,
         request_meal: selectedItem,
         request_user: getUser.email,
-      })
+      });
     }
-    navigation.navigate("Profile")
-  }
+    navigation.navigate("BottomTab");
+  };
   return (
     <View style={tw`flex-1`}>
       <View>
@@ -107,7 +107,7 @@ const PreferredMeals = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default PreferredMeals
+export default PreferredMeals;

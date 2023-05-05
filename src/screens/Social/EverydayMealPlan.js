@@ -6,44 +6,44 @@ import {
   TouchableOpacity,
   FlatList,
   Button,
-} from "react-native"
-import React, { useState, useEffect, useCallback } from "react"
-import tw from "twrnc"
+} from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import tw from "twrnc";
 // import { useRoute } from "@react-navigation/native";
-import { db } from "../../../Firebase.config"
-import { collection, getDocs, query, onSnapshot } from "firebase/firestore"
-import { useAuthContext } from "../../component/AuthContext/AuthContext"
-import { useNavigation } from "@react-navigation/native"
-import { getAuth } from "firebase/auth"
+import { db } from "../../../Firebase.config";
+import { collection, getDocs, query, onSnapshot } from "firebase/firestore";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
+import { useNavigation } from "@react-navigation/native";
+import { getAuth } from "firebase/auth";
 
 const EverydayMealPlan = ({ id }) => {
-  const navigation = useNavigation()
-  const auth = getAuth()
-  const user = auth.currentUser
-  const [userPlanInfo, setUserPlanInfo] = useState([])
-  const [getUserPlanInfo, setGetUserPlanInfo] = useState([])
-  const respondPlanRef = collection(db, "respond_plans")
-  const [getUserInfo, setGetUserInfo] = useState([])
+  const navigation = useNavigation();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const [userPlanInfo, setUserPlanInfo] = useState([]);
+  const [getUserPlanInfo, setGetUserPlanInfo] = useState([]);
+  const respondPlanRef = collection(db, "respond_plans");
+  const [getUserInfo, setGetUserInfo] = useState([]);
 
   useEffect(() => {
     const getRespondPlanList = async () => {
       try {
-        const data = await getDocs(respondPlanRef, "user")
+        const data = await getDocs(respondPlanRef, "user");
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
-        }))
-        setUserPlanInfo(filteredData)
+        }));
+        setUserPlanInfo(filteredData);
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
-    }
-    getRespondPlanList()
-  }, [])
+    };
+    getRespondPlanList();
+  }, []);
 
   const handleBack = () => {
-    navigation.navigate("MyPlan")
-  }
+    navigation.navigate("MyPlan");
+  };
 
   return (
     <ScrollView style={tw`flex-1 flex flex-col bg-[#ffffff]`}>
@@ -140,16 +140,16 @@ const EverydayMealPlan = ({ id }) => {
                   </View>
                 </View>
               </View>
-            )
+            );
           } else {
-            <Text>Still on pending</Text>
+            <Text>Still on pending</Text>;
           }
         })}
       <TouchableOpacity style={tw`absolute top-5 left-5`} onPress={handleBack}>
         <Image source={require("../../../assets/Vector12.png")} />
       </TouchableOpacity>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default EverydayMealPlan
+export default EverydayMealPlan;

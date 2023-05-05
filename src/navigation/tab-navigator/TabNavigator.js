@@ -60,7 +60,7 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="FitnessPlan"
+        name="Workout Plan"
         component={FitnessPlanStackNavigator}
         options={{
           headerShown: false,
@@ -70,7 +70,7 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="MealPlanStack"
+        name="Meal Plan"
         component={MealPlanStackNavigator}
         options={{
           headerShown: false,
@@ -80,7 +80,7 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="SocialStack"
+        name="News feed"
         component={SocialStackNavigator}
         options={{
           headerShown: false,
@@ -90,7 +90,7 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="User Profile"
         component={UserProfileStackNavigator}
         options={{
           headerShown: false,

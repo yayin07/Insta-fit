@@ -15,6 +15,7 @@ const Subscription = () => {
     { value: "Advanced", price: 500 },
   ];
   const [selectedSubscription, setSelectedSubscription] = useState("Basic");
+  const [isSubscribedToBasic, setIsSubscribedToBasic] = useState(false);
 
   const handleNext = () => {
     if (selectedSubscription === "Basic") {
@@ -69,57 +70,60 @@ const Subscription = () => {
       <View
         style={tw`h-[720px] w-full bg-[#ffffff]  rounded-[32px] p-5 gap-5 flex`}
       >
-        {subscription.map((plan) => (
-          <View
-            key={plan.value}
-            style={[
-              tw`p-4 shadow-xl shadow-black bg-[#ffffff] h-[150px] flex flex-row justify-between items-center rounded-[8px]`,
-              selectedSubscription === plan.value &&
-                tw`border-2 border-[#FF69B4]`,
-            ]}
-          >
-            <View>
-              <Text style={tw`font-bold py-2`}>{plan.value}</Text>
-              {plan.value === "Advanced" && (
+        {subscription.map(
+          (plan) =>
+            (plan.value !== "Basic" || !isSubscribedToBasic) && (
+              <View
+                key={plan.value}
+                style={[
+                  tw`p-4 shadow-xl shadow-black bg-[#ffffff] h-[150px] flex flex-row justify-between items-center rounded-[8px]`,
+                  selectedSubscription === plan.value &&
+                    tw`border-2 border-[#FF69B4]`,
+                ]}
+              >
                 <View>
-                  <View>
-                    <Text style={tw`font-bold`}>₱ 500</Text>
-                  </View>
-                  <Text>Full access of all Workout Levels</Text>
-                  <Text>Full access on InstaFeed</Text>
-                  <Text>Full access on Meal Plan</Text>
+                  <Text style={tw`font-bold py-2`}>{plan.value}</Text>
+                  {plan.value === "Advanced" && (
+                    <View>
+                      <View>
+                        <Text style={tw`font-bold`}>₱ 500</Text>
+                      </View>
+                      <Text>Full access of all Workout Levels</Text>
+                      <Text>Full access on InstaFeed</Text>
+                      <Text>Full access on Meal Plan</Text>
+                    </View>
+                  )}
+                  {plan.value === "Intermediate" && (
+                    <View>
+                      <View>
+                        <Text style={tw`font-bold`}>₱ 300</Text>
+                      </View>
+                      <Text style={tw`w-200px`}>
+                        Full access on Intermediate Workout
+                      </Text>
+                      <Text style={tw`w-200px`}>
+                        Limited Upload Photos per day on InstaFeed
+                      </Text>
+                    </View>
+                  )}
+                  {/* Add other information related to each subscription plan here */}
                 </View>
-              )}
-              {plan.value === "Intermediate" && (
-                <View>
+                <View style={tw`flex flex-row justify-between items-center`}>
                   <View>
-                    <Text style={tw`font-bold`}>₱ 300</Text>
+                    <RadioButton
+                      value={plan.value}
+                      status={
+                        selectedSubscription === plan.value
+                          ? "checked"
+                          : "unchecked"
+                      }
+                      onPress={() => setSelectedSubscription(plan.value)}
+                    />
                   </View>
-                  <Text style={tw`w-200px`}>
-                    Full access on Intermediate Workout
-                  </Text>
-                  <Text style={tw`w-200px`}>
-                    Limited Upload Photos per day on InstaFeed
-                  </Text>
                 </View>
-              )}
-              {/* Add other information related to each subscription plan here */}
-            </View>
-            <View style={tw`flex flex-row justify-between items-center`}>
-              <View>
-                <RadioButton
-                  value={plan.value}
-                  status={
-                    selectedSubscription === plan.value
-                      ? "checked"
-                      : "unchecked"
-                  }
-                  onPress={() => setSelectedSubscription(plan.value)}
-                />
               </View>
-            </View>
-          </View>
-        ))}
+            )
+        )}
 
         {/* Button */}
         <View
