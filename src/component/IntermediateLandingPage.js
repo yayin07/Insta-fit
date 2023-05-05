@@ -15,16 +15,16 @@ const IntermediateLandingPage = ({ route }) => {
   const { data } = route.params;
   const [playing, setPlaying] = useState(false);
 
-  const onStateChange = useCallback((state) => {
-    if (state === "ended") {
-      setPlaying(false);
-      Alert.alert("video has finished playing!");
-    }
-  }, []);
+  // const onStateChange = useCallback((state) => {
+  //   if (state === "ended") {
+  //     setPlaying(false);
+  //     Alert.alert("video has finished playing!");
+  //   }
+  // }, []);
 
-  const togglePlaying = useCallback(() => {
-    setPlaying((prev) => !prev);
-  }, []);
+  // const togglePlaying = useCallback(() => {
+  //   setPlaying((prev) => !prev);
+  // }, []);
 
   return (
     <View style={tw`flex-1`}>
@@ -40,9 +40,9 @@ const IntermediateLandingPage = ({ route }) => {
             height={300}
             play={playing}
             videoId={"Gr1GtwTp_ko"}
-            onChangeState={onStateChange}
+            // onChangeState={onStateChange}
           />
-          <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />
+          {/* <Button title={playing ? "pause" : "play"} onPress={togglePlaying} /> */}
         </View>
         <View style={tw`p-3`}>
           <Text style={tw`text-[17px] font-bold px-1 `}>Trainer</Text>

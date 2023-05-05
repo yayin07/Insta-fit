@@ -20,8 +20,6 @@ const FitnessPlan = () => {
     navigation.navigate("Subscription");
   };
 
-  console.log("User", user);
-
   return (
     <View style={tw`flex justify-start items-start flex-1 bg-[#FAA0A0]`}>
       <View style={tw`flex flex-row justify-between items-center w-full`}>

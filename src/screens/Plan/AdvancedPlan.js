@@ -1,37 +1,33 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
-import tw from "twrnc";
-import { db } from "../../../Firebase.config";
-import { collection, onSnapshot, query } from "firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native"
+import React, { useEffect, useState } from "react"
+import tw from "twrnc"
+import { db } from "../../../Firebase.config"
+import { collection, onSnapshot, query } from "firebase/firestore"
+import { useNavigation } from "@react-navigation/native"
 
 const AdvancedPlan = () => {
-  const [trainings, setTrainings] = useState([]);
-  const navigation = useNavigation();
+  const [trainings, setTrainings] = useState([])
+  const navigation = useNavigation()
 
   useEffect(() => {
-    const trainingRef = collection(db, "trainings");
-    const getRef = query(trainingRef);
+    const trainingRef = collection(db, "trainings")
+    const getRef = query(trainingRef)
     const unsubcribe = onSnapshot(getRef, (snapshot) => {
       const fetchPlan = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
-      setTrainings(fetchPlan);
-    });
-  }, []);
+      }))
+      setTrainings(fetchPlan)
+    })
+  }, [])
 
   const handleStart = (details) => {
-    if (details.subscriptions === "paid") {
-      navigation.navigate("Subscription");
-    } else {
-      navigation.navigate("AdvancedLandingPage", { data: details });
-    }
-  };
+    navigation.navigate("AdvancedLandingPage", { data: details })
+  }
 
   const handleBack = () => {
-    navigation.navigate("BottomTab");
-  };
+    navigation.navigate("BottomTab")
+  }
   return (
     <ScrollView style={tw`flex-1 `}>
       <View
@@ -60,14 +56,6 @@ const AdvancedPlan = () => {
                   onPress={() => handleStart(data)}
                   style={tw`my-5`}
                 >
-                  {data.subscriptions === "paid" ? (
-                    <Image
-                      style={tw`absolute z-10 h-[330px] w-[300px]`}
-                      source={require("../../../assets/lockImage.png")}
-                    />
-                  ) : (
-                    ""
-                  )}
                   <View
                     style={tw`shadow-black h-[319px] w-[300px] shadow-xl bg-[#ffffff] rounded-b-[10px] py-4`}
                   >
@@ -107,7 +95,7 @@ const AdvancedPlan = () => {
         </View>
       </View>
     </ScrollView>
-  );
-};
+  )
+}
 
-export default AdvancedPlan;
+export default AdvancedPlan

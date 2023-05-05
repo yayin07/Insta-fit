@@ -40,8 +40,6 @@ const EverydayFitnessPlan = () => {
     getRespondPlanList()
   }, [])
 
-  console.log("userPlanInfo", userPlanInfo)
-
   return (
     <ScrollView>
       <View>
