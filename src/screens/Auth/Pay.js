@@ -74,8 +74,6 @@ const Pay = () => {
       ? require("../../../assets/Gcash.png")
       : require("../../../assets/Image5.png");
 
-  console.log("User", getUser);
-
   return (
     <View style={tw`flex-1`}>
       <View style={tw`p-3 bg-[#ffffff] shadow-lg flex flex-row items-center`}>

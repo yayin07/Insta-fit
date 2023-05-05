@@ -55,8 +55,6 @@ const Upload = ({ setModalVisible, modalVisible }) => {
     });
   }, []);
 
-  console.log("user", getUserInfo);
-
   const uploadFileToFirebase = async (uri) => {
     const fileExtension = uri.split(".").pop();
     const fileName = `${Date.now()}.${fileExtension}`;
@@ -117,7 +115,7 @@ const Upload = ({ setModalVisible, modalVisible }) => {
         post_description: description,
         post_date: moment(Date.now()).format("MMMM D, YYYY hh:mm a"),
         post_email: user?.email,
-        post_name: "User",
+        post_name: user?.displayName !== null ? user?.displayName : "Anonymous",
         image_ref: imageRef,
         image_url: imageUrl,
       });
