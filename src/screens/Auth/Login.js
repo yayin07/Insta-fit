@@ -18,8 +18,8 @@ import { useAuthContext } from "../../component/AuthContext/AuthContext";
 
 const Login = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("instafitadmin@gmail.com");
-  const [password, setPassword] = useState("qqqq1111");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [validationError, setValidationError] = useState("");
   const [validationPass, setValidationPass] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
