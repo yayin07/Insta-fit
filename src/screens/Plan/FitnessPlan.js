@@ -1,18 +1,15 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ToastAndroid,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import Beginner from "./Level/Beginner";
 import Intermidiate from "./Level/Intermidiate";
 import Advanced from "./Level/Advanced";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth } from "firebase/auth";
 
 const FitnessPlan = () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
   // const [user, setUser] = useState(auth);
   const navigation = useNavigation();
 
@@ -22,6 +19,8 @@ const FitnessPlan = () => {
   const handleSubscription = () => {
     navigation.navigate("Subscription");
   };
+
+  console.log("User", user);
 
   return (
     <View style={tw`flex justify-start items-start flex-1 bg-[#FAA0A0]`}>
