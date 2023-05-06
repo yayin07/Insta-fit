@@ -37,6 +37,7 @@ const Login = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setGetUser(user);
       if (user) {
+        console.log("User", user);
         navigation.navigate("BottomTab");
       }
     });

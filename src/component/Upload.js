@@ -43,17 +43,7 @@ const Upload = ({ setModalVisible, modalVisible }) => {
 
   const { getUser } = useAuthContext();
 
-  useEffect(() => {
-    const postRef = collection(db, "users");
-    const getRef = query(postRef);
-    const unsubcribe = onSnapshot(getRef, (snaphot) => {
-      const fetchPost = snaphot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setGetUserInfo(fetchPost);
-    });
-  }, []);
+  console.log("getUser", getUserInfo);
 
   const uploadFileToFirebase = async (uri) => {
     const fileExtension = uri.split(".").pop();
@@ -111,11 +101,16 @@ const Upload = ({ setModalVisible, modalVisible }) => {
     if (!description || !imageUrl) {
       ToastAndroid.show("Required fields cannot be empty", ToastAndroid.SHORT);
     } else {
+      const selectedUser = getUserInfo
+        ? getUserInfo.find((info) => info.email === user?.email)
+        : undefined;
       await addDoc(postCollectionRef, {
         post_description: description,
         post_date: moment(Date.now()).format("MMMM D, YYYY hh:mm a"),
         post_email: user?.email,
-        post_name: user?.displayName !== null ? user?.displayName : "Anonymous",
+        post_name: selectedUser
+          ? selectedUser?.first_name + " " + selectedUser?.last_name
+          : "",
         image_ref: imageRef,
         image_url: imageUrl,
       });
@@ -123,6 +118,20 @@ const Upload = ({ setModalVisible, modalVisible }) => {
       setModalVisible(false);
     }
   };
+
+  useEffect(() => {
+    const postRef = collection(db, "users");
+    const getRef = query(postRef);
+    const unsubcribe = onSnapshot(getRef, (snaphot) => {
+      const fetchPost = snaphot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setGetUserInfo(fetchPost);
+    });
+  }, []);
+
+  console.log("User", user);
 
   return (
     <View
