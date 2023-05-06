@@ -47,7 +47,7 @@ const Intermidiate = () => {
       {user &&
       getUserSub &&
       getUserSub.user === user.email &&
-      getUserSub.subscription_type === "Basic" ? (
+      getUserSub.subscription_type === "Basic" || getUserSub === undefined ? (
         <TouchableOpacity style={tw`relative`} onPress={handleSubscription}>
           <Image
             style={tw`absolute h-[170px] z-10 w-[330px]`}

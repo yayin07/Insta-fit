@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
   View,
   Text,
@@ -7,28 +7,33 @@ import {
   Modal,
   SafeAreaView,
   TextInput,
-} from "react-native";
-import tw from "twrnc";
-import { useRoute } from "@react-navigation/native";
-import { useAuthContext } from "../../component/AuthContext/AuthContext";
-import { addDoc, collection, onSnapshot, updateDoc } from "firebase/firestore";
-import { db } from "../../../Firebase.config";
-import { useNavigation } from "@react-navigation/native";
-import { getAuth } from "firebase/auth";
+} from "react-native"
+import tw from "twrnc"
+import { useRoute } from "@react-navigation/native"
+import { useAuthContext } from "../../component/AuthContext/AuthContext"
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore"
+import { db } from "../../../Firebase.config"
+import { useNavigation } from "@react-navigation/native"
+import { getAuth } from "firebase/auth"
 
 const Pay = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const { data } = route.params;
-  const [selectedPayment, setSelectedPayment] = useState("");
+  const navigation = useNavigation()
+  const route = useRoute()
+  const auth = getAuth()
+  const user = auth.currentUser
+  const { data } = route.params
+  const [selectedPayment, setSelectedPayment] = useState("")
   const [paymentTermsModalVisible, setPaymentTermsModalVisible] =
-    useState(false);
-  const [paymentAmount, setPaymentAmount] = useState(data.price);
-  // const [email, setEmail] = useState(getUser);
+    useState(false)
+  const [paymentAmount, setPaymentAmount] = useState(data.price)
 
-  const [isSubscribe, setIsSubscribe] = useState([]);
+  const [isSubscribe, setIsSubscribe] = useState([])
 
   const RadioButton = ({ isSelected }) => (
     <View
@@ -39,7 +44,7 @@ const Pay = () => {
     >
       {isSelected && <View style={tw`w-3 h-3 bg-blue-500 rounded-full`} />}
     </View>
-  );
+  )
 
   const PaymentOption = ({ source, value }) => (
     <TouchableOpacity
@@ -49,51 +54,63 @@ const Pay = () => {
       <Image source={source} />
       <RadioButton isSelected={selectedPayment === value} />
     </TouchableOpacity>
-  );
+  )
 
   const handleNext = () => {
     if (selectedPayment) {
-      setPaymentTermsModalVisible(true);
+      setPaymentTermsModalVisible(true)
     }
-  };
+  }
 
-  const subscriptionCollectionRef = collection(db, "subscriptions");
+  const subscriptionCollectionRef = collection(db, "subscriptions")
 
   useEffect(() => {
     const unsubcribe = onSnapshot(subscriptionCollectionRef, (snapshot) => {
       const fetchData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
-      setIsSubscribe(fetchData);
-    });
+      }))
+      setIsSubscribe(fetchData)
+    })
     return () => {
-      unsubcribe();
-    };
-  }, []);
+      unsubcribe()
+    }
+  }, [])
+
   const checkUserSubscription = isSubscribe.some(
     (dat) => dat.user === user.email
-  );
+  )
+
+  const getUserSub = isSubscribe.find(
+    (getUserEmail) => user.email === getUserEmail.user
+  )
 
   const handleSubmit = () => {
     if (checkUserSubscription) {
-      updateDoc;
+      const subscriptionSpecificDoc = doc(db, "subscriptions", getUserSub.id)
+      const updateDescription = {
+        subscription_type: data.value,
+        payment_type: selectedPayment,
+        amount: paymentAmount,
+      }
+      updateDoc(subscriptionSpecificDoc, updateDescription)
+      navigation.navigate("TransactionComplete")
     } else {
       const paymentDetails = {
         subscription_type: data.value,
         payment_type: selectedPayment,
         amount: paymentAmount,
         user: user.email,
-      };
-      addDoc(subscriptionCollectionRef, paymentDetails);
-      navigation.navigate("TransactionComplete");
+      }
+      addDoc(subscriptionCollectionRef, paymentDetails)
+      navigation.navigate("TransactionComplete")
     }
-  };
+  }
 
   const selectedPaymentLogo =
     selectedPayment === "gcash"
       ? require("../../../assets/Gcash.png")
-      : require("../../../assets/Image5.png");
+      : require("../../../assets/Image5.png")
 
   return (
     <View style={tw`flex-1`}>
@@ -112,11 +129,11 @@ const Pay = () => {
         <View style={tw`w-full gap-3 py-5 `}>
           <PaymentOption
             source={require("../../../assets/Gcash.png")}
-            value="gcash"
+            value='gcash'
           />
           <PaymentOption
             source={require("../../../assets/Image5.png")}
-            value="paymaya"
+            value='paymaya'
           />
         </View>
       </View>
@@ -133,7 +150,7 @@ const Pay = () => {
       </View>
 
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={paymentTermsModalVisible}
       >
@@ -141,7 +158,7 @@ const Pay = () => {
           <View style={tw` bg-[#ffffff] absolute bottom-0 right-0 left-0`}>
             <SafeAreaView style={tw`bg-[#ffffff]`}>
               <TouchableOpacity
-                animationType="slide"
+                animationType='slide'
                 style={tw`items-center rounded-full p-2 m-4`}
                 onPress={() => setPaymentTermsModalVisible(false)}
               >
@@ -162,8 +179,8 @@ const Pay = () => {
                   style={tw`border border-gray-300 p-2 mt-5 rounded`}
                   onChangeText={setPaymentAmount}
                   value={paymentAmount}
-                  keyboardType="numeric"
-                  placeholder="Enter payment amount"
+                  keyboardType='numeric'
+                  placeholder='Enter payment amount'
                 />
                 <TouchableOpacity
                   style={tw`bg-blue-500 rounded-full p-2 m-4`}
@@ -177,7 +194,7 @@ const Pay = () => {
         </View>
       </Modal>
     </View>
-  );
-};
+  )
+}
 
-export default Pay;
+export default Pay
