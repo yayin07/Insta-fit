@@ -13,9 +13,9 @@ const MealPlanLandingPage = () => {
         <PlanHeader />
       </View>
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "space-around" }}
       >
-        <View key={data.id}>
+        <View style={tw`h-330px`} key={data.id}>
           <Image
             source={{
               uri:
@@ -23,44 +23,41 @@ const MealPlanLandingPage = () => {
                   ? "https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?w=740&t=st=1680882744~exp=1680883344~hmac=2ed4ad6558839e918a981b5e7fe157d7924703160281e5024981f21cab21b535"
                   : data.image_url,
             }}
-            style={tw`w-full h-220px opacity-90 `}
-            resizeMode="contain"
+            style={tw`w-full h-320px opacity-80 `}
+            resizeMode="stretch"
           />
         </View>
 
-        <View style={tw`p-4 w-full`}>
-          <View style={tw` `}>
-            <View style={tw`bg-gray-600 opacity-0`}>
-              <Text style={tw`text-[34px] font-bold `}>{data.meal_plan}</Text>
-              <View>
-                <Text style={tw`font-bold px-1`}>
-                  {data.calories_count} Calories
-                </Text>
-              </View>
-            </View>
-
+        <View style={tw``}>
+          <View style={tw`opacity-90 px-3`}>
+            <Text style={tw`text-[34px] font-bold `}>{data.meal_plan}</Text>
             <View>
-              <View style={tw`py-10 flex items-center`}>
-                <View style={tw`flex items-center`}>
-                  <Image
-                    source={require("../../assets/Line2.png")}
-                    style={tw`w-full`}
-                  />
+              <Text style={tw`font-bold px-1`}>
+                {data.calories_count} Calories
+              </Text>
+            </View>
+          </View>
+
+          <View>
+            <View style={tw`py-10 flex `}>
+              <View style={tw`flex items-center`}>
+                <Image
+                  source={require("../../assets/Line2.png")}
+                  style={tw`w-full`}
+                />
+              </View>
+              <View style={tw`px-3 py-2 flex `}>
+                <View>
+                  <Text style={tw`text-16px font-bold`}>Description</Text>
+                  <Text style={tw`py-2 px-3 text-14px`}>
+                    {data.description}
+                  </Text>
                 </View>
-                <View style={tw`px-2 py-2 flex `}>
-                  <View>
-                    <Text style={tw`text-16px font-bold`}>Description</Text>
-                    <Text style={tw`py-2 text-14px`}>{data.description}</Text>
-                  </View>
-                </View>
-                {/* <View style={tw`px-2 py-2`}>
-                <Text style={tw`text-16px font-bold`}>Description</Text>
-                <Text style={tw`py-2 text-14px`}>{data.description}</Text>
-              </View> */}
               </View>
             </View>
           </View>
         </View>
+
         {/*  */}
       </ScrollView>
     </View>

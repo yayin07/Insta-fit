@@ -15,6 +15,7 @@ import { collection, getDocs, query, onSnapshot } from "firebase/firestore";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth } from "firebase/auth";
+import PlanHeader from "../../component/PlanHeader";
 
 const EverydayMealPlan = ({ id }) => {
   const navigation = useNavigation();
@@ -47,6 +48,9 @@ const EverydayMealPlan = ({ id }) => {
 
   return (
     <ScrollView style={tw`flex-1 flex flex-col bg-[#ffffff]`}>
+      <View>
+        <PlanHeader />
+      </View>
       {userPlanInfo.length > 0 &&
         userPlanInfo.map((getUserPlanInfo) => {
           if (getUserPlanInfo.user === user.email) {
@@ -63,20 +67,24 @@ const EverydayMealPlan = ({ id }) => {
                   <Text style={tw`font-bold text-30px`}>UserPlan</Text>
                 </View> */}
                   {/*  */}
-                  <View style={tw`p-10`}>
-                    <View style={tw`border-b-[2px] py-10`}>
+                  <View style={tw`p-5 `}>
+                    <View
+                      style={tw`bg-[#ffffff] shadow-lg rounded-[13px] p-5 flex `}
+                    >
                       <View>
-                        <Text style={tw`text-[34px] font-bold`}>
+                        <Text style={tw`text-[24px] font-bold`}>
                           Breakfst Meal
                         </Text>
-                        <Text style={tw`text-[34px] text-[#FAA0A0]`}>
+                        <Text
+                          style={tw`text-[22px] font-semibold text-[#FAA0A0]`}
+                        >
                           {getUserPlanInfo.hasOwnProperty("breakfast_name")
                             ? getUserPlanInfo.breakfast_name
                             : "No Breakfast Plan"}
                         </Text>
                       </View>
                       <View>
-                        <Text style={tw`text-[14px] font-bold py-5`}>
+                        <Text style={tw`text-[14px] font-bold py-3`}>
                           Description
                         </Text>
                         <Text style={tw`text-[14px] `}>
@@ -89,45 +97,53 @@ const EverydayMealPlan = ({ id }) => {
                   </View>
 
                   {/*  */}
-                  <View style={tw`p-10 `}>
-                    <View style={tw`border-b-[2px] py-10`}>
+                  <View style={tw`p-5 `}>
+                    <View
+                      style={tw`bg-[#ffffff] shadow-lg rounded-[13px] p-5 flex `}
+                    >
                       <View>
-                        <Text style={tw`text-[34px] font-bold`}>
+                        <Text style={tw`text-[24px] font-bold`}>
                           Lunch Meal
                         </Text>
-                        <Text style={tw`text-[34px] text-[#FAA0A0]`}>
+                        <Text
+                          style={tw`text-[22px] font-semibold text-[#FAA0A0]`}
+                        >
                           {getUserPlanInfo.hasOwnProperty("lunch_name")
                             ? getUserPlanInfo.lunch_name
-                            : "No Dinner Plan"}
+                            : "No Breakfast Plan"}
                         </Text>
                       </View>
                       <View>
-                        <Text style={tw`text-[14px] font-bold py-5`}>
+                        <Text style={tw`text-[14px] font-bold py-3`}>
                           Description
                         </Text>
                         <Text style={tw`text-[14px] `}>
-                          {getUserPlanInfo.hasOwnProperty("dinner_procedure")
-                            ? getUserPlanInfo.dinner_procedure
+                          {getUserPlanInfo.hasOwnProperty("lunch_procedure")
+                            ? getUserPlanInfo.lunch_procedure
                             : "No Breakfast Plan"}
                         </Text>
                       </View>
                     </View>
                   </View>
                   {/*  */}
-                  <View style={tw`p-10 `}>
-                    <View style={tw`border-b-[2px] py-10`}>
+                  <View style={tw`p-5 `}>
+                    <View
+                      style={tw`bg-[#ffffff] shadow-lg rounded-[13px] p-5 flex `}
+                    >
                       <View>
-                        <Text style={tw`text-[34px] font-bold`}>
+                        <Text style={tw`text-[24px] font-bold`}>
                           Dinner Meal
                         </Text>
-                        <Text style={tw`text-[34px] text-[#FAA0A0]`}>
+                        <Text
+                          style={tw`text-[22px] font-semibold text-[#FAA0A0]`}
+                        >
                           {getUserPlanInfo.hasOwnProperty("dinner_name")
                             ? getUserPlanInfo.dinner_name
-                            : "No Dinner Plan"}
+                            : "No Breakfast Plan"}
                         </Text>
                       </View>
                       <View>
-                        <Text style={tw`text-[14px] font-bold py-5`}>
+                        <Text style={tw`text-[14px] font-bold py-3`}>
                           Description
                         </Text>
                         <Text style={tw`text-[14px] `}>
