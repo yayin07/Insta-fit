@@ -109,7 +109,7 @@ const CreateAccount = () => {
       last_name: lastname,
       email,
       password,
-      role: "null",
+      role: "user",
       phone: phoneNumber,
       subscriptions: "no",
     });

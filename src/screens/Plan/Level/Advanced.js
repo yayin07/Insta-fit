@@ -44,10 +44,9 @@ const Advanced = () => {
 
   return (
     <View>
-      {user &&
-      getUserSub &&
+      {getUserSub &&
       getUserSub.user === user.email &&
-      getUserSub.subscription_type === "Basic" || getUserSub.subscription_type === "Intermediate" || getUserSub === undefined ? (
+      getUserSub?.subscription_type === "Basic" || getUserSub?.subscription_type === "Intermediate" || getUserSub === undefined ? (
         <TouchableOpacity onPress={handleSubscription} style={tw`relative`}>
           <Image
             style={tw`absolute h-[170px] z-10 w-[330px]`}
