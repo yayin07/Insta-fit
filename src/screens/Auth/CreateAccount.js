@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  StyleSheet,
   KeyboardAvoidingView,
 } from "react-native";
 import React, { useState, createRef } from "react";
@@ -278,5 +279,11 @@ const CreateAccount = () => {
     </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  errorText: {
+    color: "red",
+  },
+})
 
 export default CreateAccount;

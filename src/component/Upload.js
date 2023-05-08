@@ -41,8 +41,6 @@ const Upload = ({ setModalVisible, modalVisible }) => {
   const [username, setUsername] = useState(user);
   const [getUserInfo, setGetUserInfo] = useState([]);
 
-  const { getUser } = useAuthContext();
-
   const uploadFileToFirebase = async (uri) => {
     const fileExtension = uri.split(".").pop();
     const fileName = `${Date.now()}.${fileExtension}`;
@@ -159,7 +157,7 @@ const Upload = ({ setModalVisible, modalVisible }) => {
               <View style={tw``}>
                 {getUserInfo.length > 0 &&
                   getUserInfo.map((getGenderDetails, data) => {
-                    if (getGenderDetails.email === post_email) {
+                    if (getGenderDetails.email === user.email) {
                       return (
                         <View
                           key={data}
@@ -184,7 +182,7 @@ const Upload = ({ setModalVisible, modalVisible }) => {
               <View>
                 {getUserInfo.length > 0 &&
                   getUserInfo.map((getUserFirstName, data) => {
-                    if (getUserFirstName.email === getUser.email) {
+                    if (getUserFirstName.email === user.email) {
                       return (
                         <View key={data}>
                           <Text style={tw`px-5 font-bold text-[18px]`}>

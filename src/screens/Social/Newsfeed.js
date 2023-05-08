@@ -30,7 +30,6 @@ import { useAuthContext } from "../../component/AuthContext/AuthContext"
 import moment from "moment"
 
 const Newsfeed = () => {
-  const [userInfo, setUserInfo] = useState([])
   const navigation = useNavigation()
   const [post, setPost] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
@@ -87,17 +86,7 @@ const Newsfeed = () => {
     getUserList()
   }, [])
 
-  useEffect(() => {
-    const postRef = collection(db, "users")
-    const getRef = query(postRef)
-    const unsubcribe = onSnapshot(getRef, (snaphot) => {
-      const fetchPost = snaphot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      setUserInfo(fetchPost)
-    })
-  }, [])
+  console.log("getUserInfo", getUserInfo)
 
   return (
     <View style={tw`h-full bg-[#ffc0cb]`}>
@@ -135,6 +124,7 @@ const Newsfeed = () => {
           style={tw`flex items-center py-4 relative h-full w-full bg-[#ffffff] shadow-xl gap-5 shadow-[#F9F9F9]`}
         >
           {post.map((data) => {
+            console.log("data", data)
             return (
               <View
                 key={data.id}
@@ -145,7 +135,7 @@ const Newsfeed = () => {
                     <View style={tw`px-2`}>
                       {getUserInfo.length > 0 &&
                         getUserInfo.map((getGenderDetails, id) => {
-                          if (getGenderDetails.email === data.post_email) {
+                          if (data.post_email === getGenderDetails.email) {
                             return (
                               <View
                                 key={getGenderDetails.id}
