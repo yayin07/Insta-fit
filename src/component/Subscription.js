@@ -82,9 +82,20 @@ const Subscription = () => {
                 ]}
               >
                 <View>
-                  <Text style={tw`font-bold py-2`}>{plan.value}</Text>
+                  {plan.value === "Basic" && (
+                    <View>
+                      <Text style={tw`font-bold`}>Basic</Text>
+                      <View>
+                        <Text style={tw`font-bold`}>₱0</Text>
+                      </View>
+                      <Text>Free of charge for basic tier</Text>
+                      <Text>No access on workout Levels</Text>
+                      <Text>Limited access to all feature</Text>
+                    </View>
+                  )}
                   {plan.value === "Advanced" && (
                     <View>
+                      <Text style={tw`font-bold`}>Advanced</Text>
                       <View>
                         <Text style={tw`font-bold`}>₱ 500</Text>
                       </View>
@@ -95,6 +106,7 @@ const Subscription = () => {
                   )}
                   {plan.value === "Intermediate" && (
                     <View>
+                      <Text style={tw`font-bold`}>Intermediate</Text>
                       <View>
                         <Text style={tw`font-bold`}>₱ 300</Text>
                       </View>
@@ -137,7 +149,7 @@ const Subscription = () => {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={tw`bg-[#FAA0A0] w-full rounded-[40px] py-2 px-2`}
           >
             <Text style={tw`text-[#ffffff] text-center font-bold text-[18px]`}>
@@ -146,7 +158,7 @@ const Subscription = () => {
           </TouchableOpacity>
           <View>
             <Text>₱ 5000 billed yearly (only ₱ 4500/month)</Text>
-          </View>
+          </View> */}
         </View>
       </View>
     </View>
