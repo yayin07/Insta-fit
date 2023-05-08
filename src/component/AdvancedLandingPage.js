@@ -15,16 +15,6 @@ const AdvancedLandingPage = ({ route }) => {
   const [playing, setPlaying] = useState(false);
   const { data } = route.params;
 
-  // const onStateChange = useCallback((state) => {
-  //   if (state === "ended") {
-  //     setPlaying(false);
-  //     Alert.alert("video has finished playing!");
-  //   }
-  // }, []);
-
-  // const togglePlaying = useCallback(() => {
-  //   setPlaying((prev) => !prev);
-  // }, []);
   return (
     <ScrollView style={tw``}>
       <View>
@@ -35,11 +25,7 @@ const AdvancedLandingPage = ({ route }) => {
       </View>
       {/*  */}
       <View>
-        <YoutubePlayer
-          height={300}
-          play={playing}
-          videoId={"CIxNJbit9BA"}
-        />
+        <YoutubePlayer height={300} play={playing} videoId={"CIxNJbit9BA"} />
         {/* <Button title={playing ? "pause" : "play"} onPress={togglePlaying} /> */}
       </View>
       {/* Description */}

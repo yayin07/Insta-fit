@@ -108,8 +108,10 @@ const EverydayFitnessPlan = () => {
                             Description:
                           </Text>
                           <Text style={tw`text-[12px] px-1 `}>
-                            {getUserPlanInfo.hasOwnProperty("dinner_procedure")
-                              ? getUserPlanInfo.dinner_procedure
+                            {getUserPlanInfo.hasOwnProperty(
+                              "training_procedure"
+                            )
+                              ? getUserPlanInfo.training_procedure
                               : "No procedure"}
                           </Text>
                         </View>
