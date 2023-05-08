@@ -7,41 +7,41 @@ import {
   ToastAndroid,
   KeyboardAvoidingView,
   StyleSheet,
-} from "react-native";
-import React, { useState, useEffect } from "react";
-import tw from "twrnc";
-import { auth } from "../../../Firebase.config";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { useAuthContext } from "../../component/AuthContext/AuthContext";
+} from "react-native"
+import React, { useState, useEffect } from "react"
+import tw from "twrnc"
+import { auth } from "../../../Firebase.config"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { Feather } from "@expo/vector-icons"
+import { useNavigation } from "@react-navigation/native"
+import { useAuthContext } from "../../component/AuthContext/AuthContext"
 
 const Login = () => {
-  const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [validationError, setValidationError] = useState("");
-  const [validationPass, setValidationPass] = useState("");
-  const [hidePassword, setHidePassword] = useState(true);
-  const { setGetUser } = useAuthContext();
+  const navigation = useNavigation()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [validationError, setValidationError] = useState("")
+  const [validationPass, setValidationPass] = useState("")
+  const [hidePassword, setHidePassword] = useState(true)
+  const { setGetUser } = useAuthContext()
 
   const handleRegister = () => {
-    navigation.navigate("Create", {});
-  };
+    navigation.navigate("Create", {})
+  }
 
   const togglePasswordVisibility = () => {
-    setHidePassword(!hidePassword);
-  };
+    setHidePassword(!hidePassword)
+  }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setGetUser(user);
+      setGetUser(user)
       if (user) {
-        navigation.navigate("BottomTab");
+        navigation.navigate("BottomTab")
       }
-    });
-    return () => unsubscribe();
-  }, []);
+    })
+    return () => unsubscribe()
+  }, [])
 
   // const handleSignin = () => {
   //   navigation.navigate("Fitness");
@@ -52,51 +52,57 @@ const Login = () => {
       ToastAndroid.show(
         "Please enter your email and password",
         ToastAndroid.SHORT
-      );
-      return;
+      )
+      return
     }
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigation.navigate("BottomTab");
-        ToastAndroid.show("Login successful", ToastAndroid.SHORT);
+        navigation.navigate("BottomTab")
+        ToastAndroid.show("Login successful", ToastAndroid.SHORT)
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error)
         ToastAndroid.show(
           "Error signing in. Please try again.",
           ToastAndroid.SHORT
-        );
-      });
-  };
+        )
+      })
+  }
 
   const handleForgot = () => {
-    navigation.navigate("ForgotPassword");
-  };
+    navigation.navigate("ForgotPassword")
+  }
 
   const validateInput = () => {
     try {
       // Email validation pattern
-      const validationPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+      const validationPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 
       if (email === "") {
-        setValidationError("Input is required.");
+        setValidationError("Input is required.")
       } else if (!email.match(validationPattern)) {
-        setValidationError("Invalid email address.");
+        setValidationError("Invalid email address.")
       } else {
-        setValidationError("");
+        setValidationError("")
       }
     } catch (err) {
-      ToastAndroid.show("Invalid input", ToastAndroid.SHORT);
+      ToastAndroid.show("Invalid input", ToastAndroid.SHORT)
     }
-  };
+  }
 
   const validatePass = () => {
+    const validationPassPattern =
+      /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9a-z]).{6,}$/
     if (password === "") {
-      setValidationPass("Input is required.");
+      setValidationPass("Input is required.")
+    } else if (!email.match(validationPassPattern)) {
+      setValidationError(
+        "Password must be minimum of 6 characters with one uppercase letter and one symbol."
+      )
     } else {
-      setValidationPass("");
+      setValidationPass("")
     }
-  };
+  }
 
   return (
     <KeyboardAvoidingView style={tw`flex-1 bg-black py-1`}>
@@ -104,7 +110,7 @@ const Login = () => {
       <View style={tw`flex items-center absolute -bottom-3 right-0 left-0 `}>
         <Image
           source={require("../../../assets/unsplash.png")}
-          alt="/"
+          alt='/'
           style={tw`h-[850px] opacity-30`}
         />
       </View>
@@ -140,10 +146,10 @@ const Login = () => {
               <Text style={tw`text-[#ffffff] py-2`}>Email</Text>
               <TextInput
                 style={tw`text-[#ffffff]`}
-                keyboardType="email-address"
+                keyboardType='email-address'
                 onChangeText={(text) => {
-                  setEmail(text);
-                  validateInput();
+                  setEmail(text)
+                  validateInput()
                 }}
               />
               {validationError ? (
@@ -157,8 +163,8 @@ const Login = () => {
                 style={tw`text-[#ffffff] `}
                 secureTextEntry={hidePassword}
                 onChangeText={(text) => {
-                  setPassword(text);
-                  validatePass();
+                  setPassword(text)
+                  validatePass()
                 }}
                 value={password}
               />
@@ -172,7 +178,7 @@ const Login = () => {
                 <Feather
                   name={hidePassword ? "eye" : "eye-off"}
                   size={24}
-                  color="white"
+                  color='white'
                 />
               </TouchableOpacity>
             </View>
@@ -216,12 +222,12 @@ const Login = () => {
         </View>
       </View>
     </KeyboardAvoidingView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   errorText: {
     color: "red",
   },
-});
-export default Login;
+})
+export default Login
