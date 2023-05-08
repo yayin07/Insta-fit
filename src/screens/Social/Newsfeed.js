@@ -6,9 +6,9 @@ import {
   Modal,
   Pressable,
   ScrollView,
-} from "react-native";
-import React, { useState, useEffect } from "react";
-import tw from "twrnc";
+} from "react-native"
+import React, { useState, useEffect } from "react"
+import tw from "twrnc"
 
 // import { getAuth } from "firebase/auth";
 import {
@@ -17,72 +17,80 @@ import {
   onSnapshot,
   query,
   getDocs,
-} from "firebase/firestore";
-import { db } from "../../../Firebase.config";
+  orderBy,
+} from "firebase/firestore"
+import { db } from "../../../Firebase.config"
 // import Post from "../../component/Post";
 
-import { Feather } from "@expo/vector-icons";
-import Upload from "../../component/Upload";
-import { useNavigation } from "@react-navigation/native";
-import { auth } from "../../../Firebase.config";
-import { useAuthContext } from "../../component/AuthContext/AuthContext";
-import moment from "moment";
+import { Feather } from "@expo/vector-icons"
+import Upload from "../../component/Upload"
+import { useNavigation } from "@react-navigation/native"
+import { auth } from "../../../Firebase.config"
+import { useAuthContext } from "../../component/AuthContext/AuthContext"
+import moment from "moment"
 
 const Newsfeed = () => {
-  const [userInfo, setUserInfo] = useState([]);
-  const navigation = useNavigation();
-  const [post, setPost] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const { getUser } = useAuthContext();
-  const [getUserInfo, setGetUserInfo] = useState([]);
-  const userInfoCollection = collection(db, "users");
+  const [userInfo, setUserInfo] = useState([])
+  const navigation = useNavigation()
+  const [post, setPost] = useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+  const { getUser } = useAuthContext()
+  const [getUserInfo, setGetUserInfo] = useState([])
+  const userInfoCollection = collection(db, "users")
   // const [getUserPost, setGetUserInfo] = useState([]);
 
   const handleClose = () => {
-    navigation.navigate("Fitness");
-  };
+    navigation.navigate("Fitness")
+  }
 
   //
   useEffect(() => {
-    const postRef = collection(db, "social");
-    const getRef = query(postRef);
-    const unsubcribe = onSnapshot(getRef, (snaphot) => {
-      const fetchPost = snaphot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPost(fetchPost);
-    });
-  }, []);
+    const postRef = collection(db, "social")
+    const getRef = query(postRef, orderBy("post_date", "desc"))
+
+    const unsubscribe = onSnapshot(getRef, (snapshot) => {
+      const fetchPost = snapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        }
+      })
+      setPost(fetchPost)
+    })
+
+    // Clean up the listener when the component is unmounted
+    return () => {
+      unsubscribe()
+    }
+  }, [])
 
   useEffect(() => {
     const getUserList = async () => {
       try {
-        const data = await getDocs(userInfoCollection, "email");
+        const data = await getDocs(userInfoCollection, "email")
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
-        }));
-
-        setGetUserInfo(filteredData);
+        }))
+        setGetUserInfo(filteredData)
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
-    };
-    getUserList();
-  }, []);
+    }
+    getUserList()
+  }, [])
 
   useEffect(() => {
-    const postRef = collection(db, "users");
-    const getRef = query(postRef);
+    const postRef = collection(db, "users")
+    const getRef = query(postRef)
     const unsubcribe = onSnapshot(getRef, (snaphot) => {
       const fetchPost = snaphot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
-      setUserInfo(fetchPost);
-    });
-  }, []);
+      }))
+      setUserInfo(fetchPost)
+    })
+  }, [])
 
   return (
     <View style={tw`h-full bg-[#ffc0cb]`}>
@@ -148,7 +156,7 @@ const Newsfeed = () => {
                                   />
                                 )}
                               </View>
-                            );
+                            )
                           }
                         })}
                     </View>
@@ -175,19 +183,19 @@ const Newsfeed = () => {
                             : data.image_url,
                       }}
                       style={tw`w-full h-190px`}
-                      resizeMode="cover"
+                      resizeMode='cover'
                     />
                   </View>
                 </View>
               </View>
-            );
+            )
           })}
         </View>
       </ScrollView>
 
       <Modal
         style={tw`flex items-center `}
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={modalVisible}
       >
@@ -200,7 +208,7 @@ const Newsfeed = () => {
         <Image source={require("../../../assets/Group2.png")} />
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
-export default Newsfeed;
+export default Newsfeed

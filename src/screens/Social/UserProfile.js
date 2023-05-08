@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
   Text,
   View,
@@ -6,7 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-} from "react-native";
+} from "react-native"
 import {
   getFirestore,
   doc,
@@ -15,58 +15,78 @@ import {
   getDocs,
   query,
   onSnapshot,
-} from "firebase/firestore";
-import PlanHeader from "../../component/PlanHeader";
-import tw from "twrnc";
-import { db } from "../../../Firebase.config";
+} from "firebase/firestore"
+import PlanHeader from "../../component/PlanHeader"
+import tw from "twrnc"
+import { db } from "../../../Firebase.config"
 // import { auth } from "../../../Firebase.config";
-import { useNavigation } from "@react-navigation/native";
-import { useAuthContext } from "../../component/AuthContext/AuthContext";
-import Logout from "../../component/Logout";
+import { useNavigation } from "@react-navigation/native"
+import { useAuthContext } from "../../component/AuthContext/AuthContext"
+import Logout from "../../component/Logout"
+import { getAuth } from "firebase/auth"
 
 const UserProfile = () => {
-  const navigation = useNavigation();
-  const { getUser } = useAuthContext();
-  const [userInfo, setUserInfo] = useState([]);
-  const userInfoCollection = collection(db, "users");
-  const [getUserInfo, setGetUserInfo] = useState([]);
+  const navigation = useNavigation()
+  const auth = getAuth()
+  const user = auth.currentUser
+  const [userInfo, setUserInfo] = useState([])
+  const userInfoCollection = collection(db, "users")
+  const [getRespond, setGetRespond] = useState([])
+  const [getUserInfo, setGetUserInfo] = useState([])
 
   const handleSuggestPlan = () => {
-    navigation.navigate("MakeYourPlan");
-  };
+    navigation.navigate("MakeYourPlan")
+  }
 
   const handleFitnessPlan = () => {
-    navigation.navigate("MyPlan");
-  };
+    navigation.navigate("MyPlan")
+  }
 
   useEffect(() => {
     const getUserList = async () => {
       try {
-        const data = await getDocs(userInfoCollection, "email");
+        const data = await getDocs(userInfoCollection, "email")
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
-        }));
+        }))
 
-        setGetUserInfo(filteredData);
+        setGetUserInfo(filteredData)
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
-    };
-    getUserList();
-  }, []);
+    }
+    getUserList()
+  }, [])
 
   useEffect(() => {
-    const postRef = collection(db, "users");
-    const getRef = query(postRef);
+    const postRef = collection(db, "users")
+    const getRef = query(postRef)
     const unsubcribe = onSnapshot(getRef, (snaphot) => {
       const fetchPost = snaphot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
-      setUserInfo(fetchPost);
-    });
-  }, []);
+      }))
+      setUserInfo(fetchPost)
+    })
+    return () => {
+      unsubcribe()
+    }
+  }, [])
+
+  useEffect(() => {
+    const respondRef = collection(db, "respond_plans")
+    const getRef = query(respondRef)
+    const unsubcribe = onSnapshot(getRef, (snaphot) => {
+      const fetchRespond = snaphot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      setGetRespond(fetchRespond)
+    })
+  }, [])
+
+  const checkRespond = getRespond.find((dat) => dat.user === user.email)
 
   return (
     <View style={tw`flex-1 `}>
@@ -78,7 +98,7 @@ const UserProfile = () => {
           <View style={tw`flex items-center`}>
             {getUserInfo.length > 0 &&
               getUserInfo.map((getGenderDetails, data) => {
-                if (getGenderDetails.email === getUser?.email) {
+                if (getGenderDetails.email === user.email) {
                   return (
                     <View
                       key={data}
@@ -94,7 +114,7 @@ const UserProfile = () => {
                         />
                       )}
                     </View>
-                  );
+                  )
                 }
               })}
           </View>
@@ -103,7 +123,7 @@ const UserProfile = () => {
             <Text style={tw`text-[15px] px-2 font-bold`}>
               {userInfo.length > 0 &&
                 userInfo.map((getUserInfo, data) => {
-                  if (getUserInfo.email === getUser?.email) {
+                  if (getUserInfo.email === user.email) {
                     return (
                       <View key={data} style={tw`flex flex-row w-full`}>
                         <View>
@@ -114,7 +134,7 @@ const UserProfile = () => {
                           </Text>
                         </View>
                       </View>
-                    );
+                    )
                   }
                 })}
             </Text>
@@ -123,17 +143,21 @@ const UserProfile = () => {
         </View>
         {/*  */}
         <View style={tw`flex items-center py-3`}>
-          <View style={tw`flex flex-row  `}>
-            <View style={tw`px-5 py-1 flex items-center`}>
-              <TouchableOpacity onPress={handleSuggestPlan}>
-                <Image
-                  source={require("../../../assets/Group4.png")}
-                  style={tw``}
-                />
-              </TouchableOpacity>
+          <View style={tw`flex flex-row `}>
+            {checkRespond === undefined ? (
+              <View></View>
+            ) : (
+              <View style={tw`px-5 py-1 flex items-center`}>
+                <TouchableOpacity onPress={handleSuggestPlan}>
+                  <Image
+                    source={require("../../../assets/Group4.png")}
+                    style={tw``}
+                  />
+                </TouchableOpacity>
 
-              <Text style={tw`py-2`}>Suggest Plan</Text>
-            </View>
+                <Text style={tw`py-2`}>Suggest Plan</Text>
+              </View>
+            )}
             <View style={tw`px-5 py-1  flex items-center`}>
               <TouchableOpacity onPress={handleFitnessPlan}>
                 <Image
@@ -150,7 +174,7 @@ const UserProfile = () => {
         <View style={tw`px-6  flex items-center`}>
           {getUserInfo.length > 0 &&
             getUserInfo.map((getUserDetails, data) => {
-              if (getUserDetails.email === getUser?.email) {
+              if (getUserDetails.email === user.email) {
                 return (
                   <View key={data} style={tw`gap-3`}>
                     <View style={tw`gap-3 `}>
@@ -219,7 +243,7 @@ const UserProfile = () => {
                       </View>
                     </View>
                   </View>
-                );
+                )
               }
             })}
         </View>
@@ -228,7 +252,7 @@ const UserProfile = () => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default UserProfile;
+export default UserProfile

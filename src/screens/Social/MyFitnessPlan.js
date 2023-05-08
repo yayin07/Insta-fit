@@ -3,7 +3,9 @@ import React from "react";
 import PlanHeader from "../../component/PlanHeader";
 import tw from "twrnc";
 
+
 const MyFitnessPlan = ({ data }) => {
+  
   return (
     <View key={data.id}>
       <View
