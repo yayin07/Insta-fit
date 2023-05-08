@@ -33,10 +33,11 @@ import TRANSACTIONCOMPLETE from "../../screens/Social/TransactionComplete";
 import EVERYDAYMEALPLAN from "../../screens/Social/EverydayMealPlan";
 import MYPLAN from "../../screens/Social/MyPlan";
 import EVERYDAYFITNESSPLAN from "../../screens/Social/EverydayFitnessPlan";
+import DATAPOLICY from "../../screens/Auth/DataPolicy";
 
 export const SCREENS = {
   LOGIN,
-
+  DATAPOLICY,
   MEAL,
   CREATEACCOUNT,
   GOAL,
@@ -45,7 +46,6 @@ export const SCREENS = {
   BEGINNERPLAN,
   BREAKFAST,
   LUNCH,
-
   FORGOTPASSWORD,
   NEWSFEED,
   DINNER,
@@ -53,7 +53,6 @@ export const SCREENS = {
   SNACKS,
   SALAD,
   BEGINNERLANDINGPAGE,
-
   UPLOAD,
   ABOUT,
   USERPROFILE,

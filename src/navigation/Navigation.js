@@ -192,6 +192,11 @@ const Navigation = () => {
             options={{ headerShown: false, gestureEnabled: false }}
             component={SCREENS.EVERYDAYFITNESSPLAN}
           />
+          <Stack.Screen
+            name="DataPolicy"
+            options={{ headerShown: false, gestureEnabled: false }}
+            component={SCREENS.DATAPOLICY}
+          />
         </>
       </Stack.Navigator>
     </NavigationContainer>

@@ -47,45 +47,6 @@ const CreateAccount = () => {
     setHideConfirmPassword(!hideConfirmPassword);
   };
 
-  // const handleSignup = async () => {
-  //   if (
-  //     !email ||
-  //     !password ||
-  //     !confirmPassword ||
-  //     !firstname ||
-  //     !lastname ||
-  //     !phoneNumber ||
-  //     !/^\d{10}$/.test(phoneNumber) ||
-  //     password !== confirmPassword
-  //   ) {
-  //     ToastAndroid.show(
-  //       "Please fill up the form correctly",
-  //       ToastAndroid.SHORT
-  //     );
-  //     return;
-  //   }
-
-  //   setUserAccInfo({
-  //     first_name: firstname,
-  //     last_name: lastname,
-  //     email,
-  //     password,
-  //     role: "null",
-  //     phone: phoneNumber,
-  //     subscriptions: "no",
-  //   });
-
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then((details) => {
-  //       navigation.navigate("About", { data: details });
-  //       ToastAndroid.show("Registered Successfully", ToastAndroid.SHORT);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       ToastAndroid.show("Email already used.", ToastAndroid.SHORT);
-  //     });
-  // };
-
   const handleSignup = async () => {
     if (
       !email ||
@@ -132,9 +93,9 @@ const CreateAccount = () => {
       });
   };
 
-  // const handleSignup = () => {
-  //   navigation.navigate("About");
-  // };
+  const handleDataPolicy = () => {
+    navigation.navigate("DataPolicy");
+  };
 
   return (
     <KeyboardAvoidingView style={tw`flex-1 bg-black`}>
@@ -267,12 +228,15 @@ const CreateAccount = () => {
           </SafeAreaView>
           {/* Privacy agreement */}
           <View style={tw``}>
-            <View style={tw`flex items-center py-5`}>
+            <TouchableOpacity
+              onPress={handleDataPolicy}
+              style={tw`flex items-center py-5`}
+            >
               <Text style={tw`text-[#ffffff] opacity-50 text-center`}>
                 By clicking Create Account, you agree to our Terms Use & Privacy
                 Policy
               </Text>
-            </View>
+            </TouchableOpacity>
             {/* To Login */}
             <TouchableOpacity
               onPress={handleLogin}
