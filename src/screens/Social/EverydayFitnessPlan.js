@@ -65,7 +65,7 @@ const EverydayFitnessPlan = () => {
                 <View style={tw`flex p-8 `}>
                   <View style={tw`flex `}>
                     <View
-                      style={tw`flex items-center py-5 bg-[#ffffff] shadow-md rounded-[10px]  flex items-center`}
+                      style={tw`flex items-center py-5 bg-[#ffffff] shadow-md rounded-[10px] w-full px-3 flex items-center`}
                     >
                       <View style={tw``}>
                         {trainingUrl && (

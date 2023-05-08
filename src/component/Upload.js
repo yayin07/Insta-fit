@@ -163,7 +163,7 @@ const Upload = ({ setModalVisible, modalVisible }) => {
               <View style={tw``}>
                 {getUserInfo.length > 0 &&
                   getUserInfo.map((getGenderDetails, data) => {
-                    if (getGenderDetails.email === getUser?.email) {
+                    if (getGenderDetails.email === post_email) {
                       return (
                         <View
                           key={data}
