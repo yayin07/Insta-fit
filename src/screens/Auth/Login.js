@@ -91,16 +91,14 @@ const Login = () => {
   }
 
   const validatePass = () => {
-    const validationPassPattern =
-      /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9a-z]).{6,}$/
-    if (password === "") {
-      setValidationPass("Input is required.")
-    } else if (!email.match(validationPassPattern)) {
-      setValidationError(
-        "Password must be minimum of 6 characters with one uppercase letter and one symbol."
-      )
-    } else {
-      setValidationPass("")
+    try {
+      if (password === "") {
+        setValidationPass("Input is required.")
+      } else {
+        setValidationPass("")
+      }
+    } catch (err) {
+      ToastAndroid.show("Invalid input", ToastAndroid.SHORT)
     }
   }
 
@@ -151,6 +149,7 @@ const Login = () => {
                   setEmail(text)
                   validateInput()
                 }}
+                value={email}
               />
               {validationError ? (
                 <Text style={styles.errorText}>{validationError}</Text>

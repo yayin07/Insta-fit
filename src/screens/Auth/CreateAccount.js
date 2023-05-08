@@ -26,6 +26,7 @@ import { useAuthContext } from "../../component/AuthContext/AuthContext";
 const CreateAccount = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [validationPass, setValidationPass] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -96,6 +97,24 @@ const CreateAccount = () => {
   const handleDataPolicy = () => {
     navigation.navigate("DataPolicy");
   };
+  
+  const validatePass = () => {
+    const validationPassPattern = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9a-z]).{6,}$/
+    try {
+      if (password === "") {
+        setValidationPass("Input is required.")
+      } else if (!password.match(validationPassPattern)) {
+        setValidationError("Password must be 6 characters with one upperacase and one symbol")
+      } else {
+        setValidationPass("")
+      }
+    } catch (err) {
+      ToastAndroid.show("Invalid input", ToastAndroid.SHORT)
+    }
+  }
+  // const handleSignup = () => {
+  //   navigation.navigate("About");
+  // };
 
   return (
     <KeyboardAvoidingView style={tw`flex-1 bg-black`}>
@@ -132,8 +151,15 @@ const CreateAccount = () => {
                 style={tw`text-[#ffffff] `}
                 secureTextEntry={hidePassword}
                 value={password}
-                onChangeText={(text) => setPassword(text)}
+                onChangeText={(text) => {
+                  validatePass()
+                  setPassword(text)
+                }
+              }
               />
+              {validationPass ? (
+                <Text style={styles.errorText}>{validationPass}</Text>
+              ) : null}
               <TouchableOpacity
                 style={tw`absolute right-3 top-7`}
                 onPress={togglePasswordVisibility}

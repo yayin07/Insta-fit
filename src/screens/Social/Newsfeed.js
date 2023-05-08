@@ -46,7 +46,7 @@ const Newsfeed = () => {
   //
   useEffect(() => {
     const postRef = collection(db, "social")
-    const getRef = query(postRef, orderBy("post_date", "desc"))
+    const getRef = query(postRef)
 
     const unsubscribe = onSnapshot(getRef, (snapshot) => {
       const fetchPost = snapshot.docs.map((doc) => {
@@ -55,7 +55,14 @@ const Newsfeed = () => {
           ...doc.data(),
         }
       })
-      setPost(fetchPost)
+
+      const sortedArray = fetchPost.slice().sort((a, b) => {
+        const dateA = moment(a.post_date, 'MMMM D, YYYY hh:mm A');
+        const dateB = moment(b.post_date, 'MMMM D, YYYY hh:mm A');
+        return dateB - dateA;
+      });
+
+      setPost(sortedArray)
     })
 
     // Clean up the listener when the component is unmounted
