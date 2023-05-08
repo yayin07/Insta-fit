@@ -130,7 +130,7 @@ const Newsfeed = () => {
                     <View style={tw`px-2`}>
                       {getUserInfo.length > 0 &&
                         getUserInfo.map((getGenderDetails, id) => {
-                          if (getGenderDetails.email === getUser?.email) {
+                          if (getGenderDetails.email === data.post_email) {
                             return (
                               <View
                                 key={getGenderDetails.id}

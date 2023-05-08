@@ -43,8 +43,6 @@ const Upload = ({ setModalVisible, modalVisible }) => {
 
   const { getUser } = useAuthContext();
 
-  console.log("getUser", getUserInfo);
-
   const uploadFileToFirebase = async (uri) => {
     const fileExtension = uri.split(".").pop();
     const fileName = `${Date.now()}.${fileExtension}`;
@@ -130,8 +128,6 @@ const Upload = ({ setModalVisible, modalVisible }) => {
       setGetUserInfo(fetchPost);
     });
   }, []);
-
-  console.log("User", user);
 
   return (
     <View
