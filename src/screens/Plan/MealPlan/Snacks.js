@@ -32,7 +32,7 @@ const Snacks = () => {
       </View>
       <View style={tw`py-5 flex items-center`}>
         {mealPlan
-          .filter(({ meal_plan }) => meal_plan === "snacks")
+          .filter(({ meal_plan }) => meal_plan === "snack")
           .map((data) => (
             <TouchableOpacity
               onPress={() => handleMeal(data)}
@@ -58,7 +58,7 @@ const Snacks = () => {
                   <Text style={tw`text-[#FF1D38] text-[18px] font-bold`}>
                     {data.meal_time}
                   </Text>
-                  <Text style={tw`text-black text-[16px] font-semibold`}>
+                  <Text style={tw`text-black text-[17px] font-semibold`}>
                     {data.meal_plan}
                   </Text>
                 </View>
