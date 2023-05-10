@@ -54,7 +54,9 @@ const Salad = ({ id }) => {
                   />
                 </View>
                 <View style={tw`flex flex-col items-start justify-center`}>
-                  <Text style={tw`text-[#FF1D38] text-[18px] font-bold`}>
+                  <Text
+                    style={tw`text-[#FF1D38] text-[18px] w-[150px] font-bold`}
+                  >
                     {data.meal_plan}
                   </Text>
                 </View>
