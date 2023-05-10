@@ -7,6 +7,7 @@ import {
   Modal,
   SafeAreaView,
   TextInput,
+  Pressable,
 } from "react-native"
 import tw from "twrnc"
 import { useRoute } from "@react-navigation/native"
@@ -46,12 +47,13 @@ const Pay = () => {
     </View>
   )
 
-  const PaymentOption = ({ source, value }) => (
+  const PaymentOption = ({ source, value, text }) => (
     <TouchableOpacity
-      style={tw`bg-[#ffffff] w-full p-3 shadow-md rounded-full flex flex-row justify-between items-center`}
+      style={tw`bg-[#ffffff] text-[#000000] w-full p-3 shadow-md rounded-full flex flex-row justify-between items-center`}
       onPress={() => setSelectedPayment(value)}
     >
       <Image source={source} />
+      <Text>{text}</Text>
       <RadioButton isSelected={selectedPayment === value} />
     </TouchableOpacity>
   )
@@ -112,10 +114,15 @@ const Pay = () => {
       ? require("../../../assets/Gcash.png")
       : require("../../../assets/Image5.png")
 
+  const goBackToSubscription = () => {
+    navigation.navigate("Subscription")
+  }
   return (
     <View style={tw`flex-1`}>
       <View style={tw`p-3 bg-[#ffffff] shadow-lg flex flex-row items-center`}>
-        <Image source={require("../../../assets/Vector11.png")} />
+        <Pressable onPress={() => goBackToSubscription()}>
+          <Image source={require("../../../assets/Vector11.png")} />
+        </Pressable>
         <Text style={tw`text-center px-25 font-bold text-17px`}>
           Payment Method
         </Text>
@@ -130,10 +137,12 @@ const Pay = () => {
           <PaymentOption
             source={require("../../../assets/Gcash.png")}
             value='gcash'
+            text="Gcash"
           />
           <PaymentOption
             source={require("../../../assets/Image5.png")}
             value='paymaya'
+            text="Paymaya"
           />
         </View>
       </View>

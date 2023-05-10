@@ -24,6 +24,7 @@ const PreferredMeals = ({ navigation, route }) => {
         request_target_body: data.request_target_body,
         request_target_weight: data.request_target_weight,
         request_workout_type: data.request_workout_type,
+        request_date: data.requested_date,
         request_meal: selectedItem,
         request_user: getUser.email,
       });

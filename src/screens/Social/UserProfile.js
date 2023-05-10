@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
   Text,
   View,
@@ -6,7 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-} from "react-native";
+} from "react-native"
 import {
   getFirestore,
   doc,
@@ -15,79 +15,115 @@ import {
   getDocs,
   query,
   onSnapshot,
-} from "firebase/firestore";
-import PlanHeader from "../../component/PlanHeader";
-import tw from "twrnc";
-import { db } from "../../../Firebase.config";
+} from "firebase/firestore"
+import PlanHeader from "../../component/PlanHeader"
+import tw from "twrnc"
+import { db } from "../../../Firebase.config"
 // import { auth } from "../../../Firebase.config";
-import { useNavigation } from "@react-navigation/native";
-import { useAuthContext } from "../../component/AuthContext/AuthContext";
-import Logout from "../../component/Logout";
-import { getAuth } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native"
+import { useAuthContext } from "../../component/AuthContext/AuthContext"
+import Logout from "../../component/Logout"
+import { getAuth } from "firebase/auth"
 
 const UserProfile = () => {
-  const navigation = useNavigation();
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const [userInfo, setUserInfo] = useState([]);
-  const userInfoCollection = collection(db, "users");
-  const [getRespond, setGetRespond] = useState([]);
-  const [getUserInfo, setGetUserInfo] = useState([]);
+  const navigation = useNavigation()
+  const auth = getAuth()
+  const user = auth.currentUser
+  const [userInfo, setUserInfo] = useState([])
+  const userInfoCollection = collection(db, "users")
+  const [getRespond, setGetRespond] = useState([])
+  const [getRequest, setGetRequest] = useState([])
+  const [getUserInfo, setGetUserInfo] = useState([])
 
   const handleSuggestPlan = () => {
-    navigation.navigate("MakeYourPlan");
-  };
+    navigation.navigate("MakeYourPlan")
+  }
 
   const handleFitnessPlan = () => {
-    navigation.navigate("MyPlan");
-  };
+    navigation.navigate("MyPlan")
+  }
 
   useEffect(() => {
     const getUserList = async () => {
       try {
-        const data = await getDocs(userInfoCollection, "email");
+        const data = await getDocs(userInfoCollection, "email")
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
-        }));
+        }))
 
-        setGetUserInfo(filteredData);
+        setGetUserInfo(filteredData)
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
-    };
-    getUserList();
-  }, []);
+    }
+    getUserList()
+  }, [])
 
   useEffect(() => {
-    const postRef = collection(db, "users");
-    const getRef = query(postRef);
+    const postRef = collection(db, "users")
+    const getRef = query(postRef)
     const unsubcribe = onSnapshot(getRef, (snaphot) => {
       const fetchPost = snaphot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
-      setUserInfo(fetchPost);
-    });
+      }))
+      setUserInfo(fetchPost)
+    })
     return () => {
-      unsubcribe();
-    };
-  }, []);
+      unsubcribe()
+    }
+  }, [])
 
   useEffect(() => {
-    const respondRef = collection(db, "respond_plans");
-    const getRef = query(respondRef);
+    const requestRef = collection(db, "request_plan")
+    const getRef = query(requestRef)
+    const unsubcribe = onSnapshot(getRef, (snaphot) => {
+      const fetchRequest = snaphot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      setGetRequest(fetchRequest)
+    })
+  }, [])
+
+  useEffect(() => {
+    const respondRef = collection(db, "respond_plan")
+    const getRef = query(respondRef)
     const unsubcribe = onSnapshot(getRef, (snaphot) => {
       const fetchRespond = snaphot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
-      setGetRespond(fetchRespond);
-    });
-  }, []);
+      }))
+      setGetRespond(fetchRespond)
+    })
+  }, [])
 
-  const checkRespond = getRespond.find((dat) => dat.user === user.email);
-  const checkRespondList = getRespond.some((dat) => dat.user === user.email);
+  const checkRequestPending = getRequest.some(
+    (dat) =>
+      dat.request_user === user.email && dat.request_status === "Not Processed"
+  )
+  const checkRequestListProcessed = getRequest.some(
+    (dat) =>
+      dat.request_user === user.email && dat.request_status === "Processed"
+  )
+
+  const getSuggestOutput = () => {
+    if (checkRequestPending) {
+      return <View></View>
+    } else if (checkRequestListProcessed) {
+      return <View></View>
+    } else {
+      return (
+        <View style={tw`px-5 py-1 flex items-center`}>
+          <TouchableOpacity onPress={handleSuggestPlan}>
+            <Image source={require("../../../assets/Group4.png")} style={tw``} />
+          </TouchableOpacity>
+          <Text style={tw`py-2`}>Suggest Plan</Text>
+        </View>
+      )
+    }
+  }
   return (
     <View style={tw`flex-1 `}>
       <View>
@@ -114,7 +150,7 @@ const UserProfile = () => {
                         />
                       )}
                     </View>
-                  );
+                  )
                 }
               })}
           </View>
@@ -134,7 +170,7 @@ const UserProfile = () => {
                           </Text>
                         </View>
                       </View>
-                    );
+                    )
                   }
                 })}
             </Text>
@@ -144,20 +180,7 @@ const UserProfile = () => {
         {/*  */}
         <View style={tw`flex items-center py-3`}>
           <View style={tw`flex flex-row `}>
-            {checkRespond === undefined || checkRespondList ? (
-              <View></View>
-            ) : (
-              <View style={tw`px-5 py-1 flex items-center`}>
-                <TouchableOpacity onPress={handleSuggestPlan}>
-                  <Image
-                    source={require("../../../assets/Group4.png")}
-                    style={tw``}
-                  />
-                </TouchableOpacity>
-
-                <Text style={tw`py-2`}>Suggest Plan</Text>
-              </View>
-            )}
+            {getSuggestOutput()}
             <View style={tw`px-5 py-1  flex items-center`}>
               <TouchableOpacity onPress={handleFitnessPlan}>
                 <Image
@@ -243,7 +266,7 @@ const UserProfile = () => {
                       </View>
                     </View>
                   </View>
-                );
+                )
               }
             })}
         </View>
@@ -252,7 +275,7 @@ const UserProfile = () => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default UserProfile;
+export default UserProfile

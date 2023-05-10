@@ -1,9 +1,10 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../../../../Firebase.config";
 import { collection, onSnapshot, query } from "firebase/firestore";
+import { truncate } from "../../../utils/TextReducer";
 
 const Snacks = () => {
   const navigation = useNavigation();
@@ -22,7 +23,11 @@ const Snacks = () => {
   }, []);
 
   const handleMeal = (details) => {
-    navigation.navigate("MealPlanLandingPage", { data: details });
+    navigation.navigate("MealPlanLandingPage", { data: details, nav: "Snacks" });
+  };
+
+  const goBack = () => {
+    navigation.navigate("Meal");
   };
 
   return (
@@ -54,17 +59,24 @@ const Snacks = () => {
                     resizeMode="cover"
                   />
                 </View>
-                <View style={tw`flex flex-col items-start justify-center`}>
+                <View style={tw`flex flex-col`}>
                   <Text style={tw`text-[#FF1D38] text-[18px] font-bold`}>
                     {data.meal_time}
                   </Text>
-                  {/* <Text style={tw`text-black text-[17px] font-semibold`}>
-                    {data.meal_plan}
-                  </Text> */}
+                  <Text style={tw`text-black text-[16px] font-semibold`}>
+                    {truncate(data.meal_plan, 20)}
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>
           ))}
+          <TouchableOpacity onPress={() => goBack()}>
+            <View
+              style={tw`border-[#FAA0A0] border-[2px] w-[150px] p-2 rounded-[20px]`}
+            >
+              <Text style={tw`text-center`}>Go back</Text>
+            </View>
+          </TouchableOpacity>
       </View>
     </View>
   );

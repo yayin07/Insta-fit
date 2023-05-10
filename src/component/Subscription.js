@@ -39,6 +39,10 @@ const Subscription = () => {
     }
   };
 
+  const handleBack = () => {
+    navigation.navigate("Workout Plan")
+  }
+
   return (
     <View style={tw`flex justify-start items-center flex-1 bg-[#FAA0A0]`}>
       <View style={tw`flex justify-start`}>
@@ -146,6 +150,14 @@ const Subscription = () => {
           >
             <TouchableOpacity onPress={() => handleNext()}>
               <Text style={tw`text-center `}>Next</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={tw`border-[#FAA0A0] border-[2px] w-full p-2 rounded-[20px]`}
+          >
+            <TouchableOpacity onPress={() => handleBack()}>
+              <Text style={tw`text-center `}>Go back</Text>
             </TouchableOpacity>
           </View>
 

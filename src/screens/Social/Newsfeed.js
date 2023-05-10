@@ -86,8 +86,6 @@ const Newsfeed = () => {
     getUserList()
   }, [])
 
-  console.log("getUserInfo", getUserInfo)
-
   return (
     <View style={tw`h-full bg-[#ffc0cb]`}>
       {/* Logo */}
@@ -124,7 +122,6 @@ const Newsfeed = () => {
           style={tw`flex items-center py-4 relative h-full w-full bg-[#ffffff] shadow-xl gap-5 shadow-[#F9F9F9]`}
         >
           {post.map((data) => {
-            console.log("data", data)
             return (
               <View
                 key={data.id}

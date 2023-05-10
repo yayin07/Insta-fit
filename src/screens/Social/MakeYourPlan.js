@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { db } from "../../../Firebase.config";
 import { collection, doc, onSnapshot, query, setDoc } from "firebase/firestore";
 import { useAuthContext } from "../../component/AuthContext/AuthContext";
+import moment from "moment";
 
 const MakeYourPlan = () => {
   const navigation = useNavigation();
@@ -23,6 +24,7 @@ const MakeYourPlan = () => {
   const [showWeightDropdown, setShowWeightDropdown] = useState(false);
   const [showBodyAreaDropdown, setShowBodyAreaDropdown] = useState(false);
   const [showWorkoutTypeDropdown, setShowWorkoutTypeDropdown] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
   const screenWidth = Dimensions.get("window").width;
   const [requestPlan, setRequestPlan] = useState([]);
@@ -70,14 +72,23 @@ const MakeYourPlan = () => {
     setShowWorkoutTypeDropdown((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    if(selectedWeight !== null && selectedBodyArea !== null && selectedWorkoutType !== null) {
+      setDisableButton(false)
+    }
+  }, [selectedWeight, selectedBodyArea, selectedWorkoutType])
+
   const handleNext = () => {
-    const planData = {
-      request_target_weight: selectedWeight,
-      request_target_body: selectedBodyArea,
-      request_workout_type: selectedWorkoutType,
-      request_status: "Not Processed",
-    };
-    navigation.navigate("PreferredMeals", { data: planData });
+    if(selectedWeight !== null && selectedBodyArea !== null && selectedWorkoutType !== null) {
+      const planData = {
+        request_target_weight: selectedWeight,
+        request_target_body: selectedBodyArea,
+        request_workout_type: selectedWorkoutType,
+        request_status: "Not Processed",
+        requested_date: moment(new Date()).format("MMMM DD, YYYY hh:mm a")
+      };
+      navigation.navigate("PreferredMeals", { data: planData });
+    }
   };
 
   const getRequestEmail = requestPlan.map((userEmail) => {
@@ -229,8 +240,9 @@ const MakeYourPlan = () => {
           </View>
           <View style={tw` w-full h-full px-3`}>
             <TouchableOpacity
+              disabled={disableButton}
               onPress={handleNext}
-              style={tw`bg-[#FAA0A0] px-4 py-3 rounded-full w-full  `}
+              style={disableButton ? tw`bg-[#d3d3d3] px-4 py-3 rounded-full w-full` : tw`bg-[#FAA0A0] px-4 py-3 rounded-full w-full`}
             >
               <Text style={tw`text-center text-[#ffffff] text-18px font-bold`}>
                 Next

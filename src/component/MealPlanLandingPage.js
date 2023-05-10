@@ -1,12 +1,16 @@
-import { View, Text, Image, ScrollView } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import PlanHeader from "./PlanHeader";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import tw from "twrnc";
 
-const MealPlanLandingPage = () => {
+const MealPlanLandingPage = ({}) => {
   const route = useRoute();
-  const { data } = route.params;
+  const navigation = useNavigation();
+  const { data, nav } = route.params;
+  const goBack =() => {
+    navigation.navigate(nav)
+  }
   return (
     <View style={tw`flex-1 `}>
       <View>
@@ -55,6 +59,16 @@ const MealPlanLandingPage = () => {
                 </View>
               </View>
             </View>
+          </View>
+
+          <View style={tw`pb-10 flex justify-center items-center`}>
+            <TouchableOpacity onPress={() => goBack()}>
+              <View
+                style={tw`border-[#FAA0A0] border-[2px] w-[150px] p-2 rounded-[20px]`}
+              >
+                <Text style={tw`text-center`}>Go back</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
 
