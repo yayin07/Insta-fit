@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 const BeginnerPlan = ({ id, title, description }) => {
   const [trainings, setTrainings] = useState([]);
   const navigation = useNavigation();
+  const [trainingUrl, setTrainingUrl] = useState(null);
 
   useEffect(() => {
     const trainingRef = collection(db, "trainings");
@@ -25,6 +26,10 @@ const BeginnerPlan = ({ id, title, description }) => {
         ...doc.data(),
       }));
       setTrainings(fetchPlan);
+
+      if (fetchPlan.length > 0) {
+        setTrainingUrl(fetchPlan[0].url);
+      }
     });
   }, []);
 

@@ -8,9 +8,9 @@ const MealPlanLandingPage = ({}) => {
   const route = useRoute();
   const navigation = useNavigation();
   const { data, nav } = route.params;
-  const goBack =() => {
-    navigation.navigate(nav)
-  }
+  const goBack = () => {
+    navigation.navigate(nav);
+  };
   return (
     <View style={tw`flex-1 `}>
       <View>
@@ -52,8 +52,8 @@ const MealPlanLandingPage = ({}) => {
               </View>
               <View style={tw`px-3 py-2 flex `}>
                 <View>
-                  <Text style={tw`text-16px font-bold`}>Description</Text>
-                  <Text style={tw`py-2 px-3 text-14px`}>
+                  <Text style={tw`text-19px font-bold`}>Description</Text>
+                  <Text style={tw`py-2 px-3 text-17px`}>
                     {data.description}
                   </Text>
                 </View>

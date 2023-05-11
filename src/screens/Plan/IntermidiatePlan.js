@@ -1,37 +1,42 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native"
-import React, { useEffect, useState } from "react"
-import tw from "twrnc"
-import { db } from "../../../Firebase.config"
-import { collection, onSnapshot, query } from "firebase/firestore"
-import { useNavigation } from "@react-navigation/native"
-import YoutubePlayer from "react-native-youtube-iframe"
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import tw from "twrnc";
+import { db } from "../../../Firebase.config";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const IntermidiatePlan = ({ id, title, description }) => {
-  const [trainings, setTrainings] = useState([])
-  const navigation = useNavigation()
+  const [trainings, setTrainings] = useState([]);
+  const navigation = useNavigation();
+  const [trainingUrl, setTrainingUrl] = useState(null);
 
   useEffect(() => {
-    const trainingRef = collection(db, "trainings")
-    const getRef = query(trainingRef)
+    const trainingRef = collection(db, "trainings");
+    const getRef = query(trainingRef);
     const unsubcribe = onSnapshot(getRef, (snapshot) => {
       const fetchPlan = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }))
-      setTrainings(fetchPlan)
-    })
+      }));
+      setTrainings(fetchPlan);
+
+      if (fetchPlan.length > 0) {
+        setTrainingUrl(fetchPlan[0].url);
+      }
+    });
     return () => {
-      unsubcribe()
-    }
-  }, [])
+      unsubcribe();
+    };
+  }, []);
 
   const handleStart = (details) => {
-    navigation.navigate("IntermediateLandingPage", { data: details })
-  }
+    navigation.navigate("IntermediateLandingPage", { data: details });
+  };
 
   const handleBack = () => {
-    navigation.navigate("BottomTab")
-  }
+    navigation.navigate("BottomTab");
+  };
   return (
     <View style={tw`flex-1 `}>
       <View
@@ -96,12 +101,12 @@ const IntermidiatePlan = ({ id, title, description }) => {
                     </View>
                   </TouchableOpacity>
                 </View>
-              )
+              );
             })}
         </View>
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default IntermidiatePlan
+export default IntermidiatePlan;

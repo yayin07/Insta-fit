@@ -1,33 +1,38 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native"
-import React, { useEffect, useState } from "react"
-import tw from "twrnc"
-import { db } from "../../../Firebase.config"
-import { collection, onSnapshot, query } from "firebase/firestore"
-import { useNavigation } from "@react-navigation/native"
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import tw from "twrnc";
+import { db } from "../../../Firebase.config";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
 
 const AdvancedPlan = () => {
-  const [trainings, setTrainings] = useState([])
-  const navigation = useNavigation()
+  const [trainings, setTrainings] = useState([]);
+  const navigation = useNavigation();
+  const [trainingUrl, setTrainingUrl] = useState(null);
 
   useEffect(() => {
-    const trainingRef = collection(db, "trainings")
-    const getRef = query(trainingRef)
+    const trainingRef = collection(db, "trainings");
+    const getRef = query(trainingRef);
     const unsubcribe = onSnapshot(getRef, (snapshot) => {
       const fetchPlan = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }))
-      setTrainings(fetchPlan)
-    })
-  }, [])
+      }));
+      setTrainings(fetchPlan);
+
+      if (fetchPlan.length > 0) {
+        setTrainingUrl(fetchPlan[0].url);
+      }
+    });
+  }, []);
 
   const handleStart = (details) => {
-    navigation.navigate("AdvancedLandingPage", { data: details })
-  }
+    navigation.navigate("IntermediateLandingPage", { data: details });
+  };
 
   const handleBack = () => {
-    navigation.navigate("BottomTab")
-  }
+    navigation.navigate("BottomTab");
+  };
   return (
     <ScrollView style={tw`flex-1 `}>
       <View
@@ -95,7 +100,7 @@ const AdvancedPlan = () => {
         </View>
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default AdvancedPlan
+export default AdvancedPlan;
