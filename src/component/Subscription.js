@@ -32,7 +32,7 @@ const Subscription = () => {
       return navigation.navigate("Pay", { data: intermedateData });
     } else {
       const advancedData = {
-        value: "Advanced",
+        value: "Advance",
         price: "500",
       };
       return navigation.navigate("Pay", { data: advancedData });
@@ -40,8 +40,8 @@ const Subscription = () => {
   };
 
   const handleBack = () => {
-    navigation.navigate("Workout Plan")
-  }
+    navigation.navigate("Workout Plan");
+  };
 
   return (
     <View style={tw`flex justify-start items-center flex-1 bg-[#FAA0A0]`}>
@@ -97,9 +97,9 @@ const Subscription = () => {
                       <Text>Limited access to all feature</Text>
                     </View>
                   )}
-                  {plan.value === "Advanced" && (
+                  {plan.value === "Advance" && (
                     <View>
-                      <Text style={tw`font-bold`}>Advanced</Text>
+                      <Text style={tw`font-bold`}>Advance</Text>
                       <View>
                         <Text style={tw`font-bold`}>₱ 500</Text>
                       </View>

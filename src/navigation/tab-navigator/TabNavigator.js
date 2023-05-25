@@ -70,7 +70,7 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Meal Plan"
+        name="Diet Plan"
         component={MealPlanStackNavigator}
         options={{
           headerShown: false,

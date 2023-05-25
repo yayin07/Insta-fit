@@ -44,9 +44,11 @@ const Advanced = () => {
 
   return (
     <View>
-      {getUserSub &&
-      getUserSub.user === user.email &&
-      getUserSub?.subscription_type === "Basic" || getUserSub?.subscription_type === "Intermediate" || getUserSub === undefined ? (
+      {(getUserSub &&
+        getUserSub.user === user.email &&
+        getUserSub?.subscription_type === "Basic") ||
+      getUserSub?.subscription_type === "Intermediate" ||
+      getUserSub === undefined ? (
         <TouchableOpacity onPress={handleSubscription} style={tw`relative`}>
           <Image
             style={tw`absolute h-[170px] z-10 w-[330px]`}
@@ -54,7 +56,7 @@ const Advanced = () => {
           />
           <View>
             <Image
-              source={require("../../../../assets/Frame18.png")}
+              source={require("../../../../assets/Advance.png")}
               style={tw`w-330px rounded-[10px]`}
             />
           </View>
@@ -62,7 +64,7 @@ const Advanced = () => {
       ) : (
         <TouchableOpacity onPress={handleButton}>
           <Image
-            source={require("../../../../assets/Frame18.png")}
+            source={require("../../../../assets/Advance.png")}
             style={tw`w-330px rounded-[10px]`}
           />
         </TouchableOpacity>
