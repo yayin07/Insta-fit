@@ -63,10 +63,10 @@ const Snacks = () => {
                   />
                 </View>
                 <View style={tw`flex flex-col justify-center`}>
-                  <Text style={tw`text-[#FF1D38] text-[18px] font-bold`}>
+                  {/* <Text style={tw`text-[#FF1D38] text-[18px] font-bold`}>
                     {data.meal_time}
-                  </Text>
-                  <Text style={tw`text-black text-[16px] font-semibold`}>
+                  </Text> */}
+                  <Text style={tw`text-[#FF1D38] text-[16px] font-bold`}>
                     {truncate(data.meal_plan, 20)}
                   </Text>
                 </View>
@@ -75,7 +75,7 @@ const Snacks = () => {
           ))}
         <TouchableOpacity onPress={() => goBack()}>
           <View
-            style={tw`border-[#FAA0A0] border-[2px] w-[150px] p-2 rounded-[20px]`}
+            style={tw`border-[#FAA0A0] font-bold border-[2px] w-[150px] p-2 rounded-[20px]`}
           >
             <Text style={tw`text-center`}>Go back</Text>
           </View>
