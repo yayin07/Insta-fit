@@ -46,7 +46,7 @@ const AdvancedPlan = () => {
             />
           </TouchableOpacity>
 
-          <Text style={tw`text-[16px] font-bold px-27`}>Advanced</Text>
+          <Text style={tw`text-[16px] font-bold px-27`}>Advance</Text>
         </View>
       </View>
       {/*  */}

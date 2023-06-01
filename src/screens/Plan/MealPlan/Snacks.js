@@ -23,7 +23,10 @@ const Snacks = () => {
   }, []);
 
   const handleMeal = (details) => {
-    navigation.navigate("MealPlanLandingPage", { data: details, nav: "Snacks" });
+    navigation.navigate("MealPlanLandingPage", {
+      data: details,
+      nav: "Snacks",
+    });
   };
 
   const goBack = () => {
@@ -59,7 +62,7 @@ const Snacks = () => {
                     resizeMode="cover"
                   />
                 </View>
-                <View style={tw`flex flex-col`}>
+                <View style={tw`flex flex-col justify-center`}>
                   <Text style={tw`text-[#FF1D38] text-[18px] font-bold`}>
                     {data.meal_time}
                   </Text>
@@ -70,13 +73,13 @@ const Snacks = () => {
               </View>
             </TouchableOpacity>
           ))}
-          <TouchableOpacity onPress={() => goBack()}>
-            <View
-              style={tw`border-[#FAA0A0] border-[2px] w-[150px] p-2 rounded-[20px]`}
-            >
-              <Text style={tw`text-center`}>Go back</Text>
-            </View>
-          </TouchableOpacity>
+        <TouchableOpacity onPress={() => goBack()}>
+          <View
+            style={tw`border-[#FAA0A0] border-[2px] w-[150px] p-2 rounded-[20px]`}
+          >
+            <Text style={tw`text-center`}>Go back</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
