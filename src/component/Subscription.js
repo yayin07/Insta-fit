@@ -12,7 +12,7 @@ const Subscription = () => {
   const subscription = [
     { value: "Basic", price: 0 },
     { value: "Intermediate", price: 300 },
-    { value: "Advanced", price: 500 },
+    { value: "Advance", price: 500 },
   ];
   const [selectedSubscription, setSelectedSubscription] = useState("Basic");
   const [isSubscribedToBasic, setIsSubscribedToBasic] = useState(false);
@@ -31,11 +31,11 @@ const Subscription = () => {
       };
       return navigation.navigate("Pay", { data: intermedateData });
     } else {
-      const advancedData = {
+      const advanceData = {
         value: "Advance",
         price: "500",
       };
-      return navigation.navigate("Pay", { data: advancedData });
+      return navigation.navigate("Pay", { data: advanceData });
     }
   };
 
