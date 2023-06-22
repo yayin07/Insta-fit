@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -6,7 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-} from "react-native"
+} from "react-native";
 import {
   getFirestore,
   doc,
@@ -15,115 +15,119 @@ import {
   getDocs,
   query,
   onSnapshot,
-} from "firebase/firestore"
-import PlanHeader from "../../component/PlanHeader"
-import tw from "twrnc"
-import { db } from "../../../Firebase.config"
+} from "firebase/firestore";
+import PlanHeader from "../../component/PlanHeader";
+import tw from "twrnc";
+import { db } from "../../../Firebase.config";
 // import { auth } from "../../../Firebase.config";
-import { useNavigation } from "@react-navigation/native"
-import { useAuthContext } from "../../component/AuthContext/AuthContext"
-import Logout from "../../component/Logout"
-import { getAuth } from "firebase/auth"
+import { useNavigation } from "@react-navigation/native";
+import { useAuthContext } from "../../component/AuthContext/AuthContext";
+import Logout from "../../component/Logout";
+import { getAuth } from "firebase/auth";
+import Download from "../../component/Download";
 
 const UserProfile = () => {
-  const navigation = useNavigation()
-  const auth = getAuth()
-  const user = auth.currentUser
-  const [userInfo, setUserInfo] = useState([])
-  const userInfoCollection = collection(db, "users")
-  const [getRespond, setGetRespond] = useState([])
-  const [getRequest, setGetRequest] = useState([])
-  const [getUserInfo, setGetUserInfo] = useState([])
+  const navigation = useNavigation();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const [userInfo, setUserInfo] = useState([]);
+  const userInfoCollection = collection(db, "users");
+  const [getRespond, setGetRespond] = useState([]);
+  const [getRequest, setGetRequest] = useState([]);
+  const [getUserInfo, setGetUserInfo] = useState([]);
 
   const handleSuggestPlan = () => {
-    navigation.navigate("MakeYourPlan")
-  }
+    navigation.navigate("MakeYourPlan");
+  };
 
   const handleFitnessPlan = () => {
-    navigation.navigate("MyPlan")
-  }
+    navigation.navigate("MyPlan");
+  };
 
   useEffect(() => {
     const getUserList = async () => {
       try {
-        const data = await getDocs(userInfoCollection, "email")
+        const data = await getDocs(userInfoCollection, "email");
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
-        }))
+        }));
 
-        setGetUserInfo(filteredData)
+        setGetUserInfo(filteredData);
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
-    }
-    getUserList()
-  }, [])
+    };
+    getUserList();
+  }, []);
 
   useEffect(() => {
-    const postRef = collection(db, "users")
-    const getRef = query(postRef)
+    const postRef = collection(db, "users");
+    const getRef = query(postRef);
     const unsubcribe = onSnapshot(getRef, (snaphot) => {
       const fetchPost = snaphot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }))
-      setUserInfo(fetchPost)
-    })
+      }));
+      setUserInfo(fetchPost);
+    });
     return () => {
-      unsubcribe()
-    }
-  }, [])
+      unsubcribe();
+    };
+  }, []);
 
   useEffect(() => {
-    const requestRef = collection(db, "request_plan")
-    const getRef = query(requestRef)
+    const requestRef = collection(db, "request_plan");
+    const getRef = query(requestRef);
     const unsubcribe = onSnapshot(getRef, (snaphot) => {
       const fetchRequest = snaphot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }))
-      setGetRequest(fetchRequest)
-    })
-  }, [])
+      }));
+      setGetRequest(fetchRequest);
+    });
+  }, []);
 
   useEffect(() => {
-    const respondRef = collection(db, "respond_plan")
-    const getRef = query(respondRef)
+    const respondRef = collection(db, "respond_plan");
+    const getRef = query(respondRef);
     const unsubcribe = onSnapshot(getRef, (snaphot) => {
       const fetchRespond = snaphot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }))
-      setGetRespond(fetchRespond)
-    })
-  }, [])
+      }));
+      setGetRespond(fetchRespond);
+    });
+  }, []);
 
   const checkRequestPending = getRequest.some(
     (dat) =>
       dat.request_user === user.email && dat.request_status === "Not Processed"
-  )
+  );
   const checkRequestListProcessed = getRequest.some(
     (dat) =>
       dat.request_user === user.email && dat.request_status === "Processed"
-  )
+  );
 
   const getSuggestOutput = () => {
     if (checkRequestPending) {
-      return <View></View>
+      return <View></View>;
     } else if (checkRequestListProcessed) {
-      return <View></View>
+      return <View></View>;
     } else {
       return (
         <View style={tw`px-5 py-1 flex items-center`}>
           <TouchableOpacity onPress={handleSuggestPlan}>
-            <Image source={require("../../../assets/Group4.png")} style={tw``} />
+            <Image
+              source={require("../../../assets/Group4.png")}
+              style={tw``}
+            />
           </TouchableOpacity>
           <Text style={tw`py-2`}>Suggest Plan</Text>
         </View>
-      )
+      );
     }
-  }
+  };
   return (
     <View style={tw`flex-1 `}>
       <View>
@@ -150,7 +154,7 @@ const UserProfile = () => {
                         />
                       )}
                     </View>
-                  )
+                  );
                 }
               })}
           </View>
@@ -170,15 +174,18 @@ const UserProfile = () => {
                           </Text>
                         </View>
                       </View>
-                    )
+                    );
                   }
                 })}
             </Text>
             {/* <Image source={require("../../../assets/PRO2.png")} /> */}
           </View>
+          <View style={tw`py-2`}>
+            <Download />
+          </View>
         </View>
         {/*  */}
-        <View style={tw`flex items-center py-3`}>
+        <View style={tw`flex items-center `}>
           <View style={tw`flex flex-row `}>
             {getSuggestOutput()}
             <View style={tw`px-5 py-1  flex items-center`}>
@@ -194,7 +201,7 @@ const UserProfile = () => {
           </View>
         </View>
         {/*  */}
-        <View style={tw`px-6  flex items-center`}>
+        <View style={tw`px-6 flex items-center `}>
           {getUserInfo.length > 0 &&
             getUserInfo.map((getUserDetails, data) => {
               if (getUserDetails.email === user.email) {
@@ -266,7 +273,7 @@ const UserProfile = () => {
                       </View>
                     </View>
                   </View>
-                )
+                );
               }
             })}
         </View>
@@ -275,7 +282,7 @@ const UserProfile = () => {
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default UserProfile
+export default UserProfile;
