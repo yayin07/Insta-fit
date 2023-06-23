@@ -8,7 +8,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../../Firebase.config";
-import XLSX from "xlsx";
+import * as XLSX from "xlsx";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing"; // import expo-sharin
 import * as MediaLibrary from "expo-media-library";
@@ -36,7 +36,7 @@ const Download = () => {
     let wb = XLSX.utils.book_new();
     let ws = XLSX.utils.json_to_sheet(getRespond);
     XLSX.utils.book_append_sheet(wb, ws, "Users");
-    const wbout = XLSX.write(wb, { type: "base64", bookType: "txt" });
+    const wbout = XLSX.write(wb, { type: "string", bookType: "xlsx" });
 
     const fileName = `${FileSystem.documentDirectory}text.xlsx`;
 
