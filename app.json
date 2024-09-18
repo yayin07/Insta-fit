@@ -14,7 +14,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dj.dev.instafit"
     },
     "android": {
       "package": "com.dj.dev.instafit"
@@ -24,8 +25,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "170dd1f1-68fb-43ba-9a0c-98ba0523b1d8"
+        "projectId": "13f316a8-6167-4fa4-986a-e177fa7a8b84"
       }
-    }
+    },
+    "owner": "clarence07"
   }
 }
